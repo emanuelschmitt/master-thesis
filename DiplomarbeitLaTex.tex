@@ -13,11 +13,13 @@
 \usepackage{listings, color}	% for source code
 \usepackage{subfig}						% two figures next to each other (example: figure 3a), figure 3b)
 \usepackage{scrpage2}					% header and footer line
+\usepackage{csquotes}
+\usepackage{minted}
 
 % header and footer line - no header & footer line on pages where a new chapter starts
 \pagestyle{scrheadings}
-\ohead{Prediction locations on a touchscreen based on smartphone sensory data}
-\ihead{Emanuel Schmitt}
+\ohead{}
+\ihead{}
 \ofoot[]{\thepage}
 \ifoot{Diploma Thesis, TU Berlin, Fachgebiet AV, 2009}
 
@@ -25,6 +27,8 @@
 \graphicspath{{./img/}}
 
 \input{./misc/hyphenation} 					% use this file to set explicit hyphenations (doesn't seem to work correctly)
+
+\setlength{\parindent}{0pt}
 
 \begin{document}
 % ---------------------------------------------------------------
@@ -51,6 +55,7 @@
     
     
     \tableofcontents
+   
     \thispagestyle{empty}
     
     \listoffigures
