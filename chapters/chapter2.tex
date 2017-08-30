@@ -17,21 +17,39 @@ One way of indirectly eavesdropping on leaking information is by comprising the 
 
 In 2010, \citeauthor{Backes:2010:ASA:1929820.1929847} examined the problem of acoustic emanations of dot matrix printers, which where at the time still commonly used in banks and medical offices. By using a simple consumer-grade microphone, the researchers were able to recover whole sentences the printer was printing based on a record of sound. \citeauthor{Backes:2010:ASA:1929820.1929847} utilized audio processing techniques to extracted spectrum features from the frequency domain and used a trained Hidden Markov Model, commonly used for speech recognition tasks, to build a recognition system for each printed character. To demonstrate a potential attack, the researchers deployed the system in a medical office where they were able to obtain up to 72\% of the sentences being printed on a medical subscription \cite{Backes:2010:ASA:1929820.1929847}. \\
 
-Being inspired by the findings concerning the dot matrix printer, \citeauthor{1301311} investigated acoustic emanations produced by hitting keystrokes on a desktop and notebook keyboard. Following their hypothesis that each key has a macroscopic difference in the construction mechanics as well and a distinct reverberation caused by the position in the board, individual keystrokes were recorded \cite{1301311}. Researchers then extracted frequency domain features from the audio signals and passed them into a neural network. In an experiment performing 300 keystrokes, 79\% of the characters could be correctly recognized \cite{1301311}. As this technique required substantial training before recognition, other studies have reached similar accuracies using an unsupervised approach \cite{Zhuang:2009:KAE:1609956.1609959} on the one hand and by using acoustic dictionaries \cite{Berger:2006:DAU:1180405.1180436} on the other.\\ 
-
-- Printer \cite{Backes:2010:ASA:1929820.1929847} \\
-- Keyboard \cite{1301311} + Revisted \cite{Zhuang:2009:KAE:1609956.1609959}\\+ Dictionaries \cite{Berger:2006:DAU:1180405.1180436} 
+Being inspired by the findings concerning the dot matrix printer, \citeauthor{1301311} investigated acoustic emanations produced by hitting keystrokes on a desktop and notebook keyboard. Following their hypothesis that each key has a macroscopic difference in the construction mechanics as well and a distinct reverberation caused by the position in the board, individual keystrokes were recorded \cite{1301311}. Researchers then extracted frequency domain features from the audio signals and passed them into a neural network. In an experiment performing 300 keystrokes, 79\% of the characters could be correctly recognized \cite{1301311}. As this technique required substantial training before recognition, other studies have reached similar accuracies using an unsupervised approach \cite{Zhuang:2009:KAE:1609956.1609959} on the one hand and by using acoustic dictionaries \cite{Berger:2006:DAU:1180405.1180436} on the other.
 
 % Maybe some text to round things up...
 \subsection{Optical Emanation}
 Optical emanations and reflections also pose a potential source for information. Computer screens, for instance, mediate information through breams of light which are captured by our human eye. However, as these rays can reflect upon other surfaces they are vulnerable of being captured by an eavesdropper. \\
 
-\citeauthor{1004358} developed a technique to eavesdrop on cathode-ray tube monitors at distance. The information displayed on the monitor can be reconstructed from its distorted or even diffusely reflected light by using easy to access compontents such as a photomultiplier tube and a fast enough computer to process the recordings \cite{1004358}. A similar approach that comprises reflections was shown by \citeauthor{4531151}, however focusing on LCD displays. In this experiment, the researchers exploited reflections in various objects that are commonly to be found in close proximity to a computer screen. Such objects included eyeglasses, tea pots, spoons and even plastic bottles. This work was later extended to additionally capture screens based on the reflections on the human eye's cornea \cite{5207653}.\\
-
-- CRT diffuse reflections \cite{1004358} \\
-- LCD around the corner \cite{4531151} + Eye reflections \cite{}
+\citeauthor{1004358} developed a technique to eavesdrop on cathode-ray tube monitors at distance. The information displayed on the monitor can be reconstructed from its distorted or even diffusely reflected light by using easy to access compontents such as a photomultiplier tube and a fast enough computer to process the recordings \cite{1004358}. A similar approach that comprises reflections was shown by \citeauthor{4531151}, however focusing on LCD displays rather than CRT monitors. In this experiment, the researchers caught reflections in various objects that are commonly to be found in close proximity to a computer screen. Such objects included eyeglasses, tea pots, spoons and even plastic bottles. This work was later extended to additionally capture screens based on the reflections on the human eye's cornea \cite{5207653}.
 
 \subsection{Electro-magnetic Emanation}
+
+As electric currents flow through the through computer components, they emit electromagnetic waves to their near surrounding. These electromagnetic radiations can be picked up as side channels using sensitive equipment for the purpose of reconstructing these signals in form of data. 
+% maybe move down a little
+Side-band electromagnetic emanations are present in keyboards \cite{Vuagnoux:2009:CEE:1855768.1855769}, computer screens \cite{vanEck:1985:ERV:7307.7308,kuhn2004electromagnetic}, printers \cite{przesmycki2014measurement} and computer interfaces, such as USB 2 \cite{nowosielski2014compromising} and the parallel port \cite{serialcablearticle}.\\
+
+%  It is possible in some
+% cases to obtain information on the signals used inside
+% the equipment when the radiation is picked up and the
+% received signals are decoded. Especially in the case of
+% digital equipment this possibility constitutes a
+% problem, because remote reconstruction of signals
+% inside the equipment may enable reconstruction of the
+% data the equipment is processing
+
+\citeauthor{vanEck:1985:ERV:7307.7308} showed CRT monitors could be spied upon with the help of general market equipment.
+
+Van Eck phreaking is a form of eavesdropping in which special equipment is used to pick up side-band electromagnetic emissions from electronics devices that correlate to hidden signals or data for the purpose of recreating these signals or data in order to spy on the electronic device. Side-band electromagnetic radiation emissions are present in and, with the proper equipment, can be captured from keyboards, computer displays, printers, and other electronic devices.
+
+
+Van Eck phreaking of CRT displays is the process of eavesdropping on the contents of a CRT by detecting its electromagnetic emissions. It is named after Dutch computer researcher Wim van Eck, who in 1985 published the first paper on it, including proof of concept.[1] Phreaking is the process of exploiting telephone networks, used here because of its connection to eavesdropping.
+
+Van Eck phreaking might also be used to compromise the secrecy of the votes in an election using electronic voting. This caused the Dutch government to ban the use of NewVote computer voting machines manufactured by SDU in the 2006 national elections, under the belief that ballot information might not be kept secret.[2][3] In a 2009 test of electronic voting systems in Brazil, Van Eck phreaking was used to successfully compromise ballot secrecy as a proof of concept.[4]
+
+
 - Smart Cards \cite{Quisquater:2001:EAM:646803.705980}\\
 - Wireless keyboards \cite{Vuagnoux:2009:CEE:1855768.1855769}\\
 - Serial port cables \cite{serialcablearticle} \\
