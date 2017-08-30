@@ -11,17 +11,25 @@ Ever since, various user interaction inference experiments have been conducted b
 The literature denoted that user inference can be perused with the help of acoustic, optical, electro-magnetic and on sensory emanation. We will describe these in the following sections.
 
 \subsection{Acoustic Emanation}
-One form of indirectly eavesdropping on leaking information is by comprising the acoustic channel. The mechanics of the devices generate sounds that can be mapped to the information that is currently being processed. In these scenarios the eavesdropper targets a microphone to capture audio signals the device is leaking to then later apply data mining techniques to reveal the information.
+One way of indirectly eavesdropping on leaking information is by comprising the acoustic channel. The mechanics of the devices generate sounds that can be mapped to the information that is currently being processed. In these scenarios the eavesdropper targets a microphone to capture audio signals the device is leaking to then later apply data mining techniques to reveal the information.\\
 
-\citeauthor{Backes:2010:ASA:1929820.1929847} 
+% not having to modify the host system.
+
+In 2010, \citeauthor{Backes:2010:ASA:1929820.1929847} examined the problem of acoustic emanations of dot matrix printers, which where at the time still commonly used in banks and medical offices. By using a simple consumer-grade microphone, the researchers were able to recover whole sentences the printer was printing based on a record of sound. \citeauthor{Backes:2010:ASA:1929820.1929847} utilized audio processing techniques to extracted spectrum features from the frequency domain and used a trained Hidden Markov Model, commonly used for speech recognition tasks, to build a recognition system for each printed character. To demonstrate a potential attack, the researchers deployed the system in a medical office where they were able to obtain up to 72\% of the sentences being printed on a medical subscription \cite{Backes:2010:ASA:1929820.1929847}. \\
+
+Being inspired by the findings concerning the dot matrix printer, \citeauthor{1301311} investigated acoustic emanations produced by hitting keystrokes on a desktop and notebook keyboard. Following their hypothesis that each key has a macroscopic difference in the construction mechanics as well and a distinct reverberation caused by the position in the board, individual keystrokes were recorded \cite{1301311}. Researchers then extracted frequency domain features from the audio signals and passed them into a neural network. In an experiment performing 300 keystrokes, 79\% of the characters could be correctly recognized \cite{1301311}. As this technique required substantial training before recognition, other studies have reached similar accuracies using an unsupervised approach \cite{Zhuang:2009:KAE:1609956.1609959} on the one hand and by using acoustic dictionaries \cite{Berger:2006:DAU:1180405.1180436} on the other.\\ 
 
 - Printer \cite{Backes:2010:ASA:1929820.1929847} \\
 - Keyboard \cite{1301311} + Revisted \cite{Zhuang:2009:KAE:1609956.1609959}\\+ Dictionaries \cite{Berger:2006:DAU:1180405.1180436} 
 
+% Maybe some text to round things up...
 \subsection{Optical Emanation}
-- Reflections \\
-- CRT diffuse reflections \cite{kuhn} \\
-- LCD around the corner \cite{4531151} + Eye reflections \cite{5207653}
+Optical emanations and reflections also pose a potential source for information. Computer screens, for instance, mediate information through breams of light which are captured by our human eye. However, as these rays can reflect upon other surfaces they are vulnerable of being captured by an eavesdropper. \\
+
+\citeauthor{1004358} developed a technique to eavesdrop on cathode-ray tube monitors at distance. The information displayed on the monitor can be reconstructed from its distorted or even diffusely reflected light by using easy to access compontents such as a photomultiplier tube and a fast enough computer to process the recordings \cite{1004358}. A similar approach that comprises reflections was shown by \citeauthor{4531151}, however focusing on LCD displays. In this experiment, the researchers exploited reflections in various objects that are commonly to be found in close proximity to a computer screen. Such objects included eyeglasses, tea pots, spoons and even plastic bottles. This work was later extended to additionally capture screens based on the reflections on the human eye's cornea \cite{5207653}.\\
+
+- CRT diffuse reflections \cite{1004358} \\
+- LCD around the corner \cite{4531151} + Eye reflections \cite{}
 
 \subsection{Electro-magnetic Emanation}
 - Smart Cards \cite{Quisquater:2001:EAM:646803.705980}\\
