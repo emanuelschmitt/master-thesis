@@ -6,16 +6,16 @@ Inferring user interactions through side channels has been of great interest to 
 
 Back in 1943, researchers of the TEMPEST project, a subdivision of the NSA\footnote{National Security Agency}, were able to infer information from the infamous Bell Telephone model 131-B2, a teletype terminal which was used for encrypting wartime communication. Using an oscilloscope, researchers could capture leaking electromagnetic signals from the device and by carefully examining the peaks of the recorded signals, the plain message the device was currently processing could be reconstructed. This technique was later advanced and used in the the Vietnam war. Through similar electric emanation the US military could detect approaching Viet Cong trucks giving them an immense competitive advantage. \\
 
+  % not having to modify the host system.
+
 Ever since, various user interaction inference experiments have been conducted by researchers worldwide. However, in order to categorize these different approaches found in literature, we will divide these based on the emanation channel that was spied on. This categorization approach is more suitable since device model and user interaction strategies have frequently changed in time.\\ 
 
 The literature denoted that user inference can be perused with the help of acoustic, optical, electro-magnetic and on sensory emanation. We will describe these in the following sections.
 
 \subsection{Acoustic Emanation}
-One way of indirectly eavesdropping on leaking information is by comprising the acoustic channel. The mechanics of the devices generate sounds that can be mapped to the information that is currently being processed. In these scenarios the eavesdropper targets a microphone to capture audio signals the device is leaking to then later apply data mining techniques to reveal the information.\\
+One frequently discussed method of obtaining leaked information involves the utilization of the acoustic channel. Many electronic devices deploy tiny mechanics that generate sounds as a byproduct during interactions or during operation. These distinct sounds can differ in their characteristics making them reconvertable to the original information currently being processed by the machine. In these scenarios the eavesdropper targets a microphone in near proximity of the target device in order to capture the audio signals the device is exposing on which learning algorithms are then applied. \\
 
-% not having to modify the host system.
-
-In 2010, \citeauthor{Backes:2010:ASA:1929820.1929847} examined the problem of acoustic emanations of dot matrix printers, which where at the time still commonly used in banks and medical offices. By using a simple consumer-grade microphone, the researchers were able to recover whole sentences the printer was printing based on a record of sound. \citeauthor{Backes:2010:ASA:1929820.1929847} utilized audio processing techniques to extracted spectrum features from the frequency domain and used a trained Hidden Markov Model, commonly used for speech recognition tasks, to build a recognition system for each printed character. To demonstrate a potential attack, the researchers deployed the system in a medical office where they were able to obtain up to 72\% of the sentences being printed on a medical subscription \cite{Backes:2010:ASA:1929820.1929847}. \\
+In 2010, \citeauthor{Backes:2010:ASA:1929820.1929847} examined the problem of acoustic emanations of dot matrix printers, which where, at that time, still commonly used in banks and medical offices. By using a simple consumer-grade microphone, the researchers were able to recover whole sentences the printer was printing based on a record of sound. \citeauthor{Backes:2010:ASA:1929820.1929847} pre-processed the audio samples in order to extracted frequency-domain features feeding a hidden markov model, a technique commly used in audio speech recognition. As a result, the recognition system was able to reconstruct individual characters based on the sound inputs. To demonstrate a potential attack, the researchers deployed the system in a medical office where they were able to obtain up to 72\% of the sentences being printed on a medical subscription \cite{Backes:2010:ASA:1929820.1929847}. \\
 
 Being inspired by the findings concerning the dot matrix printer, \citeauthor{1301311} investigated acoustic emanations produced by hitting keystrokes on a desktop and notebook keyboard. Following their hypothesis that each key has a macroscopic difference in the construction mechanics as well and a distinct reverberation caused by the position in the board, individual keystrokes were recorded \cite{1301311}. Researchers then extracted frequency domain features from the audio signals and passed them into a neural network. In an experiment performing 300 keystrokes, 79\% of the characters could be correctly recognized \cite{1301311}. As this technique required substantial training before recognition, other studies have reached similar accuracies using an unsupervised approach \cite{Zhuang:2009:KAE:1609956.1609959} on the one hand and by using acoustic dictionaries \cite{Berger:2006:DAU:1180405.1180436} on the other.
 
@@ -54,14 +54,26 @@ A prominent example of eavesdropping on electromagnetic emanations was detected 
 % cost pressures in the design). Hence, they are not
 % safe to transmit confidential information.
 
+\cite{Vuagnoux:2009:CEE:1855768.1855769} used electromagnetic emanations of wireless and cable keyboard to recover keystrokes from a distance \cite{}. 
+
 - Smart Cards \cite{Quisquater:2001:EAM:646803.705980}\\
 - Wireless keyboards \cite{Vuagnoux:2009:CEE:1855768.1855769}\\
 - Serial port cables \cite{serialcablearticle} \\
 - CMOS \cite{Agrawal2003} \\
 - CRT radiation \cite{vanEck:1985:ERV:7307.7308}
 
-\subsection{Sensory Emanation}
+\subsection{Motion Emanation}
+In the past decade modern devices are increasingly equipeed with highly responsive sensors, such as the gyroscope and accelerometer enabling the devices to sense rich interactions with their environment. As user interactions, such as typing the keyboard or tapping on touchscreens, require the user to apply force while entering information, this force can be captured by motion sensors in order to be used for as a side-channel to reconstruct secret information \cite{Tapprints, Accessory,Touchlogger}.\\
 
+\citeauthor{Marquardt:2011:IDV:2046707.2046771} conducted an experiment where an Apple iPhone equpped with an application that captures motion with it's accelerometer was placed next to a keyboard. Subjects then had to enter sentences on the keyboard while the application was monitoring the user's motion while typing. The researchers could then decode the accelerometer signals by measuring the relative physical position and distance between each vibration. The decoded characters were then matched based on a dictionary containing a frequency distribution of commonly used word. As a result, words were successfully obtained with an accuracy of up to 80\% \cite{Marquardt:2011:IDV:2046707.2046771}.
+
+
+\section{Related Work}
+
+
+- \cite{Tapprints} \\
+- \cite{Accessory} \\
+- \cite{Touchlogger} \\
 
 \newpage
 \section{Machine Learning \label{sec:fieldstudy}}
@@ -84,7 +96,7 @@ In this definition, special emphasis is to be put on the last part of this defin
 The example that Mitchell notes, is one from the games of checkers \cite{mitchell2006discipline}. In this case checkers is the task T that the computer is aiming to learn. In order for the computer to learn, information on previously played matches is required. Since the computer does not know how to evaluate is a particular match was either good or bad, we set the performance to be defined based on how many matches were actually won. If a computer program can raise the amount of games won \textit{(performance measure P)} with the help of the experience from previously placed matches \textit{(experience E)} then it can learn to play checkers \textit{(task T)}. \\
 
 % TODO: Maybe delete this.
-To break this down into a more practical perspective, the challenge lies in finding an appropriate model which is able to learn from data, which is the most common format to represent past experience. By learning, the computer adjusts parameters on the model based on the data that we feed the system with. Once the model has been adjusted, it can perform tasks with new incoming experience.
+To break this down into a more practical perspective, the challenge lies in finding an appropriate model in order to learn from data, which is the most common format to represent past experience. By learning, the computer adjusts parameters on the model based on the data that we feed the system with. Once the model has been adjusted, it can perform tasks with new incoming experience.
 
 \subsection{Categorization of Methods}
 As machine learning algorithms and methods differ from their approach to learning and underlying concepts, it is common practice to separate these into the following categories \cite{Duda:2000:PC:954544, Marsland:2009:MLA:1571643}  : Supervised learning, unsupervised learning, reinforcement learning and evolutionary learning. In the following sections I will briefly outline these.\\
