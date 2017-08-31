@@ -63,14 +63,15 @@ A prominent example of eavesdropping on electromagnetic emanations was detected 
 - CRT radiation \cite{vanEck:1985:ERV:7307.7308}
 
 \subsection{Motion Emanation}
-In the past decade modern devices are increasingly equipeed with highly responsive sensors, such as the gyroscope and accelerometer enabling the devices to sense rich interactions with their environment. As user interactions, such as typing the keyboard or tapping on touchscreens, require the user to apply force while entering information, this force can be captured by motion sensors in order to be used for as a side-channel to reconstruct secret information \cite{Tapprints, Accessory,Touchlogger}.\\
+In the past decade modern devices are increasingly equipeed with highly responsive sensors, such as the gyroscope and accelerometer enabling the devices to sense rich interactions with their environment. As user interactions, such as typing the keyboard or tapping on touchscreens, require the user to apply a certain force while entering information, this motion can be captured by motion sensors in order to be used for as a side-channel attack reconstructing secret information \cite{Tapprints,Accessory,Touchlogger}. \\
 
-\citeauthor{Marquardt:2011:IDV:2046707.2046771} conducted an experiment where an Apple iPhone equpped with an application that captures motion with it's accelerometer was placed next to a keyboard. Subjects then had to enter sentences on the keyboard while the application was monitoring the user's motion while typing. The researchers could then decode the accelerometer signals by measuring the relative physical position and distance between each vibration. The decoded characters were then matched based on a dictionary containing a frequency distribution of commonly used word. As a result, words were successfully obtained with an accuracy of up to 80\% \cite{Marquardt:2011:IDV:2046707.2046771}.
-
-
-\section{Related Work}
+\citeauthor{Marquardt:2011:IDV:2046707.2046771} conducted an experiment where an Apple iPhone equpped with an application that captures motion with it's accelerometer was placed next to a keyboard. Subjects then had to enter sentences on the keyboard while the application was monitoring the user's motion while typing. Furthermore, The researchers could then decode the accelerometer signals by measuring the relative physical position and distance between each vibration. The decoded characters were then matched based on a dictionary containing a frequency distribution of commonly used word. As a result, words were successfully obtained with an accuracy of up to 80\% \cite{Marquardt:2011:IDV:2046707.2046771}.
 
 
+\section{Eavesdropping on touch screen user interactions}
+As we have seen in the previous section, user interactions with peripheral devices, such as the keyboard or PIN pads, can be obtained by either the acoustic channel, by electromagnetical leakage or by capturing the motion of the user. However, with the rise in smartphone and tablet computer usage, the same discussed methods that work for a keyboard do not apply to tap interactions on a surface screen. Since a touchscreen does not embody fine mechanics producing sounds nor does it not seem to emanate electromagnetic radiations, the research community has developed nouvelle methods for spy on user taps based on the smartphone embodied motion sensors.
+
+The idea behind the three projects that are going to be discuss in the following are based upon the idea that a tap, or to be more precise the force of the tap, on the a specific touch screen region created an identifiable pattern on the motion sensors that can be used to detect in which position on the screen the tap has taken place.
 - \cite{Tapprints} \\
 - \cite{Accessory} \\
 - \cite{Touchlogger} \\
