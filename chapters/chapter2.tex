@@ -69,13 +69,31 @@ In the past decade modern devices are increasingly equipeed with highly responsi
 
 
 \section{Eavesdropping on touch screen user interactions}
-As we have seen in the previous section, user interactions with peripheral devices, such as the keyboard or PIN pads, can be obtained by either the acoustic channel, by electromagnetical leakage or by capturing the motion of the user. However, with the rise in smartphone and tablet computer usage, the same discussed methods that work for a keyboard do not apply to tap interactions on a surface screen. Since a touchscreen does not embody fine mechanics producing sounds nor does it not seem to emanate electromagnetic radiations, the research community has developed nouvelle methods for spy on user taps based on the smartphone embodied motion sensors. The idea behind the three projects that are going to be discuss in the following are based upon the idea that a tap, or to be more precise the force of the tap, on the a specific touch screen region created an identifiable pattern on the motion sensors that can be adequate to infer the initial tap location. \\
+As we have seen in the previous section, user interactions with peripheral devices, such as the keyboard or PIN pads, can be obtained by either the acoustic channel, by electromagnetical leakage or by capturing the motion of the user. However, with the rise in smartphone and tablet computer usage, the same discussed methods that work for a keyboard do not apply to tap interactions on a surface screen. Since a touchscreen does not embody fine mechanics producing sounds nor does it not seem to emanate electromagnetic radiations, the research community has revealed nouvelle methods to spy on user taps based on the smartphone embodied motion sensors.\\
+
+The general idea behind the three approaches that are going to be discuss in the following is that a tap, or to be more precise the magnitude of the force of the tap, on a specific touch screen location creates an identifiable pattern on the motion sensors that can be sufficient to infer the initial tap location. This is particularly interesting since motion sensors are not considered as being private-sensitive and therefore lack access restrictions by the operating systems of the devices.\\
+
+The first paper regarding this security threat was published by \citeauthor{Touchlogger}. In their proof-of-concept study they created an Android\footnote{Android operating system for smartphones by Google Inc.} application which displays a 10-digit PIN-pad. During interactions with the PIN-pad, the accelerometer signals were monitored and used for later data analysis. Having observed that a tap movement affects the rotation angle of the screen, the researchers have handcrafted features based on the path of the \textit{pitch}\footnote{The pitch-angle corresponds to the x-axis of the accelerometer.} and the \textit{roll}\footnote{The roll angle corresponds to the y-axis of the accelerometer.} angles of the accelerometer to find a dominating edge on where the tap has originally taken place. By using a probability density function for a Gaussian distribution the researchers were able to reach an accuracy of 70\% for interred PIN-pad digits on a training-set size of 449 pin strokes \cite{Touchlogger}. However, as \textit{Touchlogger} was a promising first step, due to it's low granularity of only 10 distinguishable large screen areas, it remained unclear if the attack can be carried over to a full software keyboard. Furthermore, since the inference was performed on only a single smartphone model, it leaves the question open if other smartphones or tablet computers were similarly vulnerable.\\
+
+In order to show the feasibility for a full software keyboard, \citeauthor{Accessory} created a second attempt to the Problem by creating \textit{ACCessory}. \textit{ACCessory} is an Android application with functionalities similar to the previously mentioned \textit{Touchlogger}. However, the application differ in it's granularity by providing two modes for tap inputs. The first consists of tap areas arranged in a 60-cell grid whereas the second is a QWERTY keyboard in landscape orientation. Having extracted features mainly from the time-domain, a classification using the Random Forests algorithm reached an accuracy of 24.5\% for the 60-cell grid with dataset containing . The experiment on the software keyboard was aimed at cracking passwords, on which 
 
 Touchlogger\\
 - first paper\\
-- Pin pad 10 digits - 70 accuracy\\
+- Proof of concept
+- Granularity: Pin pad 10 digits - 70 accuracy\\
 - probability density function
 - Android HTC - EVO\\
+
+Accessory\\
+- Android 
+- Areamode 60 grid + qwerty keyboard
+- Random Forest classifier + SVM + MLP 
+- Analysis of text passwords
+- Accuracy: 25\% on grid and 
+- 1300 keystrokes grid + 2700 on character interference
+
+
+
 
 - \cite{Touchlogger} \\
 - \cite{Tapprints} \\
