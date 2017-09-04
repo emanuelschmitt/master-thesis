@@ -1,4 +1,4 @@
-\chapter{Fundamentals and Related Work\label{cha:chapter2}}
+\chapter{Related Work\label{cha:chapter2}}
 This chapter surveys previous work that 
 
 
@@ -106,75 +106,3 @@ To draw the border between this study and the previous mentioned ones, this stud
 \end{itemize}
 
 % It is plausible that the environment the user is currently in, has an effect on the recorded taps. If we imagine a user sitting in a moving vehicle, the motion sensor will include the vibrations of the motor. Therefore, this work will aim at collecting taps and corresponding motion sensor data from both a laboratory and a field environment to test how prediction accuracies compare to both environments. For this purpose, an iOS application with different tap area grids, as we have seen in \textit{ACCessory} and \textit{Touchlogger}, will be evaluated in the upcoming sections.
-
-\newpage
-\section{Machine Learning \label{sec:fieldstudy}}
-As we will be using machine learning techniques for the later classification of sensory data, the following chapter will give a brief overview of the fundamental concepts evolving around statistical learning.
-
-\subsection{Overview and Definition}
-
-Ever since computers were invented, there has been a desire to enable them to learn \cite{samuel2000some}. This desire has grown into the field of machine learning which seeks to answer questions on how to build build systems that automatically improve with experience, and what the fundamental laws of learning processes are. Today, state-of-the-art ML covers a large set of methods and algorithms designed to accomplish tasks where conventional hard-coded routines have brought insufficient results. From speech recognition to email spam detection or recommendation systems, ML methods find broad usage in a variety of problem domains. \\
-
-In order to understand what the principle of machine learning is, we will start with a definition by Samuel \cite{samuel2000some}:\\
-\begin{quote}
-\textit{Machine learning is the field of study that gives computers the ability to learn without being explicitly programmed.}\\
-\end{quote}
-
-In this definition, special emphasis is to be put on the last part of this definition. A computer is only then able to learn when he can perform a task without being explicitly instructed. Thus, in order to learn, the computer must somehow be able to instruct itself without the influence of an outer . As this definition lacks a more detailed view on what computer learning is, we will dive into a definition by Tom Mitchell \cite{mitchell2006discipline}:\\
-\begin{quote}
-\textit{A learning system is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.}\\
-\end{quote}
-
-The example that Mitchell notes, is one from the games of checkers \cite{mitchell2006discipline}. In this case checkers is the task T that the computer is aiming to learn. In order for the computer to learn, information on previously played matches is required. Since the computer does not know how to evaluate is a particular match was either good or bad, we set the performance to be defined based on how many matches were actually won. If a computer program can raise the amount of games won \textit{(performance measure P)} with the help of the experience from previously placed matches \textit{(experience E)} then it can learn to play checkers \textit{(task T)}. \\
-
-% TODO: Maybe delete this.
-To break this down into a more practical perspective, the challenge lies in finding an appropriate model in order to learn from data, which is the most common format to represent past experience. By learning, the computer adjusts parameters on the model based on the data that we feed the system with. Once the model has been adjusted, it can perform tasks with new incoming experience.
-
-\subsection{Categorization of Methods}
-As machine learning algorithms and methods differ from their approach to learning and underlying concepts, it is common practice to separate these into the following categories \cite{Duda:2000:PC:954544, Marsland:2009:MLA:1571643}  : Supervised learning, unsupervised learning, reinforcement learning and evolutionary learning. In the following sections I will briefly outline these.\\
-
-\begin{itemize}
-
-  \item[] \textbf{Supervised learning}, which is also named learning from example, is presumably the most prominent category of ML algorithms. The algorithm is given a training set of examples $\{x_0, \dots, x_n \}$, which are also known as \textit{features} and the correct target values $\{y_0, \dots, y_n \}$ mapped to each set of features, which is the answer that the algorithm should produce. The algorithm then generalizes based on the training set in order to respond with sensible outputs on all possible input values. Outputs, if they are discrete labels, correspond to a classification task whereas outputs on a continuous scale refer to a regression task (see \cite{Marsland:2009:MLA:1571643}).
-
-An example for supervised learning is the classification of malignant or benign tumors as seen in cancer diagnosis. Let's assume we have a dataset with different properties of a tumor, such as the size or the color of the cells. These properties form our features $x$. Each set of features is mapped to an output label $y$ stating if the tumor is malignant or benign. The first step is to use the pairs $(x, y)$ of the training set to teach the algorithm the correct mapping of the problem space. As $x$ is linked to the output $y$ in the training set, learning the conjunction of these two values is done under supervision since the output label $y$ is given. Once learned, the algorithm is generalized to map unseen inputs to the correct output label.
-
-Practical applications are for example digit and handwriting recognition \cite{lecun1990handwritten}, spam filtering \cite{guzella2009review} for e-mails or network anomaly detection \cite{lee2010uncovering}.
-
-Presumably the most widely known machine learning techniques belong to this category, such as Support Vector Machines (SVMs), Artificial Neural Networks, Bayesian Statistics, Random Forests and Decision Trees \cite{Duda:2000:PC:954544}.\\
-
-%TODO: add referation to how we will solve issues in the thesis.
-
-  \item[] \textbf{Unsupervised learning} is the task of learning structures from input values that are not explicitly labeled. In comparison to supervised learning, where correct output values are provided for each input, unsupervised algorithms learn to identify similarities in the input data and can therefore group these \cite{Duda:2000:PC:954544}. These grouping problems are referred to as \textit{clustering}. The underlying idea here, is that humans learn by not explicitly being told what the right answer should be \cite{Marsland:2009:MLA:1571643}. If a human sees different species of snakes, for instance, he or she is able to identify them all as snakes. Hence, the human is aware that there are differences in each specific type of snake without specifically knowing a correct label.
-
-A prominent example where unsupervised learning is heavily used, is in recommender systems for online retail shops. Amazon.com, for instance, uses a technique called \textit{collaborative filtering}, which measures similarity in customers based that they have previously bought \cite{linden2003amazon}. Having identified similar customers utilizing the cosine similarity, the algorithm can then recommend items that similar users have bought. This technique is also used for music recommendations \cite{perez2017recommender} or social network recommendations \cite{kautz1997referral}.
-
-The field of unsupervised learning is closely related to density estimation in statistics, as with the density of inputs, we are able to group them. The K-means algorithm is the most prominent in this field \cite{Marsland:2009:MLA:1571643}.\\
-  
-  \item[] \textbf{Reinforcement learning} falls in between supervised and unsupervised learning methods. Whereas supervised learning tries to bridge the gap between input and corresponding output values and unsupervised methods detect groupings in incoming data, reinforcement learning is based on learning with a \textit{critic} \cite{Marsland:2009:MLA:1571643}. The algorithm tries different solution strategies to a problem and is told weather or not the answer provided was correct. An important fact here, is that the algorithm is not told how to correct itself. This practice of "trying-out" is based on the concept of \textit{trail-and-error learning} which is known as the \textit{Law-of-effect} \cite{Marsland:2009:MLA:1571643}. A good example is a child that tries to stand up and learn walking. The child tries out many different strategies for staying upright and receives feedback from the field based on how long it can stand without falling down again. The method that previously worked best is then repeated in order to find the optimal solution resulting in the child learning to walk \cite{Marsland:2009:MLA:1571643}.
-  
- In more mathematical terms, the reinforcement learning problem is formalized with an agent and his environment. The environment in which the agent is set provides a set of \textit{states} on which the agent can perform \textit{actions} to maximize a certain \textit{reward}. By performing actions the state changes and a new reward is calculated. The reward then tells the agent if the action was a good choice. Goal of the algorithm is to maximize the reward \cite{Marsland:2009:MLA:1571643}.
- 
- Reinforcement learning is a practical computational tool for constructing autonomous systems that improve themselves with experience. These applications have ranged from robotics, to industrial manufacturing, to combinatorial search problems such
-as computer game playing \cite{kaelbling1996reinforcement}. 
-Prominent methods of this category are Q-learning, Monte Carlo
-methods and Hidden Markov Models \cite{Marsland:2009:MLA:1571643}.\\
-
-  \item[] \textbf{Evolutionary learning} is inspired by strongly inspired by nature. As biological evolution improves the survival of a species, the strategy of adaptation to improve survival rates and the chance of offspring has inspired researchers to craft genetic algorithms (GA) \cite{Marsland:2009:MLA:1571643}. 
-
-Genetic algorithms are a family of adaptive search procedures which have derived their name from the fact that they are based on models of genetic change in a population of individuals. These models have their foundation in three basic ideas: (1) Each evolutionary state of a population can be evaluated on a \textit{fitness} scale. This is done since biological evolution has a natural bias towards animals that are \" fitter \" than others. These animals tend to live longer, are more attractive and generate healthier and happier offspring, an idea which was originated in Charles Darwin's \"The Origin of Species\". (2) Each population can be mated to generate offspring using a \textit{mating operator}. (3) The third component are \textit{genetic operator}, such as \textit{crossover} and \textit{mutation}, which determine how the offspring solution is composed of the genetic material of the parents \cite{de1988learning}.
-
-Evolutionary learning is often considered when other methods fail to find a reasonable answer. Algorithms find applications in search and mathematical optimization, but also in arts and simulation \cite{Marsland:2009:MLA:1571643}.\\
-\end{itemize}
-
-In this section we have seen several different problems that we can solve with the help of algorithmic learning. For our use case, as we want to predict the locations on smartphone screens using sensory data. As this is a supervised learning problem, we will cover one supervised approach in more detail in the following section: Artificial neural networks.
-
-\subsection{Artificial Neural Networks}
-% Add this if we consider using neural Networks...
-
-\subsection{Regularization}
-\subsection{Optimization}
-
-
-\section{Data Aquisition in the field \label{sec:fieldstudy}}
-- topics on data aquisition in the field
