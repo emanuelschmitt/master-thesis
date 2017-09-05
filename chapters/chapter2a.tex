@@ -1,5 +1,5 @@
 \chapter{Machine Learning Fundamentals}
-As we will be using machine learning techniques for the later classification of sensory data, the following chapter will give a brief overview of the fundamental concepts evolving around statistical learning.
+As machine learning techniques will be used for the classification of individual tap locations on a smartphone touchscreen, the following chapter will give a brief overview of the fundamental concepts evolving around statistical learning. Furthermore, the methods that going to be applied to the acquired sensor data will be discussed.
 
 \section{Overview and Definition}
 
@@ -60,3 +60,10 @@ Evolutionary learning is often considered when other methods fail to find a reas
 In this section we have seen several different problems that we can solve with the help of algorithmic learning. For our use case, as we want to predict the locations on smartphone screens using sensory data. As this is a supervised learning problem, we will cover one supervised approach in more detail in the following section: Artificial neural networks.
 
 \section{Support Vector Machines}
+
+A SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from a binary classification problem, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space that separates the training instances which leads to a maximum distance between the observations of the two classes (James et al. 2013). This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. In order to find a suitable hyperplane only a subset of the training examples are sufficient. \\
+
+Despite all that, linear separability is unlikely to be applicable to most real world problems. However, when a problem is linear separable, the constraint to the support vectors induce an undesirable sensitivity to individual observations, which can lead to high variance of the classifier. For this very reason, the maximum margin classifier can be extended to it's more robust successor, the support vector classifier. It is still a linear classifier however allowing for violations in fitting the margin. \\
+
+Mathematically, the support vector classifier can be described via following optimization problem:
+
