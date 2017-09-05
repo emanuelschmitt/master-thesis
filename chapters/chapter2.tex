@@ -38,30 +38,14 @@ Back in 1943, a research group under the codename TEMPEST, a subdivision of the 
 
 A second prominent finding of eavesdropping on electromagnetic emanations was done by the researcher \citeauthor{vanEck:1985:ERV:7307.7308}, who discovered that cathode-ray-tube monitors could be spied upon from a distance \cite{vanEck:1985:ERV:7307.7308}. By using general market equipment, such as antennas \citeauthor{vanEck:1985:ERV:7307.7308} and standard receivers, signals emitted from the cable connecting the computer to the monitor could be received. Since these cables only transmit the video signal for visualization, the researcher could display the visual output of the target monitor revealing a full screen cast of the original image. This attack is referred to in literature as \textit{Van Eck Phreaking} \cite{S&S,koch2012role}.\\
 
-% These emissions lead to a full or a partial
-% recovery of the keystrokes. We implemented these sidechannel
-% attacks and our best practical attack fully recovered
-% 95% of the keystrokes of a PS/2 keyboard at a distance
-% up to 20 meters, even through walls. We tested
-% 12 different keyboard models bought between 2001 and
-% 2008 (PS/2, USB, wireless and laptop). They are all vulnerable
-% to at least one of the four attacks. We conclude
-% that most of modern computer keyboards generate compromising
-% emanations (mainly because of the manufacturer
-% cost pressures in the design). Hence, they are not
-% safe to transmit confidential information.
-
-- Smart Cards \cite{Quisquater:2001:EAM:646803.705980}\\
-- Wireless keyboards \cite{Vuagnoux:2009:CEE:1855768.1855769}\\
-- Serial port cables \cite{serialcablearticle} \\
-- CMOS \cite{Agrawal2003} \\
-- CRT radiation \cite{vanEck:1985:ERV:7307.7308}
+Furthermore, research has shown that side-band electromagnetic emanations are present in keyboards \cite{Vuagnoux:2009:CEE:1855768.1855769}, computer screens \cite{vanEck:1985:ERV:7307.7308,kuhn2004electromagnetic}, printers \cite{przesmycki2014measurement}, computer interfaces, such as USB 2 \cite{nowosielski2014compromising} and the parallel port \cite{serialcablearticle} and in Smart Cardes\cite{Quisquater:2001:EAM:646803.705980}.\\
 
 \subsection{Motion Emanation}
-In the past decade modern devices are increasingly equipeed with highly responsive sensors, such as the gyroscope and accelerometer enabling the devices to sense rich interactions with their environment. As user interactions, such as typing the keyboard or tapping on touchscreens, require the user to apply a certain force while entering information, this motion can be captured by motion sensors in order to be used for as a side-channel attack reconstructing secret information \cite{Tapprints,Accessory,Touchlogger}. \\
+In the past decade modern devices are increasingly equipeed with highly responsive sensors, such as the gyroscope and accelerometer enabling the devices to sense rich interactions with their environment. As user interactions, such as typing the keyboard or tapping on touchscreens, require the user to apply a certain force while entering information, this motion can be captured by motion sensors in order to be used for a side-channel attack \cite{Tapprints,Accessory,Touchlogger}. \\
 
-\citeauthor{Marquardt:2011:IDV:2046707.2046771} conducted an experiment where an Apple iPhone equpped with an application that captures motion with it's accelerometer was placed next to a keyboard. Subjects then had to enter sentences on the keyboard while the application was monitoring the user's motion while typing. Furthermore, The researchers could then decode the accelerometer signals by measuring the relative physical position and distance between each vibration. The decoded characters were then matched based on a dictionary containing a frequency distribution of commonly used word. As a result, words were successfully obtained with an accuracy of up to 80\% \cite{Marquardt:2011:IDV:2046707.2046771}.
+\citeauthor{Marquardt:2011:IDV:2046707.2046771} conducted an experiment where an Apple iPhone that captures accelerometer motion was placed next to a dekstop keyboard. Subjects then had to enter sentences while the application was monitoring the user's motion. The researchers could decode the accelerometer signals by mapping the certain vibration caused the typing motion to their keystrokes. The decoded characters were then matched based on a dictionary containing a frequency distribution of commonly used words. As a result, words could be successfully obtained with an accuracy of up to 80\% \cite{Marquardt:2011:IDV:2046707.2046771}.\\
 
+As motion emanations are highly relevant for the work in this thesis, the next section will be dedicated to further work regarding this topic.
 
 \section{Eavesdropping on touch screen user interactions}
 As we have seen in the previous section, user interactions with peripheral devices, such as the keyboard or PIN pads, can be obtained by either the acoustic channel, by electromagnetical leakage or by capturing the motion of the user. However, with the rise in soft keyboard usage, the same discussed methods that extract information from keyboard do not apply to tap interactions on a touchscreen surface. Since a touchscreen does not embody fine mechanics producing sounds nor does it have emanating cables, the research community has developed nouvelle methods to spy on user inputs based on the smartphone embodied motion sensors.\\
