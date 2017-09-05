@@ -107,25 +107,32 @@ where $\gamma$ is a tuning parameter. After the parameters are learned on the ba
   \^{f}(x) = sign(\beta_0 + \sum_{i \in S} \alpha_i K(x_i, x_{i'})).
 \end{equation}
 In view of the task at hand, an extension to multi-class classification of the SVM is utilized via one-versus-one classification. Given C classes, $\binom{C}{2}$ binary classifiers are learned in such a fashion that the C-th class is coded as $+1$ and the C0-th class as $1$. Consequently, a new instance is assigned to the class to which it was classified most frequently.
-
+\newpage
 \section{Neural Networks}
 
 \subsection{Neurons}
-\begin{SCfigure}[2\sidecaptionrelwidth][t]
+
+A neural is fundamental processing unit of an artificial neural network. 
+\begin{figure}[h]
 	\centering
-	\begin{tikzpicture}[shorten >=1pt,->]
-		\tikzstyle{unit}=[draw,shape=circle,minimum size=1.15cm]
+	\begin{tikzpicture}
+    \node[draw,circle,minimum size=25pt,inner sep=0pt] (x) at (0,0) {$\Sigma$ $\varphi$};
+    
+      \node[inputNode] (x0) at (-2, 1.5) {$\tiny x_0$};
+      \node[inputNode] (x1) at (-2, 0.75) {$\tiny x_1$};
+      \node[inputNode] (x2) at (-2, 0) {$\tiny x_2$};
+      \node[inputNode] (x3) at (-2, -0.75) {$\tiny x_3$};
+      \node[inputNode] (xn) at (-2, -1.75) {$\tiny x_n$};
+    
+      \draw[stateTransition] (x0) to[out=0,in=120] node [midway, sloped, above=-2] {$w_0$} (x);
+      \draw[stateTransition] (x1) to[out=0,in=150] node [midway, sloped, above=-2] {$w_1$} (x);
+      \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above=-2] {$w_2$} (x);
+      \draw[stateTransition] (x3) to[out=0,in=210] node [midway, sloped, above=-2] {$w_3$} (x);
+      \draw[stateTransition] (xn) to[out=0,in=240] node [midway, sloped, above=-2] {$w_n$} (x);
+      \draw[stateTransition] (x) -- (2,0) node [midway,above=-0.1cm] {};
+      \draw[dashed] (0,-0.43) -- (0,0.43);
+      \node (dots) at (-2, -1.15) {$\vdots$};
+  \end{tikzpicture}
+\end{figure}
 
-		\node[unit](p) at (2,1){$y$};
-		\node(dots) at (-0.25,1){\vdots};
-
-		\draw (0,2.5) node[xshift=-10]{$w_0$} -- (p);
-		\draw (0,1.75) node[xshift=-10]{$x_1$} --(p);
-		\draw (0,0) node[xshift=-10]{$x_D$} -- (p);
-		\draw (p) -- (3,1) node[xshift=30]{$y := f(z)$};
-	\end{tikzpicture}
-	\caption[Single processing units and its components.]{Single processing unit and its components. The activation function is denoted by $f$ and applied on the actual input $z$ of the unit to form its output $y = f(z)$. $x_1, \ldots, x_D$ represent input from other units within the network; $w_0$ is called bias and represents an external input to the unit. All inputs are mapped onto the actual input $z$ using the propagation rule.}
-	\label{fig:processing-unit}
-\end{SCfigure}
-
-\subsection{Feed-forward-network}
+\subsection{Feed-forward network}
