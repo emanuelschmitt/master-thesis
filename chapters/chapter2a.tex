@@ -61,13 +61,71 @@ In this section we have seen several different problems that we can solve with t
 
 \section{Support Vector Machines}
 
-A SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from a binary classification problem, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space that separates the training instances which leads to a maximum distance between the observations of the two classes (James et al. 2013). This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. In order to find a suitable hyperplane only a subset of the training examples are sufficient. \\
+A SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from binary classification problems, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space. This hyperplane separates the training examples leading to a maximum distance between the observations of the two classes \cite{James:2014:ISL:2517747}. This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. In order to find a suitable hyperplane only a subset of the training examples are sufficient.\\
 
-Despite all that, linear separability is unlikely to be applicable to most real world problems. However, when a problem is linear separable, the constraint to the support vectors induce an undesirable sensitivity to individual observations, which can lead to high variance of the classifier. For this very reason, the maximum margin classifier can be extended to it's more robust successor, the support vector classifier. It is still a linear classifier however allowing for violations in fitting the margin. \\
+Despite all that, linear separability is unlikely to be applicable to most real world problems. However, when a problem is linear separable, the constraint to the support vectors induce an undesirable sensitivity to individual observations, which can lead to high variance of the classifier. For this reason, the maximum margin classifier can be extended to it's more robust successor, the support vector classifier. Still being a linear classifier, the SVM allows for violations in fitting the margin. \\
 
-Mathematically, the support vector classifier can be described via following optimization problem:
+Mathematically, the support vector classifier can be described via following optimization problem \cite{James:2014:ISL:2517747}:
+\begin{eqnarray}
+  & \max_{\beta, \epsilon} M \\
+  & \textrm{subject to} \sum_{s=1}^{p} \beta^2_s = 1 \\
+  g(x_{i}) &= y_i(\beta_0, \beta_1 x_1, \dots \beta_p x_p) \geq M(1 - \epsilon) \\
+  & \epsilon \geq 0, \sum_{i=1}^n \epsilon_i \leq C
+\end{eqnarray}
 
-\begin{align}
-  a & = b + c \\
-  & = d + e
-\end{align}
+The objective of this optimization problem is to maximize the margin $M$ while choosing appropriate vector parameters $\beta$ and $\epsilon$. In this context, the parameter vector $\beta$ contains the coefficients of the hyperplane and the vector $\epsilon$ includes so-called slack variables that account for instances which are located on the wrong side of the margin and the hyperplane. These can be expressed as follows assuming that M is positive \cite{James:2014:ISL:2517747}:
+\begin{equation}
+  \epsilon_i =
+  \begin{cases}
+    0 & g(x_i) \geq M \\
+    > 0 & M < g(x_i) < 0 \\
+    > 1 & g(x_i) > 0 
+  \end{cases}
+\end{equation}
+
+The hyperparameter C is a non-negative variable, which can be seen as a budget variable that allows for a certain sum of $\epsilon_i$ observations to be on the wrong side of the margin or hyperplane, respectively \cite{James:2014:ISL:2517747}. C manages the bias-variance tradeoff, since a low C tries to find a maximum margin hyperplane that almost exactly separates the two classes, resulting in low bias classifier for the available data set but in a high variance classifier for test data. Concurrently, allowing high budget C results in a high bias classifier that widens the margin, introducing more violations $\epsilon_i$ while reducing the variance of the classifier (Ibid.). Thereby C also controls the number of considered support vectors in dependence of the margin width.\\
+
+Extending the support vector classifier to non-linear decision boundaries brings us to the SVM. Instead of extending the predictor space using higher order polynomials and interactions, SVM uses the so called ``kernel trick'' \cite{efron_hastie_2016}. In order to apply the ``kernel trick'' , i.a. \citeauthor{efron_hastie_2016} show that the optimization problem above can be rewritten as
+\begin{equation}
+  \^{f}(x) = \beta_0 + \sum_{i \in S} \alpha_i \langle x, x_i \rangle
+\end{equation}
+
+where $i \in S$ defines the subset of support vectors and $\langle x, x_i \rangle$ is the dot product of all pairs in the support vector. Thus, the parameters $\beta_0$ and $\sum_{i \in S}$ can be estimated with the help of least squares via simply computing the inner products of each pair in the support vector \cite{efron_hastie_2016}. The Expression in $\langle x, x_i \rangle$ can be generalized by a kernel function
+\begin{equation}
+  K(x_i,x_{i'}) = \sum_{s=1}^{p} x_{is} x_{i's}
+\end{equation}
+indicating the linear kernel that quantifies the distance between each pair in the data set \cite{James:2014:ISL:2517747}. Accordingly, the equation above can be rewritten as
+\begin{equation}
+  \^{f}(x) = \beta_0 + \sum_{i \in S} \alpha_i K(x, x_i)
+\end{equation}
+but in spite of restricting $K(\cdot, \cdot)$ to (3.7), we can now choose an arbitrary kernel function that maps our data into a high dimensional space where it is linearly separable. With this ``kernel trick'' the SVM can work in an implicitly enlarged predictor space, just by computing $\binom{n}{2}$  kernel functions $K(\cdot, \cdot)$, as opposed to an explicitly augmented predictor space, which is in fact computationally intractable \cite{James:2014:ISL:2517747}. In this work, we will be using a radial kernel function:
+\begin{equation}
+  K(x_i,x_{i'}) = \exp(-\gamma(\sum_{s=1}^{p}x_{is}x_{i's})^2),
+\end{equation}
+where $\gamma$ is a tuning parameter. After the parameters are learned on the basis of the training set, a new observation with the feature vector $x_0$ is classified via the following decision rule
+\begin{equation}
+  \^{f}(x) = sign(\beta_0 + \sum_{i \in S} \alpha_i K(x_i, x_{i'})).
+\end{equation}
+In view of the task at hand, an extension to multi-class classification of the SVM is utilized via one-versus-one classification. Given C classes, $\binom{C}{2}$ binary classifiers are learned in such a fashion that the C-th class is coded as $+1$ and the C0-th class as $1$. Consequently, a new instance is assigned to the class to which it was classified most frequently.
+
+\section{Neural Networks}
+
+\subsection{Neurons}
+\begin{SCfigure}[2\sidecaptionrelwidth][t]
+	\centering
+	\begin{tikzpicture}[shorten >=1pt,->]
+		\tikzstyle{unit}=[draw,shape=circle,minimum size=1.15cm]
+
+		\node[unit](p) at (2,1){$y$};
+		\node(dots) at (-0.25,1){\vdots};
+
+		\draw (0,2.5) node[xshift=-10]{$w_0$} -- (p);
+		\draw (0,1.75) node[xshift=-10]{$x_1$} --(p);
+		\draw (0,0) node[xshift=-10]{$x_D$} -- (p);
+		\draw (p) -- (3,1) node[xshift=30]{$y := f(z)$};
+	\end{tikzpicture}
+	\caption[Single processing units and its components.]{Single processing unit and its components. The activation function is denoted by $f$ and applied on the actual input $z$ of the unit to form its output $y = f(z)$. $x_1, \ldots, x_D$ represent input from other units within the network; $w_0$ is called bias and represents an external input to the unit. All inputs are mapped onto the actual input $z$ using the propagation rule.}
+	\label{fig:processing-unit}
+\end{SCfigure}
+
+\subsection{Feed-forward-network}
