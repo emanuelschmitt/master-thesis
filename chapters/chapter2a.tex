@@ -112,27 +112,44 @@ In view of the task at hand, an extension to multi-class classification of the S
 
 \subsection{Neurons}
 
-A neural is fundamental processing unit of an artificial neural network. 
+A neuron is fundamental processing unit of an artificial neural network. The basic elements of a neuron are as follows \cite{Haykin:1998:NNC:521706}:
+\begin{itemize}
+  \item A set of \textit{connecting links} or \textit{synapses} which have a certain weight defined as the vector $\vec{w}$. The signal, represented as $\vec{x}$, flows through the \textit{synapse} and is mutipied by it's weight $w_i$.
+  \item A \textit{adder} for summing the input signals and weights of the incoming synapses. These operations constitute a linear combiner.
+  \item An \textit{activation function} $\varphi$ for limiting the amplitude of the output signal. This function is often referred to as the \textit{squashing function} since it squashing the possible output range.
+  \item An externally applied \textit{bias} $b$ which has the ability to lower or rise the net input to the activation function depending if the bias is negative or positive.
+\end{itemize}
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}
     \node[draw,circle,minimum size=25pt,inner sep=0pt] (x) at (0,0) {$\Sigma$ $\varphi$};
     
-      \node[inputNode] (x0) at (-2, 1.5) {$\tiny x_0$};
-      \node[inputNode] (x1) at (-2, 0.75) {$\tiny x_1$};
-      \node[inputNode] (x2) at (-2, 0) {$\tiny x_2$};
-      \node[inputNode] (x3) at (-2, -0.75) {$\tiny x_3$};
-      \node[inputNode] (xn) at (-2, -1.75) {$\tiny x_n$};
+      \node[inputNode] (x0) at (-3, 1.5) {$\tiny x_0$};
+      \node[inputNode] (x1) at (-3, 0.75) {$\tiny x_1$};
+      \node[inputNode] (x2) at (-3, 0) {$\tiny x_2$};
+      \node[inputNode] (x3) at (-3, -0.75) {$\tiny x_3$};
+      \node[inputNode] (xn) at (-3, -1.75) {$\tiny x_n$};
+
+      \node[inputNode] (b) at (-0.12, 2) {$\tiny b_k$};
     
-      \draw[stateTransition] (x0) to[out=0,in=120] node [midway, sloped, above=-2] {$w_0$} (x);
-      \draw[stateTransition] (x1) to[out=0,in=150] node [midway, sloped, above=-2] {$w_1$} (x);
-      \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above=-2] {$w_2$} (x);
-      \draw[stateTransition] (x3) to[out=0,in=210] node [midway, sloped, above=-2] {$w_3$} (x);
-      \draw[stateTransition] (xn) to[out=0,in=240] node [midway, sloped, above=-2] {$w_n$} (x);
-      \draw[stateTransition] (x) -- (2,0) node [midway,above=-0.1cm] {};
+      \draw[stateTransition] (x0) to[out=0,in=120] node [midway, sloped, above=-2] {$w_{k0}$} (x);
+      \draw[stateTransition] (x1) to[out=0,in=150] node [midway, sloped, above=-2] {$w_{k1}$} (x);
+      \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above=-2] {$w_{k2}$} (x);
+      \draw[stateTransition] (x3) to[out=0,in=210] node [midway, sloped, above=-2] {$w_{k3}$} (x);
+      \draw[stateTransition] (xn) to[out=0,in=240] node [midway, sloped, above=-2] {$w_{kn}$} (x);
+      \draw[stateTransition] (x) -- (2,0) node [midway,above=-0.cm] {$\tiny y_k$};
+      \draw[stateTransition] (b) -- (-0.12,0.44) node [midway, above=-0cm] {};
       \draw[dashed] (0,-0.43) -- (0,0.43);
-      \node (dots) at (-2, -1.15) {$\vdots$};
+      \node (dots) at (-3, -1.15) {$\vdots$};
   \end{tikzpicture}
 \end{figure}
 
+Mathematically, a neuron $k$ can be expressed with the following equation \cite{Haykin:1998:NNC:521706}
+\begin{eqnarray}
+  u_k &= \sum_{j = 1}^{m}w_{kj}x_{j} \\
+  y_k &= \varphi(u_k + b_k)
+\end{eqnarray}
+where $x_1, \dots, x_n$ are the input signals; $w_{k1}, \dots, w_{kn}$ refer to the synaptic weights of the neuron; $u_k$ is the linear combiner output of the summation on which the bias $b$ is added. The output of the neuron is expressed as $y_k$.
+
+\subsection{Activation Function}
 \subsection{Feed-forward network}
