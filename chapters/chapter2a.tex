@@ -110,13 +110,15 @@ In view of the task at hand, an extension to multi-class classification of the S
 \newpage
 \section{Neural Networks}
 
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
 \subsection{Neurons}
 
 A neuron is fundamental processing unit of an artificial neural network. The basic elements of a neuron are as follows \cite{Haykin:1998:NNC:521706}:
 \begin{itemize}
   \item A set of \textit{connecting links} or \textit{synapses} which have a certain weight defined as the vector $\vec{w}$. The signal, represented as $\vec{x}$, flows through the \textit{synapse} and is mutipied by it's weight $w_i$.
   \item A \textit{adder} for summing the input signals and weights of the incoming synapses. These operations constitute a linear combiner.
-  \item An \textit{activation function} $\varphi$ for limiting the amplitude of the output signal. This function is often referred to as the \textit{squashing function} since it squashing the possible output range.
+  \item An \textit{activation function} $\varphi$ for limiting the amplitude of the output signal. This function is often referred to as the \textit{squashing function} since it squashing the possible output range \cite{Haykin:1998:NNC:521706}.
   \item An externally applied \textit{bias} $b$ which has the ability to lower or rise the net input to the activation function depending if the bias is negative or positive.
 \end{itemize}
 \begin{figure}[h]
@@ -151,5 +153,73 @@ Mathematically, a neuron $k$ can be expressed with the following equation \cite{
 \end{eqnarray}
 where $x_1, \dots, x_n$ are the input signals; $w_{k1}, \dots, w_{kn}$ refer to the synaptic weights of the neuron; $u_k$ is the linear combiner output of the summation on which the bias $b$ is added. The output of the neuron is expressed as $y_k$.
 
-\subsection{Activation Function}
-\subsection{Feed-forward network}
+\subsection{Activation Functions}
+The activation function $\varphi(u_k)$ denotes the output of the neuron $k$ and forms the junction between the neuron's input $x$ and output $y$. In order for the network to learn any complex non-linear function, each neuron in the networks requires a non-linear activation function \cite{Goodfellow-et-al-2016}. In this context, one commonly used function is the s-shaped \textit{sigmoid function} \cite{Haykin:1998:NNC:521706}. An example of the sigmoid function is the \textit{logistic function}:\\
+
+\begin{equation}
+ \varphi(v) = \frac{1}{1 + \exp(-v)} 
+\end{equation}
+\\
+A second popular function to consider is the \textit{hyperbolic tangent function}:\\
+
+\begin{equation}
+  \varphi(v) = \tanh(v)
+\end{equation}
+\\
+
+%TODO: Needs work
+Both functions are well suited for classification tasks, as they transform output values to either side of the curve. This results in a clear distinction between classes. However, both functions have a compact domain range, meaning that the logistic function squashes output values into ranges $\lbrack0, 1\rbrack$ whereas the hyperbolic tangent function has a range of $\lbrack-1,1\rbrack$. Consequently, in order to reach the boundaries of $\varphi$, $v$ must take on an extreme high or low magnitude. Now if we take into account the gradient of the derivative in these extreme points are close to zero, the network which learns based on these gradients is much lower at propagating errors once the weights have reached high values. In some cases it can cause individual neurons to saturate. This problem is referred to as the \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
+
+In order to avoid saturation problems, a commonly used non-linear activation function is the Rectified Linear Unit (ReLU) function \cite{Nair:2010:RLU:3104322.3104425}:\\
+
+\begin{equation}
+  \varphi(v) = \max(0, v)
+\end{equation}
+\\
+ReLUs are non-saturating which results in a neuron always learning if the input is positive. Networks with ReLUs train several times faster and have become, as of 2015, the standard activation function for deep neural networks \cite{lecun2015deep}.
+
+\subsection{Feedforward neural networks}
+A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of layers $L$ of neural units. The goal of a feedforward network is to approximate some function $f^*$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y=f^*(x)$ maps an input $x$ to a label $y$. For this reason, neural network are often named \textit{universal function approximators}.\\
+
+\begin{figure}[h]
+  \centering
+  \def\layersep{2cm}
+	\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
+    \tikzstyle{every pin edge}=[<-,shorten <=1pt]
+    \tikzstyle{neuron}=[circle,draw=black!80, thick,minimum size=17pt,inner sep=0pt]
+    \tikzstyle{input neuron}=[neuron];
+    \tikzstyle{output neuron}=[neuron];
+    \tikzstyle{hidden neuron}=[neuron];
+    \tikzstyle{annot} = [text width=4em, text centered]
+
+    % Draw the input layer nodes
+    \foreach \name / \y in {1,...,2}
+    % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
+        \node[input neuron, pin=left:$x_{\y}$] (I-\name) at (0,-\y) {};
+
+    % Draw the hidden layer nodes
+    \foreach \name / \y in {1,...,3}
+        \path[yshift=0.5cm]
+            node[hidden neuron] (H-\name) at (\layersep,-\y cm) {};
+
+    % Draw the output layer node
+    \node[output neuron,pin={[pin edge={->}]right:$y$}, right of=H-2] (O) {};
+
+    % Connect every node in the input layer with every node in the
+    % hidden layer.
+    \foreach \source in {1,...,2}
+        \foreach \dest in {1,...,3}
+            \path (I-\source) edge (H-\dest);
+
+    % Connect every node in the hidden layer with the output layer
+    \foreach \source in {1,...,3}
+        \path (H-\source) edge (O);
+
+    % Annotate the layers
+    \node[annot,above of=H-1, node distance=1cm] (hl) {$L_{k-1}$};
+    \node[annot,left of=hl] {$L_1$};
+    \node[annot,right of=hl] {$L_k$};
+\end{tikzpicture}
+\caption{The diagram shows the structure of a typical feedforward network. The network has two input units in the input layer $L_1$ and one output unit in the output layer $L_k$. Layers $L_{2} \dots L_{k-1}$ the the so-called hidden layers.}
+\end{figure}
+The network is named feedforward as it the information flowing through the network passes with the outermost input layer and and ends at the output unit of the output layer \cite{Goodfellow-et-al-2016}. All units in a layer are fully connected to the succeeding layer, however, there is no interconnection between units in the same layer.
