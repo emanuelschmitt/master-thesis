@@ -139,7 +139,7 @@ A neuron is fundamental processing unit of an artificial neural network. The bas
       \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above=-2] {$w_{k2}$} (x);
       \draw[stateTransition] (x3) to[out=0,in=210] node [midway, sloped, above=-2] {$w_{k3}$} (x);
       \draw[stateTransition] (xn) to[out=0,in=240] node [midway, sloped, above=-2] {$w_{kn}$} (x);
-      \draw[stateTransition] (x) -- (2,0) node [midway,above=-0.cm] {$\tiny y_k$};
+      \draw[stateTransition] (x) -- (2,0) node [midway,above=-0.cm] {$\tiny h_k$};
       \draw[stateTransition] (b) -- (-0.12,0.44) node [midway, above=-0cm] {};
       \draw[dashed] (0,-0.43) -- (0,0.43);
       \node (dots) at (-3, -1.15) {$\vdots$};
@@ -149,7 +149,7 @@ A neuron is fundamental processing unit of an artificial neural network. The bas
 Mathematically, a neuron $k$ can be expressed with the following equation \cite{Haykin:1998:NNC:521706}
 \begin{eqnarray}
   u_k &= \sum_{j = 1}^{m}w_{kj}x_{j} \\
-  y_k &= \varphi(u_k + b_k)
+  h_k &= \varphi(u_k + b_k)
 \end{eqnarray}
 where $x_1, \dots, x_n$ are the input signals; $w_{k1}, \dots, w_{kn}$ refer to the synaptic weights of the neuron; $u_k$ is the linear combiner output of the summation on which the bias $b$ is added. The output of the neuron is expressed as $y_k$.
 
@@ -179,7 +179,7 @@ In order to avoid saturation problems, a commonly used non-linear activation fun
 ReLUs are non-saturating which results in a neuron always learning if the input is positive. Networks with ReLUs train several times faster and have become, as of 2015, the standard activation function for deep neural networks \cite{lecun2015deep}.
 
 \subsection{Feedforward neural networks}
-A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of layers $L$ of neural units. The goal of a feedforward network is to approximate some function $f^*$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y=f^*(x)$ maps an input $x$ to a label $y$. For this reason, neural network are often named \textit{universal function approximators}.\\
+A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of layers $L$ of neural units. The goal of a feedforward network is to approximate some function $f^*$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y=f^*(x)$ maps an input $x$ to a label $y$. A neural network with $m$ input nodes and 1 output node serves as a function with m inputs and 1 output.
 
 \begin{figure}[h]
   \centering
@@ -220,6 +220,20 @@ A feedforward neural network, or multilayer perceptron (MLP), is an ANN which co
     \node[annot,left of=hl] {$L_1$};
     \node[annot,right of=hl] {$L_k$};
 \end{tikzpicture}
-\caption{The diagram shows the structure of a typical feedforward network. The network has two input units in the input layer $L_1$ and one output unit in the output layer $L_k$. Layers $L_{2} \dots L_{k-1}$ the the so-called hidden layers.}
+\caption{The diagram shows the structure of a typical feedforward network. The network has two input units in the input layer $L_1$ and one output unit in the output layer $L_k$. Layers $L_{2} \dots L_{k-1}$ the the so-called hidden layers.}\label{fig:ffnn}
 \end{figure}
-The network is named feedforward as it the information flowing through the network passes with the outermost input layer and and ends at the output unit of the output layer \cite{Goodfellow-et-al-2016}. All units in a layer are fully connected to the succeeding layer, however, there is no interconnection between units in the same layer.
+The network is named feedforward as it the information flowing through the network passes with the outermost input layer and and ends at the output unit of the output layer \cite{Goodfellow-et-al-2016}. All units in a layer are fully connected to the succeeding layer, however, there is no interconnection between units in the same layer. Figure \ref{fig:ffnn} shows a typical feedforward architecture with three layers including a single hidden layer $L_{k-1}$.\\
+
+Considering equation (3.11) from the neuron section, we can now compute the input to the output node, given by\\
+\begin{equation}
+  \sum_{k=1}^{n} \alpha_k h_k
+\end{equation}
+\\
+where $h_k$ is the output of the $k$th hidden node and $\alpha_k$ being the weight from the $k$th hidden to the output node. The output unit's activation function is then applied to this value, transforming the output to the given equation
+
+\begin{equation}
+  y = \varphi\left(\sum_{k=1}^{n} \alpha_k \varphi \left(\sum_{i=1}^{m} w_{ik} x_i + b \right\right).
+\end{equation}.
+
+\subsection{Backpropagation}
+In order for a neural network to be trained, the so-called backpropagation algorithm must be performed.
