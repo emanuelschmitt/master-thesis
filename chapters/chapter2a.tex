@@ -61,7 +61,9 @@ In this section we have seen several different problems that we can solve with t
 
 \section{Support Vector Machines}
 
-A SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from binary classification problems, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space. This hyperplane separates the training examples leading to a maximum distance between the observations of the two classes \cite{James:2014:ISL:2517747}. This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. In order to find a suitable hyperplane only a subset of the training examples are sufficient.\\
+A SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from binary classification problems, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space. \\
+
+This hyperplane separates the training examples leading to a maximum distance between the observations of the two classes \cite{James:2014:ISL:2517747}. This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. In order to find a suitable hyperplane only a subset of the training examples are sufficient.\\
 
 Despite all that, linear separability is unlikely to be applicable to most real world problems. However, when a problem is linear separable, the constraint to the support vectors induce an undesirable sensitivity to individual observations, which can lead to high variance of the classifier. For this reason, the maximum margin classifier can be extended to it's more robust successor, the support vector classifier. Still being a linear classifier, the SVM allows for violations in fitting the margin. \\
 
@@ -151,26 +153,89 @@ Mathematically, a neuron $k$ can be expressed with the following equation \cite{
   u_k &= \sum_{j = 1}^{m}w_{kj}x_{j} \\
   h_k &= \varphi(u_k + b_k)
 \end{eqnarray}
-where $x_1, \dots, x_n$ are the input signals; $w_{k1}, \dots, w_{kn}$ refer to the synaptic weights of the neuron; $u_k$ is the linear combiner output of the summation on which the bias $b$ is added. The output of the neuron is expressed as $y_k$.
+where $x_1, \dots, x_n$ are the input signals; $w_{k1}, \dots, w_{kn}$ refer to the synaptic weights of the neuron; $u_k$ is the linear combiner output of the summation on which the bias $b$ is added. The output of the neuron is expressed as $h_k$.
 
 \subsection{Activation Functions}
-The activation function $\varphi(u_k)$ denotes the output of the neuron $k$ and forms the junction between the neuron's input $x$ and output $y$. In order for the network to learn any complex non-linear function, each neuron in the networks requires a non-linear activation function \cite{Goodfellow-et-al-2016}. In this context, one commonly used function is the s-shaped \textit{sigmoid function} \cite{Haykin:1998:NNC:521706}. An example of the sigmoid function is the \textit{logistic function}:\\
+The activation function $\varphi(u_k)$ denotes the output of the neuron $k$ and forms the junction between the neuron's input $x_k$ and output $h_k$. In order for the network to learn any complex non-linear function, each neuron in the networks requires a non-linear activation function \cite{Goodfellow-et-al-2016}. In this context, one commonly used function is the s-shaped \textit{sigmoid function} of which the \textit{logistic function} \cite{Haykin:1998:NNC:521706} is an example:\\
 
 \begin{equation}
  \varphi(v) = \frac{1}{1 + \exp(-v)} 
 \end{equation}
-\\
-A second popular function to consider is the \textit{hyperbolic tangent function}:\\
+% \\
+% However, as the logistic function outputs are in range $(0, 1)$,  A second popular function to consider is the \textit{hyperbolic tangent function}:\\
 
-\begin{equation}
-  \varphi(v) = \tanh(v)
-\end{equation}
-\\
+% \begin{equation}
+%   \varphi(v) = \tanh(v)
+% \end{equation}
+% \\
+The logic function, as in \ref{fig:af}, is well suited for classification as it is a non-linear function and it transforms the output values to either side of the curve. This results in a clear distinction between classes. However, the function has a compact domain range, meaning that the logistic function squashes output values into ranges $(0, 1)$. Consequently, when the inputs of a neuron become large, the function saturates at 0 or 1, with a derivative close to 0. As the derivatives are used for training the network \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
 
-%TODO: Needs work
-Both functions are well suited for classification tasks, as they transform output values to either side of the curve. This results in a clear distinction between classes. However, both functions have a compact domain range, meaning that the logistic function squashes output values into ranges $\lbrack0, 1\rbrack$ whereas the hyperbolic tangent function has a range of $\lbrack-1,1\rbrack$. Consequently, in order to reach the boundaries of $\varphi$, $v$ must take on an extreme high or low magnitude. Now if we take into account the gradient of the derivative in these extreme points are close to zero, the network which learns based on these gradients is much lower at propagating errors once the weights have reached high values. In some cases it can cause individual neurons to saturate. This problem is referred to as the \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[
+        legend pos=north west,
+          axis x line=middle,
+          axis y line=middle,
+          width=8cm,
+          height=5cm,       
+          % x tick label style={/pgf/number format/fixed,
+          %                     /pgf/number format/fixed zerofill,
+          %                     /pgf/number format/precision=1},
+          % y tick label style={/pgf/number format/fixed,
+          %                     /pgf/number format/fixed zerofill,
+          %                     /pgf/number format/precision=1},
+          grid = major,
+          grid style={dashed, gray!30},
+          xmin=-3,
+          xmax= 3,
+          ymin= 0,
+          ymax= 1.2,
+          xlabel=x,
+          ylabel=y,
+          tick align=outside,
+          enlargelimits=false]
+        \addplot[black, ultra thick,samples=500] {1/(1 + exp(-x))};
+      \end{axis}
+    \end{tikzpicture}
+    \label{fig:test1}
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[
+        legend pos=north west,
+          axis x line=middle,
+          axis y line=middle,
+          width=8cm,
+          height=5cm,
+          % x tick label style={/pgf/number format/fixed,
+          %                     /pgf/number format/fixed zerofill,
+          %                     /pgf/number format/precision=1},
+          % y tick label style={/pgf/number format/fixed,
+          %                     /pgf/number format/fixed zerofill,
+          %                     /pgf/number format/precision=1},
+          grid = major,
+          grid style={dashed, gray!30},
+          xmin=-3,
+          xmax= 3,
+          ymin= 0,
+          ymax= 1.2,
+          xlabel=x,
+          ylabel=y,
+          tick align=outside,
+          enlargelimits=false]
+        \addplot[black, ultra thick,samples=500] {max(0, x))};
+      \end{axis}
+    \end{tikzpicture}
+  \end{minipage}%
+  \caption{The figure shows a plot of the hyperbolic  tangent  activation function on the left and a plot of the ReLU activation function on the right.}\label{fig:af}
+\end{figure}
 
-In order to avoid saturation problems, a commonly used non-linear activation function is the Rectified Linear Unit (ReLU) function \cite{Nair:2010:RLU:3104322.3104425}:\\
+
+In order to avoid saturation problems, a commonly used non-linear activation function is the Rectified Linear Unit (ReLU) function \cite{Nair:2010:RLU:3104322.3104425}, which can be seen in figure \ref{fig:af}:\\
 
 \begin{equation}
   \varphi(v) = \max(0, v)
@@ -179,14 +244,14 @@ In order to avoid saturation problems, a commonly used non-linear activation fun
 ReLUs are non-saturating which results in a neuron always learning if the input is positive. Networks with ReLUs train several times faster and have become, as of 2015, the standard activation function for deep neural networks \cite{lecun2015deep}.
 
 \subsection{Feedforward neural networks}
-A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of layers $L$ of neural units. The goal of a feedforward network is to approximate some function $f^*$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y=f^*(x)$ maps an input $x$ to a label $y$. A neural network with $m$ input nodes and 1 output node serves as a function with m inputs and 1 output.
+A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of layers $L$ of neural units. The goal of a feedforward network is to approximate some function $f^*$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y=f^*(x)$ maps an input $x$ to a label $y$. Consequently, a neural network with $m$ input nodes and 1 output node serves as a function with m inputs and 1 output.
 
 \begin{figure}[h]
   \centering
-  \def\layersep{2cm}
+  \def\layersep{3cm}
 	\begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
     \tikzstyle{every pin edge}=[<-,shorten <=1pt]
-    \tikzstyle{neuron}=[circle,draw=black!80, thick,minimum size=17pt,inner sep=0pt]
+    \tikzstyle{neuron}=[circle,draw=black!80, thick,minimum size=25pt,inner sep=0pt]
     \tikzstyle{input neuron}=[neuron];
     \tikzstyle{output neuron}=[neuron];
     \tikzstyle{hidden neuron}=[neuron];
@@ -267,7 +332,7 @@ Given the partial derivative in respect to the weight $w_{ij}$, the change of th
 \begin{equation}
   \delta_j =
   \begin{cases}
-    \varphi'(net_j)(o_j - \^{y}_j) & \text{node $j \in L_k$}\\
+    \varphi'(net_j)(o_j - \hat{y}_j) & \text{node $j \in L_k$}\\
     \varphi'(net_j) \sum_k \delta_k w_{jk} & \text{node $j \notin L_k$}
   \end{cases}
 \end{equation}
@@ -276,76 +341,3 @@ In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to 
 
 Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training
 epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
-
-
-
-% In order for a feedforward network to be trained onto a supervised learning, task a network is presented with training examples which each consist of a set of feautres  with a corresponding label $y$. The aim of the of the backpropagation algorithm is to minimize the global MSE error 
-
-
-
-% by adjusting the weights and biases of individual nodes. For this purpose, gradient descent is used to minimize minimize this error. To determine which of the unit's are causing errors each partial derivative of E with respect to the individual weights is computed.\\
-
-
-
-% Now we can calculate the partial derivative of E in respect to an individual weight of a neural unit
-
-
-% We can compute the change of the weight $\Delta w_{ij}$ between nodes $i$ and $j$. 
-
-% $\^{y}_j$ is the desired output of node $j$. $o_i$ being the output of the neuron.
-% \begin{equation}
-%   \Delta w_{ij} = -\eta \frac{\delta E}{\delta w_{ij}} = - \eta \delta_j o_i
-% \end{equation}
-
-% \begin{equation}
-%   \delta_j =
-%   \begin{cases}
-%     \varphi'(net_j)(o_j - \^{y}_j) & \text{if node j is output layer}\\
-%     \varphi'(net_j) \sum_k \delta_k w_{jk} & \text{if node j is in output node}
-%   \end{cases}
-% \end{equation}
-
-
-% Through forwardpropagation the output $\^{y}$ is computed based on the equation (3.17) with the global error value based on the following equation:
-
-% \begin{equation}
-%   E = \frac{1}{2}\sum_{m} (\^{y} - y)^2
-% \end{equation}
-
-% In this equation, the global error between the output and the desired output of the network is measured. In order to reduce the error between the ouput and the disired output, the weights need to be updated according to error that they produce.
-
-% Das Ziel ist nun die Minimierung der Fehlerfunktion, wobei aber im Allgemeinen lediglich ein lokales Minimum gefunden wird. Das Einlernen eines künstlichen neuronalen Netzes erfolgt bei dem Backpropagation-Verfahren durch die Änderung der Gewichte, da die Ausgabe des Netzes – außer von der Aktivierungsfunktion – direkt von ihnen abhängig ist.
-
-
-
-% desired output is measured and the weights are updated to minimize this error at each
-% node in each layer. 
-
-% the objective to minimize the error between the computed output label $\^{y}$ of the network and target $y$. The error function for a given weight can be expressed as follows:
-% % \begin{equation}
-% %   E = \frac{1}{2}\sum_j (y_j - \^{y}_j)
-% % \end{equation}
-% \begin{equation}
-%   E(w_1, w_2, \dots, w_n, \alpha) = \frac{1}{2} (\^{y} - y)^2
-% \end{equation}
-
-% $w_k$ is the $m$-dimensional vector of weights between the inputs and the $k$th hidden node while $\alpha$ is the vector of weights between the hidden nodes and the output, $\^{y}$ denotes the output value of the network.\\
-
-% The gradient descent method involves calculating the derivative of the squared error function with respect to the weights of the network. This is normally done using backpropagation.
-
-% In an iterative process, we must compute the gradient of the error
-% function E with respect to the weights by calculating the partial derivative with respect to each weight. After computation, the weights can be updated accordingly:
-
-% \begin{equation*}
-%   \alpha_k \leftarrow \alpha_k - \eta \frac{\delta E}{\delta \alpha_k} a_k
-% \end{equation*}
-
-% \begin{equation*}
-%   w_{ik} \leftarrow \alpha_k - \eta x_i
-% \end{equation*}
-
-% where $\eta$ denotes the \textit{learning rate}
-
-
-
-% $\^{y}$
