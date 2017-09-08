@@ -232,8 +232,120 @@ Considering equation (3.11) from the neuron section, we can now compute the inpu
 where $h_k$ is the output of the $k$th hidden node and $\alpha_k$ being the weight from the $k$th hidden to the output node. The output unit's activation function is then applied to this value, transforming the output to the given equation
 
 \begin{equation}
-  y = \varphi\left(\sum_{k=1}^{n} \alpha_k \varphi \left(\sum_{i=1}^{m} w_{ik} x_i + b \right\right).
+  y = \varphi\left(\sum_{k=1}^{n} \alpha_k \varphi \left(\sum_{i=1}^{m} w_{ik} x_i + b \right)\right).
 \end{equation}.
 
 \subsection{Backpropagation}
-In order for a neural network to be trained, the so-called backpropagation algorithm must be performed.
+The purpose of the backpropagation algorithm \cite{rumelhart1988learning} is to adjust the synaptic weights of the network to approximate the function mapping between the inputs $x$ of the training data with the corresponding output labels $y$. The algorithm describes the process of training. The result of this algorithm is a neural network configured to minimize the error when solving a supervised learning task.\\
+
+As a first step, the weights of the network are initialized which is usally done in a randomly manner or based on a certain heuristic. Then, each input pattern $p$, with features $p = \{x_0,x_1, x_2, \dots, x_n \}$ and label $y$, is then sequentially processed, layer by layer, by the network in two phases. In the first phase, the \textit{forward phase}, the ouput of the network is computed. The error function for the output nodes j are then calculated as follows, where $\hat{y}_j$ denotes the output node's generated output and $y_j$ is the desired ouput:
+
+\begin{equation}
+  E = \frac{1}{2}\sum_{j} (\hat{y}_j - y_j)^2.
+\end{equation}
+
+Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backwards phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network. \\
+
+In this iterative process, the error gradients of the error function are calculated based on the partial derivative with respect to each connecting weight. If we define $o_j$ as output of a neural unit with
+\begin{equation}
+  o_j = \varphi(net_j)
+\end{equation}
+and the units input as 
+\begin{equation}
+  net_j = \sum_{j=1}^{n}x_{i}w_{ij},
+\end{equation}
+the chain rule can be applied in order to compute the partial derivatives as follows:
+\begin{equation}
+  \frac{\delta E}{\delta w_{ij}} = \frac{\delta E}{\delta o_j} \frac{\delta o_j}{\delta net_j} \frac{\delta net_j}{\delta w_{ij}}
+\end{equation}
+
+Given the partial derivative in respect to the weight $w_{ij}$, the change of the weight $\Delta w_{ij}$ can be determined. Here, the weight update equation (3.22) is computed depending on two cases. Either if the node $j$ is in the hidden layer or in the output layer:
+\begin{equation}
+  \Delta w_{ij} = -\eta \frac{\delta E}{\delta w_{ij}} = - \eta \delta_j o_i
+\end{equation}
+
+\begin{equation}
+  \delta_j =
+  \begin{cases}
+    \varphi'(net_j)(o_j - \^{y}_j) & \text{node $j \in L_k$}\\
+    \varphi'(net_j) \sum_k \delta_k w_{jk} & \text{node $j \notin L_k$}
+  \end{cases}
+\end{equation}
+\\
+In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to which amount the reverse gradients are applied to the weight update; $k$ refers to a node in the successor layer of the node $j$.\\
+
+Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training
+epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
+
+
+
+% In order for a feedforward network to be trained onto a supervised learning, task a network is presented with training examples which each consist of a set of feautres  with a corresponding label $y$. The aim of the of the backpropagation algorithm is to minimize the global MSE error 
+
+
+
+% by adjusting the weights and biases of individual nodes. For this purpose, gradient descent is used to minimize minimize this error. To determine which of the unit's are causing errors each partial derivative of E with respect to the individual weights is computed.\\
+
+
+
+% Now we can calculate the partial derivative of E in respect to an individual weight of a neural unit
+
+
+% We can compute the change of the weight $\Delta w_{ij}$ between nodes $i$ and $j$. 
+
+% $\^{y}_j$ is the desired output of node $j$. $o_i$ being the output of the neuron.
+% \begin{equation}
+%   \Delta w_{ij} = -\eta \frac{\delta E}{\delta w_{ij}} = - \eta \delta_j o_i
+% \end{equation}
+
+% \begin{equation}
+%   \delta_j =
+%   \begin{cases}
+%     \varphi'(net_j)(o_j - \^{y}_j) & \text{if node j is output layer}\\
+%     \varphi'(net_j) \sum_k \delta_k w_{jk} & \text{if node j is in output node}
+%   \end{cases}
+% \end{equation}
+
+
+% Through forwardpropagation the output $\^{y}$ is computed based on the equation (3.17) with the global error value based on the following equation:
+
+% \begin{equation}
+%   E = \frac{1}{2}\sum_{m} (\^{y} - y)^2
+% \end{equation}
+
+% In this equation, the global error between the output and the desired output of the network is measured. In order to reduce the error between the ouput and the disired output, the weights need to be updated according to error that they produce.
+
+% Das Ziel ist nun die Minimierung der Fehlerfunktion, wobei aber im Allgemeinen lediglich ein lokales Minimum gefunden wird. Das Einlernen eines künstlichen neuronalen Netzes erfolgt bei dem Backpropagation-Verfahren durch die Änderung der Gewichte, da die Ausgabe des Netzes – außer von der Aktivierungsfunktion – direkt von ihnen abhängig ist.
+
+
+
+% desired output is measured and the weights are updated to minimize this error at each
+% node in each layer. 
+
+% the objective to minimize the error between the computed output label $\^{y}$ of the network and target $y$. The error function for a given weight can be expressed as follows:
+% % \begin{equation}
+% %   E = \frac{1}{2}\sum_j (y_j - \^{y}_j)
+% % \end{equation}
+% \begin{equation}
+%   E(w_1, w_2, \dots, w_n, \alpha) = \frac{1}{2} (\^{y} - y)^2
+% \end{equation}
+
+% $w_k$ is the $m$-dimensional vector of weights between the inputs and the $k$th hidden node while $\alpha$ is the vector of weights between the hidden nodes and the output, $\^{y}$ denotes the output value of the network.\\
+
+% The gradient descent method involves calculating the derivative of the squared error function with respect to the weights of the network. This is normally done using backpropagation.
+
+% In an iterative process, we must compute the gradient of the error
+% function E with respect to the weights by calculating the partial derivative with respect to each weight. After computation, the weights can be updated accordingly:
+
+% \begin{equation*}
+%   \alpha_k \leftarrow \alpha_k - \eta \frac{\delta E}{\delta \alpha_k} a_k
+% \end{equation*}
+
+% \begin{equation*}
+%   w_{ik} \leftarrow \alpha_k - \eta x_i
+% \end{equation*}
+
+% where $\eta$ denotes the \textit{learning rate}
+
+
+
+% $\^{y}$
