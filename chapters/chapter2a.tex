@@ -168,7 +168,7 @@ The activation function $\varphi(u_k)$ denotes the output of the neuron $k$ and 
 %   \varphi(v) = \tanh(v)
 % \end{equation}
 % \\
-The logic function, as in \ref{fig:af}, is well suited for classification as it is a non-linear function and it transforms the output values to either side of the curve. This results in a clear distinction between classes. However, the function has a compact domain range, meaning that the logistic function squashes output values into ranges $(0, 1)$. Consequently, when the inputs of a neuron become large, the function saturates at 0 or 1, with a derivative close to 0. As the derivatives are used for training the network \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
+The logic function, as in \ref{fig:af}, is well suited for classification as it is a non-linear function and it transforms the output values to either side of the curve. This results in a clear distinction between classes. However, the function has a compact domain range, meaning that the logistic function squashes output values into ranges $(0, 1)$. Consequently, when the inputs of a neuron become large, the function saturates at 0 or 1 with a derivative in these points being close to 0. As the derivatives are used for training the network\footnote{The training is performed via the backpropagation algorithm which is explained in section \ref{sec:backprop}}, the network trains slower if the weights or biases are high. This is referred to in literature as the \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
 
 \begin{figure}[h!]
   \centering
@@ -301,6 +301,7 @@ where $h_k$ is the output of the $k$th hidden node and $\alpha_k$ being the weig
 \end{equation}.
 
 \subsection{Backpropagation}
+\label{sec:backprop}
 The purpose of the backpropagation algorithm \cite{rumelhart1988learning} is to adjust the synaptic weights of the network to approximate the function mapping between the inputs $x$ of the training data with the corresponding output labels $y$. The algorithm describes the process of training. The result of this algorithm is a neural network configured to minimize the error when solving a supervised learning task.\\
 
 As a first step, the weights of the network are initialized which is usally done in a randomly manner or based on a certain heuristic. Then, each input pattern $p$, with features $p = \{x_0,x_1, x_2, \dots, x_n \}$ and label $y$, is then sequentially processed, layer by layer, by the network in two phases. In the first phase, the \textit{forward phase}, the ouput of the network is computed. The error function for the output nodes j are then calculated as follows, where $\hat{y}_j$ denotes the output node's generated output and $y_j$ is the desired ouput:
