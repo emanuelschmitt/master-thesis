@@ -116,7 +116,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 \subsection{Neurons}
 
-A neuron is fundamental processing unit of an artificial neural network. The basic elements of a neuron are as follows \cite{Haykin:1998:NNC:521706}:
+A neuron is fundamental processing unit of an artificial neural network. The diagram \label{fig:neuron} shows a model \cite{Haykin:1998:NNC:521706} of a neuron which will be explained in the following:
 \begin{itemize}
   \item A set of \textit{connecting links} or \textit{synapses} which have a certain weight defined as the vector $\vec{w}$. The signal, represented as $\vec{x}$, flows through the \textit{synapse} and is mutipied by it's weight $w_i$.
   \item A \textit{adder} for summing the input signals and weights of the incoming synapses. These operations constitute a linear combiner.
@@ -146,6 +146,7 @@ A neuron is fundamental processing unit of an artificial neural network. The bas
       \draw[dashed] (0,-0.43) -- (0,0.43);
       \node (dots) at (-3, -1.15) {$\vdots$};
   \end{tikzpicture}
+  \caption{The diagram shows an artificial neuron's model with it's individual components.}\label{fig:neuron}
 \end{figure}
 
 Mathematically, a neuron $k$ can be expressed with the following equation \cite{Haykin:1998:NNC:521706}
