@@ -32,16 +32,22 @@ Mobile
 
 \subsection{User Interface}
 \subsubsection{Login}
-When the application is opened for the first time, a login screen appears. As in standard login screens, the interface asks for credentials including username and password. Authenticating users, has the advantage, that the generated data can be mapped to individual users.\\
+When the application is opened for the first time, a login screen appears. As in standard login screens, the interface asks for credentials including username and password. Authenticating users, has the advantage, that the generated data can be mapped to individual users.
 
-The source code of the of the question view is to be found in \texttt{LoginViewController.swift}.
+% The source code of the of the question view is to be found in \texttt{LoginViewController.swift}.
 
 \subsubsection{Start Screen}
 During the trial the user is asked to generate taps once a day. In order to indicate if the user is eligible to perform a tap generation trial, the start screen shows a button that is either active or inactive. This switch depends on 4 distinct conditions: \\
 
-When data is collected in the laboratory environment, the app is set to \textit{lab mode}. In \textit{lab mode} the button is always active and trials can be performed. When a user has not performed a trial today, the button is inactive. In contrast, when a user has performed a trial today, the button is inactive and a further trial can be performed the next day. Once all field trials are performed, the app confirms that all data is collected and the button remains inactive.\\
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{iphones_startscreen.png}
+  \caption{This figure shows the start screen in different configurations. On the left hand-side screenshot, the user has not performed a trial while the the middle image shows the screen where a trial has been performed. The right-hand side image shows the \textit{lab mode} where trails can permanently be performed.}
+\end{figure}
 
-The source code of the of the question view is to be found in \texttt{StartViewController.swift}.
+When data is collected in the laboratory environment, the app is set to \textit{lab mode}. In \textit{lab mode} the button is always active and trials can be performed. When a user has not performed a trial today, the button is inactive. In contrast, when a user has performed a trial today, the button is inactive and a further trial can be performed the next day. Once all field trials are performed, the app confirms that all data is collected and the button remains inactive.
+
+% The source code of the of the question view is to be found in \texttt{StartViewController.swift}.
 \subsubsection{Tap Input}
 
 \begin{figure}[h!]
@@ -52,7 +58,7 @@ The source code of the of the question view is to be found in \texttt{StartViewC
 
 To acquire individual user taps the mobile application offers a user interface where buttons are aligned in a grid shape structure. The structure is calculated based on a specific configuration set where the amount the vertical and horizontal buttons in the interface can be set. Figure \ref{fig:grid} shows the interface, where 4, 12 and 20 distinguishable buttons are configured.\\
 
-For the user to tap on every location of the screen exactly once, a red button indicating the next button to tap is highlighted guiding the user through the interaction process. While the user is tapping the grid, the gyroscope and accelerometer information is recorded. After all buttons gave been tapped, either a new grid is loaded or the tap acquisition phase ends proceeding with the question interface.\\
+For the user to tap on every location of the screen exactly once, a red button indicating the next button to tap is highlighted guiding the user through the interaction process. While the user is tapping the grid, the gyroscope and accelerometer information is recorded. After all buttons gave been tapped, either a new grid is loaded or the tap acquisition phase ends proceeding with the question interface.
 
 % Maybe a table
 % \begin{itemize}
@@ -72,10 +78,16 @@ For the user to tap on every location of the screen exactly once, a red button i
 %     \end{tabular}
 % \end{center}
 
-The source code of the of the tap input view is to be found in \texttt{GridViewController.swift}.
+% The source code of the of the tap input view is to be found in \texttt{GridViewController.swift}.
 
 
 \subsubsection{Questions}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{questions_iphone.png}
+  \caption{The figure displays question views with icons as answer possibilities.}
+\end{figure}
+
 To furthermore label the data acquired in the tap input interface, the application provides screens for the user to answer several questions. These question regard the various condition in which the user has generated taps. In the table below the asked questions with corresponding answer choices are to be found.
 
 \begin{center}
@@ -91,19 +103,14 @@ To furthermore label the data acquired in the tap input interface, the applicati
   \caption{The Table shows the questions asked in the question view.}
 \end{center}
 
-To enable fast interactions, each answer possibility to a question is represented in the interface with an icon. Once an icon has been pressed, the application transits to the next question until all questions have been answered.\\
+To enable fast interactions, each answer possibility to a question is represented in the interface with an icon. Once an icon has been pressed, the application transits to the next question until all questions have been answered.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{questions_iphone.png}
-  \caption{The figure displays question views with icons as answer possibilities.}
-\end{figure}
-
-The source code of the of the question view is to be found in \texttt{QuestionViewController.swift}.
+% The source code of the of the question view is to be found in \texttt{QuestionViewController.swift}.
 
 \subsubsection{Upload}
 After all taps and questions are gathered, the acquired data is sent to the server. The interface at this points displays a spinning wheel for the user to acknowledge that the mobile phone is processing the data. In case an upload fails, the application provides a manual upload screen, where past sessions can be uploaded.
 
+% The source code of the of the upload views are to be found in \texttt{UploadViewController.swift} and  \texttt{ManualUploadViewController.swift}.
 % \subsection{Smartphone Sensors}
 % Modern smartphones come with a variety of different sensors offering valuable services to it's users and enhancing many applications. The newest Apple iPhone to date, the iPhone 7, has a fingerprint sensor, a barometer, a three-axis gyroscope and accelerometer (MEMS), a proximity sensor and an ambient light sensor attached to it's main-board \cite{iphone7techspecs}. As we are going to predict finger taps on the iPhone screen, the only sensors that are effected by the force of the tap are the gyroscope and the accelerometer. Therefore, these will be outlined in the following sections.
 
@@ -171,6 +178,49 @@ After all taps and questions are gathered, the acquired data is sent to the serv
 % \label{test}
 % \end{figure}
 
+\subsection{Implementation Notes}
+\subsubsection{Obtaining Sensor Information}
+In order to access the gyroscope and the accelerometer, Apple provides a high-level API\footnote{An Application Program Interface is a set of rules and subroutines provided by an application system for the developer to use. The following link leads to the Core Motion API documentation: \url{https://developer.apple.com/documentation/coremotion/} } for accessing the device's sensors: \textit{Core Motion}. Core Motion provides motion and environmental related data from sensors including accelerometers, gyroscopes, pedometers, magnetometers, and barometers in easy to use manner. \\
+
+Sensor values can either be accessed as proceeded including aggregations of the values or as raw version. For TapSensing, raw values are recorded to avoid any form of bias. The update interval can be configures at ranges from $10$Hz - $100$Hz. Higher update-rates are possible but are not ensured to be processed in real-time by the device. For TapSensing, the update rate is configured with the highest (safe) value possible. This ensures that tap patterns are captured with high resolution in order to make a classification easier.
+\subsubsection{Local Persistence}
+It is possible that a session upload fails due to lack of internet access or another reason. Due to this, the application stores all session information and sensory data in it's local SQLite database. For local persistence Apple provides it's own framework called \textit{Core Data} which is extensively used in TapSensing. Once the data has been successfully received by the backend, the data is deleted from the local database.
+\subsubsection{Push Notifications}
+TapSensing is registered with the Apple Push Notification Service allowing the application to receive push notifications. Notifications are used to remind the user during the field study, that he has to take part in the study.
+\subsubsection{Distribution}
+Installing iOS applications that are not uploaded to the Apple App Store, requires each device to be registered in the Apple Developer Portal with the smartphone's serial number. To avoid this, the application has been uploaded to the App Store enabling an easy distribution.
+
 \section{Backend application}
 \label{sec:backend}
-Backend
+\subsection{HTTP Endpoints}
+For the purpose of interoperability the network communication from the mobile application and the forms application to the server-side application is done via HTTP Requests in the JSON\footnote{JSON (JavaScript Object Notation)\cite{ietf-jsonbis-rfc7159bis-04} is a lightweight data-interchange format.} format. The endpoints listed below represent tiny logic components that can be called from an external client.
+\begin{center}
+  \begin{tabular}{|p{2cm}|p{4cm}|p{8cm}|}
+  \hline
+  \textbf{HTTP \newline Method} & \textbf{URL} & \textbf{Description} \\ \hline
+  POST & /login & Provides login functionalities for the mobile client. This method returns an authentication, that is used for further requests to authenticate the user.\\
+  \hline
+  POST & /session & Provides upload functionality for a session data objects.\\
+  \hline
+  POST & /touchevent & Provides upload functionality for touchevent data objects.\\
+  \hline
+  POST & /sensordata & Provides upload functionality for a sensordata data objects.\\
+  \hline
+  POST & /apns & Retrieves the Device's APNS token. This is required to send push notifications to the users.\\
+  \hline
+  GET & /trial-settings & Provides the configuration for the tap input view. Here, the amount of buttons and the amount of grid repetitions that are to be performed in a single session can be defined.\\
+  \hline
+  POST & /survey & Provides upload functionalities for the survey form application.\\
+  \hline
+
+  \end{tabular}
+  \caption{The Table shows the questions asked in the question view.}
+\end{center}
+
+\subsection{Data Model}
+\subsection{Implementation Notes}
+\subsubsection{Authentication}
+TOKEN HTTP HEADER
+\subsubsection{Push Notifications}
+\subsubsection{Backups}
+\subsubsection{Deployment}
