@@ -193,6 +193,7 @@ Installing iOS applications that are not uploaded to the Apple App Store, requir
 \section{Backend application}
 \label{sec:backend}
 \subsection{HTTP Endpoints}
+\label{sec:endpoints}
 For the purpose of interoperability the network communication from the mobile application and the forms application to the server-side application is done via HTTP Requests in the JSON\footnote{JSON (JavaScript Object Notation)\cite{ietf-jsonbis-rfc7159bis-04} is a lightweight data-interchange format.} format. The endpoints listed below represent tiny logic components that can be called from an external client.
 \begin{center}
   \begin{tabular}{|p{2cm}|p{4cm}|p{8cm}|}
@@ -218,9 +219,52 @@ For the purpose of interoperability the network communication from the mobile ap
 \end{center}
 
 \subsection{Data Model}
+TapSensing's data model reflect the schemas that are used in the PostgreSQL database. As seen in figure \ref{fig:erdiagram}, the data model consists of 4 data objects that I will describe in this section:
+
+\begin{itemize}
+  \item \textbf{User}: The user model is inherited by the Django's user model\footnote{For more information on the Django user model, the following URL leads to the model's documentation: \url{https://docs.djangoproject.com/en/1.11/ref/contrib/auth/}}. The user model is used for authentication and persisting the authentication token. The other models described in this section are connected to the user model through a foreign key relation to identify the user associated with the data object.
+  \item \textbf{Session}: The session data object holds all information associated with the user's trial. This includes the data collecting in the ``labeling part''\footnote{The ``labeling part refers to the question views, where additional information on the data acquired is collected'''} of the application such as the hand used, the body posture and the typing modality. In addition, information is stored such as device infos and if the session took place in a laboratory or field environment.
+  \item \textbf{Touchevent}: The touchevent data object stores information regarding the ``ground truth'' of the user generated tap including the exact x and y coordinates, timestamp and an identifier of the specific grid rectangle tapped in the tap input view. Furthermore, it is noted if the user hit a specific rectangle and if the event is a touch-down or touch-up event.
+  \item \textbf{Sensordata}: The sensordata data object captures all information obtained by the gyroscope and accelerometer of the mobile device. To differentiate between accelerometer and gyroscope values, the data object includes a type field. In addition, the model captures the timestamp and the 3-sensor components (x, y, z) of the individual sensors.
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{datamodel1.png}
+  \caption{The diagram shows TapSensing's data model with the user, session, sensordata and touchevent data object.} \label{fig:erdiagram}
+\end{figure}
+
+% An additional model was created for the survey application.
+
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.4\textwidth]{datamodel2.png}
+%   \caption{The diagram shows TapSensing's data model with the user, session, sensordata and touchevent data object.} \label{fig:erdiagram}
+% \end{figure}
+
 \subsection{Implementation Notes}
 \subsubsection{Authentication}
-TOKEN HTTP HEADER
+The authentication mechanism implemented in TapSensing is based on a standard token authentication scheme. This allows the association of an incoming request with a set of identifying credentials, which is - in this context - the user the request came from. In order to obtain an authentication token, the mobile application sends the login credentials of a user including username and password to the login endpoint\footnote{The login endpoint is described in section \ref{sec:endpoints}.}. When the credentials have been checked for validity, the endpoints returns an authentication token in the following format:
+\begin{minted}[tabsize=4]{js}
+{     
+  "token": "Token 3acc6c2a58723e2f1579d4526add2511f6a0a525"
+}
+\end{minted}
+The token is then added to the HTTP request in the ``Authorization'' header to authenticate the user.
+\subsubsection{Ensuring data consistency}
+
+
+
 \subsubsection{Push Notifications}
+Participants are reminded every day with push notifications during the field study to take part as previous research has shown that push notifications greatly enhance the participation \cite{pushNot}. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to positively impact the user taking action. Following these assumptions, a push notification strategy has been implemented combining notifications with and without sound. Figure \ref{fig:push-notifications} shows the implemented strategy with trigger times. \\
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.5\textwidth]{push_notifications.pdf}
+  \caption{The diagram shows the implemented push notification strategy.} \label{fig:push-notifications}
+\end{figure}
+
+Implementation-wise, the Django package \textit{django-push-notifications}\footnote{\url{https://github.com/jleclanche/django-push-notifications}} is used providing mechanisms to register devices as well as to send notifications.
 \subsubsection{Backups}
+To prevent data loss, the PostgreSQL database is backed up via a unix cronjob every evening. The database dumps are sent automatically to Amazon Web Services S3 Bucket.
 \subsubsection{Deployment}
