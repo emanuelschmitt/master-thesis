@@ -1,8 +1,5 @@
 \chapter{Data Aquisition System\label{cha:chapter3}}
-For labeled data acquisition a system was required that is able to function in a laboratory environment, as well as recieve the data coming from the field study. For this purpose TapSensing was created. TapSensing is an iOS application that collects touch events including their sensory information to then send them to a backend server application. In the following sections we will outline the different components of TapSensing. 
-
-- Introduce TapSensing
-- Introduction of the chapter
+In this chapter, I would like to introduce TapSensing. TapSensing is a labeled data acquisition system designed to collect user generated taps with corresponding sensor readings. The system comprises of an iOS Swift and a Python Django server-side application. The chapter begins with a broader view on the system by explaining the overall system architecture and will then dive into it's individual components and implementation.
 
 \section{Overall System Architecture}
 
@@ -15,7 +12,7 @@ The TapSensing application consists of two main components: the mobile and the s
 \end{figure}
 
 \begin{itemize}
-  \item \textbf{Mobile application}: The mobile application provides interfaces for the user to generate taps with corresponding sensor information. Furthermore, the application is capable of sending the acquired data to the backend application. More features of the mobile application are presented in section \ref{sec:mobileapp}. % # TODO
+  \item \textbf{Mobile application}: The iOS application provides interfaces for the user to generate taps with corresponding sensor information. Furthermore, the application is capable of sending the acquired data to the backend application. More features of the mobile application are presented in section \ref{sec:mobileapp}. % # TODO
   \item \textbf{NGINX}: For accepting and routing incoming HTTP requests, an NGINX reverse proxy/load balancer is used. The reverse proxy forwards the incoming requests to the server-side application and is capable of serving static content, such as images, HTML, CSS and JavaScript files of the form application.
   \item \textbf{Gunicorn}: Gunicorn is a Python Web Server Gateway Interface (WSGI) HTTP server which runs the source code of the backend application.
   \item \textbf{Backend Application}: The backend application provides HTTP API endpoints which inherit the server-side logic. The backend provides authentication and persistence functionalities. More information on the backend application is to be found in section \ref{sec:backend}
@@ -258,7 +255,7 @@ The authentication mechanism implemented in TapSensing is based on a standard to
 The token is then added to the HTTP-request in the ``Authorization'' header to authenticate the user.
 
 \subsubsection{Push Notifications}
-Participants are reminded every day with push notifications during the field study to take part as previous research has shown that push notifications greatly enhance the participation \cite{pushNot}. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to positively impact the user taking action. Following these assumptions, a push notification strategy has been implemented combining notifications with and without sound. Figure \ref{fig:push-notifications} shows the implemented strategy with trigger times. \\
+As a previous study has shown that push notifications greatly enhance user participation \cite{pushNot} during a mobile field study, notifications are sent on a daily basis reminding the participants to take action. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to futhermore impact the participation. Following these assumptions, a push notification strategy has been designed combining notifications with and without sound. Figure \ref{fig:push-notifications} shows this implemented strategy with corresponding trigger times. \\
 
 \begin{figure}[h!]
   \centering
@@ -266,7 +263,8 @@ Participants are reminded every day with push notifications during the field stu
   \caption{The diagram shows the implemented push notification strategy.} \label{fig:push-notifications}
 \end{figure}
 
-Implementation-wise, the Django package \textit{django-push-notifications}\footnote{\url{https://github.com/jleclanche/django-push-notifications}} is used providing mechanisms to register devices as well as to send notifications.
+The interaction with the APNS service has been implemented using the Django package \textit{django-push-notifications}\footnote{\url{https://github.com/jleclanche/django-push-notifications}}. It is used to provide mechanisms to register devices as well as to send notifications. To trigger the notifications at specific times unix cronjobs are executed.
 \subsubsection{Backups}
 To prevent data loss, the PostgreSQL database is backed up via a unix cronjob every evening. The database dumps are sent automatically to Amazon Web Services S3 Bucket.
 \subsubsection{Deployment}
+The server-side application with the NGINX reverse-proxy and a gunicorn WSGI application server has been deployed on a Ubuntu 14.04 virtual environment. The server comprises of 1GHz of shared CPU and 1 GB RAM.
