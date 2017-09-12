@@ -27,7 +27,7 @@ The TapSensing application consists of two main components: the mobile and the s
 % The TapSensing backend is written upon the Python Django Framework\footnote{https://www.djangoproject.com/} which is being executed upon the gunicorn application server. Django uses a so-called ORM to perform transactions with the Database, which in our case is a PostgreSQL database.
 
 \section{Mobile Application}
-Mobile
+
 \label{sec:mobileapp}
 
 \subsection{User Interface}
@@ -185,6 +185,11 @@ In order to access the gyroscope and the accelerometer, Apple provides a high-le
 Sensor values can either be accessed as proceeded including aggregations of the values or as raw version. For TapSensing, raw values are recorded to avoid any form of bias. The update interval can be configures at ranges from $10$Hz - $100$Hz. Higher update-rates are possible but are not ensured to be processed in real-time by the device. For TapSensing, the update rate is configured with the highest (safe) value possible. This ensures that tap patterns are captured with high resolution in order to make a classification easier.
 \subsubsection{Local Persistence}
 It is possible that a session upload fails due to lack of internet access or another reason. Due to this, the application stores all session information and sensory data in it's local SQLite database. For local persistence Apple provides it's own framework called \textit{Core Data} which is extensively used in TapSensing. Once the data has been successfully received by the backend, the data is deleted from the local database.
+\subsubsection{Ensuring data consistency}
+Sending all collected data in a single HTTP-request results in the sent package being too large for the server-side system to process. For this reason, the data is split up into packages of 300 objects per request. To send these requests in an asynchronous manner, the \textit{Promise}\footnote{Promises are a software abstracting for dealing with asynchronous computation. Promises are objects that may produce a value at some point in the future.}\cite{Liskov:1988:PLS:53990.54016} library \textit{Hydra}\footnote{\url{https://github.com/malcommac/Hydra}} is used. \\
+
+During an upload phase, packages are sent in a sliding window approach. Packets are sent three at a time until all packages have been acknowledged by the server-side application. For each transmitted package, the server responds with the amount of data objects contained within the request. The mobile client can therefore track the amount of packages transmitted to ensure that all data has been transmitted successfully.
+If one packet fails to arrive, the package is resent with an exponential back-off.
 \subsubsection{Push Notifications}
 TapSensing is registered with the Apple Push Notification Service allowing the application to receive push notifications. Notifications are used to remind the user during the field study, that he has to take part in the study.
 \subsubsection{Distribution}
@@ -246,14 +251,11 @@ TapSensing's data model reflect the schemas that are used in the PostgreSQL data
 \subsubsection{Authentication}
 The authentication mechanism implemented in TapSensing is based on a standard token authentication scheme. This allows the association of an incoming request with a set of identifying credentials, which is - in this context - the user the request came from. In order to obtain an authentication token, the mobile application sends the login credentials of a user including username and password to the login endpoint\footnote{The login endpoint is described in section \ref{sec:endpoints}.}. When the credentials have been checked for validity, the endpoints returns an authentication token in the following format:
 \begin{minted}[tabsize=4]{js}
-{     
+{
   "token": "Token 3acc6c2a58723e2f1579d4526add2511f6a0a525"
 }
 \end{minted}
-The token is then added to the HTTP request in the ``Authorization'' header to authenticate the user.
-\subsubsection{Ensuring data consistency}
-
-
+The token is then added to the HTTP-request in the ``Authorization'' header to authenticate the user.
 
 \subsubsection{Push Notifications}
 Participants are reminded every day with push notifications during the field study to take part as previous research has shown that push notifications greatly enhance the participation \cite{pushNot}. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to positively impact the user taking action. Following these assumptions, a push notification strategy has been implemented combining notifications with and without sound. Figure \ref{fig:push-notifications} shows the implemented strategy with trigger times. \\
