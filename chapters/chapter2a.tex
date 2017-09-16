@@ -342,3 +342,10 @@ In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to 
 
 Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training
 epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
+
+\subsection{Recurrent Neural Networks}
+In the previous section, we have looked at feedforward neural networks where information, as the name implies, flows only in one direction, from the input layer to the output layer. A recurrent neural network (RNN) is similar to a feedforward network, except that it also has cyclic connections. This structure makes a RNN able to memorize previous information that has flown throw the network.\\
+
+For each timestep $t$, the recurrent neuron, as illustrated in Figure bla, recieves the input $x_{(t)}$ as well as it's own ouput from the the previously compututed time step $y_{(t_{-1})}$. The network can then be transformed to represent the time axis, as illustrated in Figure bla, which is also refered to as \textit{unrolling through time}.
+
+In comparison to the feedforward neuron, the recurrent neuron has a pair of wights: one represents the inputs $x_{(t)}$ and the other for the ouput of the previous step $y_{(t_{-1})}$. We can define these weight vectors as $w_x$ and $w_y$. The output of a recurrent neuron can then be computed with following equation:
