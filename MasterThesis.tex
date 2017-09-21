@@ -1,4 +1,4 @@
-\documentclass[bibtotoc,liststotoc,BCOR5mm,DIV12]{scrbook}
+\documentclass[bibtotoc, liststotoc, BCOR5mm, DIV12, parskip=half+, pagesize=auto, twoside=false]{scrbook}
 
 % use this declaration to set specific page margins
 %\usepackage[a4paper , lmargin = {2.7cm} , rmargin = {2.9cm} , tmargin = {2.7cm} , bmargin = {4.6cm} ]{geometry}
@@ -19,6 +19,20 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{minted}
+\usepackage{mdframed}
+% \usepackage[default,scale=0.95]{opensans}
+% \usepackage[final]{microtype} % mikrotypographische Optimierungen
+
+%tables
+\usepackage{multirow} % Tabellen-Zellen über mehrere Zeilen
+\usepackage{multicol} % mehre Spalten auf eine Seite
+\usepackage{tabularx} % Für Tabellen mit vorgegeben Größen
+\usepackage{longtable} % Tabellen über mehrere Seiten
+\usepackage{float}
+
+\usepackage{setspace} % Zeilenabstand
+% \onehalfspacing % 1,5 Zeilen
+\linespread{1.1}
 \usetikzlibrary{decorations.pathreplacing, arrows,matrix,positioning, fit, arrows.meta}
 % \usepackage{minted}
 % header and footer line - no header & footer line on pages where a new chapter starts

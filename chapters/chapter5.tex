@@ -1,36 +1,96 @@
 \chapter{Method\label{cha:chapter5}}
 
 \section{Hypothesis}
+To recall, in the related work section previous research was presented showing that PIN\footnote{Personal Identification Number} and passwords can be obtained by reconstructing touchscreen taps based on motion sensor readings \cite{Tapprints, Accessory, Touchlogger}. However, since the data in these approaches was collected in a controlled environment, it has not been shown that the feasibility to predict tap locations also applies to a more natural environment where users usually engage with their personal smartphones. This question forms the first hypothesis of this thesis.
+
 \begin{center}
-  \begin{framed}
-    \textbf{H1: The environment of recorded sensor data has an effect on the prediction accuracy.}
-  \end{framed}
+  \begin{mdframed}[backgroundcolor=gray!10] 
+    \textbf{H1}  The environment of recorded sensor data has an effect on the prediction accuracy.
+  \end{mdframed}
 \end{center}
 
 \begin{center}
   \begin{framed}
-    \textbf{H1. The prediction accuracy for a classifier trained with the laboratory data will score higher that one trained with the laboratory data for each of the three grids.}
+    \textbf{H1.1:} The prediction accuracy for a classifier trained with the laboratory data will score higher than one trained with the field data.
   \end{framed}
 \end{center}
+
+Furthermore, 
+
+\begin{center}
+  \begin{mdframed}[backgroundcolor=gray!10]
+    \textbf{H2:} The input modality has an effect on the prediction accuracy.
+  \end{mdframed}
+\end{center}
+
+It is plausible that typing with the index finger and holding the device in the other hand will cause less movement of the smartphone as typing with a thumb will. This is presumably to be reflected in the motion data.
+
+\begin{center}
+  \begin{framed}
+    \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
+  \end{framed}
+\end{center}
+
+Moreover, I presume that 
+\begin{center}
+  \begin{framed}
+    \textbf{H3:} The body posture has an effect on the prediction accuracy.
+  \end{framed}
+\end{center}
+
+Similar to the input modality, it is also plausible that a user that taps a smartphone screen while sitting will move lesser than standing.
+
+\begin{center}
+  \begin{framed}
+    \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
+  \end{framed}
+\end{center}
+
+
+\begin{center}
+  \begin{framed}
+    \textbf{H1.1:} The prediction accuracy for a classifier trained with the laboratory data will score higher that one trained with the field data for each of the three grids.
+  \end{framed}
+\end{center}
+
+\section{Experimental Approach}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{process.pdf}
+  \caption{This figure shows the overall appraoch to the experiment.} \label{fig:appraoch}
+\end{figure}
+
+The overall experiment is divided into four parts. In the first step, labeled data is acquired from subjects invited to take part in the experiment. For this purpose, the TapSensing application is used. The data acquisition part is necessary to collect sensor data with the corresponding ground truth of the tap locations for the supervised learning task. After the data is successfully acquired, the continuos sensor recordings are preprocessed to obtain the portion of recording which represents each individual tap. Next, features are extracted from the taps in order to train classifiers. To evaluate the classification results statistical tests are performed in the final analysis part. 
+
+% - Data acquisition
+%   - Ground truth of the touch Environments with grid_id and timestamps
+%   - Sensory recordings of gryoscope and accelerometer
+%   - input modalities and body posture
+%   - Environments Lab and field
+% - Preprocessing Feature Extraction
+
+
 \section{Labeled Data Acquisition}
 
 \subsection{Subject}
-A total of 27 subjects were invited to participate in the study. There were no restrictions concerning the condition or demographics of individual subjects. However, in order to use the mobile application each subject had to be in possession of one of the permitted iOS devices.
+A total of 27 subjects were invited to participate in the study. There were no restrictions concerning the demographics of individual subjects. However, each subjects had to be in  possession of one of the permitted iOS devices.
 
 \subsection{Environments}
-As the study aimed at collecting sensor reading both in the field as well as in a laboratory environment, the test design involves two environments:
+As the study aimed at collecting sensor reading both in the field as well as in a laboratory environment, the data acquisition is done in two distinct settings:
 \begin{enumerate}
   \item \textbf{Laboratory Evironment}: Subjects were invited to a laboratory room which had a standard office ergonomics setup. Subjects have been asked to either sit at the desk or stand in the room while tapping.
-  \item \textbf{Field Environment}: Subjects were asked to generate taps using their smartphone at any place they are currently located. For example, this could be at home, at work or during leisure activity. 
-\end{enumerate} 
+  \item \textbf{Field Environment}: Subjects were asked to generate taps using their smartphone at any place they are currently located. For example, this could be at home, at work or during leisure activity.
+\end{enumerate}
 
-\subsubsection{Procedure}
-The overall procedure of the experiment is split up into two parts. The first part involves the generation of tap data in the laboratory environment whereas in the second part taps are created 
+\subsection{Devices}
+The devices have been restricted to the Apple iPhone 6, 6s and 7 based on their mutual screen size. As the screen size has an effects on how user tap on the screen, the screen size is an important factor to enable the comparison of classification results.
 
-In order for participants to generate tap data, the subjects were invited to come to the laboratory. To avoid information asymmetry, each participant read an experiment instruction\footnote{The instruction sheet is to be found in the appendix.}. Subjects should then confirm whether they have understood the previously read information. Additional questions regarding the instructions were answered.\\
+\subsection{Procedure}
+In order for participants to generate tap data, the subjects were invited to come to the laboratory for the first part of the experiment. To avoid information asymmetry, each participant read an experiment instruction\footnote{The instruction sheet is to be found in the appendix.}. Subjects should then confirm whether they have understood the previously read information. Additional questions regarding the instructions were answered. In the next step, subjects were asked to fill out an online questionnaire regarding their persona and personal smartphone usage.
 
 % TODO: instruction in appendix
-After the instructions were read, additional questions were answered. To begin with the data acquisition, participants were asked to download the application from the Apple App Store and to login using provided credentials. \\
+To begin with the data acquisition, participants were asked to download the application from the Apple App Store and to login using provided credentials.
 
 \begin{figure}[h!]
   \centering
@@ -38,9 +98,9 @@ After the instructions were read, additional questions were answered. To begin w
   \caption{This figure shows the procedure every subject has to perform in the study.} \label{fig:study_design}
 \end{figure}
 
-Subsequently, subjects were asked to perform 6 consecutive trials in the TapSensing application, whereas one trail includes tapping each grid four times in randomized order. Recall, the grid sizes defined consist of 4, 12 and 20 distinguishable buttons. For an equal distribution of the body posture and the input modality while tapping, each trial is dependent on one of four configuration onto which each subject is assigned. These configuration as well as the whole test procedure are illustrated in Figure \ref{fig:study_design}. After all trials are performed, subjects are asked to continue with the field study.\\
+Subsequently, subjects were asked to perform 6 consecutive trials in the TapSensing application, whereas one trail includes tapping each grid four times in randomized order. Recall, the grid sizes defined consist of 4, 12 and 20 distinguishable buttons. For an equal distribution of the body posture and the input modality while tapping, each trial is dependent on one of four configurations onto which each subject is assigned. These configuration are to be seen in Figure \ref{fig:study_design}.  It is important to note that each subject is not allowed to alter the body posture or input modality during a trial. After all trials are performed, subjects were asked to continue with the field study.\\
 
-During the field study, subjects were asked to perform one trial daily on 6 separate days. On each day push notifications were sent as a reminder to participate. Subjects were free to decide which input modality or body posture to use as the aim of the field study is to collect data that represents regular smartphone usage.
+During the field study, subjects performed one trial daily on 6 separate days. On each day push notifications were sent as a reminder to participate. Subjects were free to decide which input modality or body posture to use as the aim of the field study is to collect data that represents regular smartphone usage.
 
 \section{Data Preprocessing \label{cha:chapter4}}
 \subsection{Preprocessing}
@@ -49,13 +109,13 @@ Before features can be extracted from individual taps, the continuous sensor rec
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{gyroscope_touchdown.png}
-  \caption{} \label{fig:touchdown}
+  \caption{The figure shows a continuos gyroscope reading with the slicing window and corresponding timestamps. The timestamp of the touchdown event is used as an anchor point.} \label{fig:touchdown}
 \end{figure}
 
 Unfortunately, due to different CPU loads on the mobile devices, sensor values are not pushed from the operating system to the mobile application in a constant manner leading to an uneven distribution of the sensor recordings on the time scale. To balance out each tap to a fixed amount of values, a cubic spline interpolation is used. Figure \ref{fig:touchdown} shows the interpolated sensor components with dots representing the raw recordings. Furthermore, recordings that are below 75Hz are filtered out. After the slices are produced for each tap, features are extracted.
 
 \subsection{Feature Extraction}
-A feature is an individual measurable property or characteristic of a phenomenon being observed \cite{Duda:2000:PC:954544}. Therefore, choosing discriminant and independent features is a crucial step for the performance of the later classification. Fortunately, \citeauthor{Tapprints}'s preliminary work has shown a comprehensive list of possible sensor features of which the following features are partially adapted.\\
+A feature is an individual measurable property or characteristic of a phenomenon being observed \cite{Duda:2000:PC:954544}. Therefore, choosing discriminant and independent features is a crucial step for the performance of the later classification. Fortunately, \citeauthor{Tapprints}'s preliminary work has shown a comprehensive list of possible sensor features of which the following features are partially adapted.
 
 \begin{figure}[h!]
   \centering
@@ -121,10 +181,10 @@ A feature is an individual measurable property or characteristic of a phenomenon
   \caption{The figure shows how different features are extracted from the overall sensor matrices: Column features, sensor features and matrix features.}\label{fig:featureextraction}
 \end{figure}  
 
-The features extracted are differentiated based on the set of axis where aggregational functions are applied. These can be categorized as column features, sensor features and matrix features, as illustrated in figure \ref{fig:featureextraction}. Column features refer to features that are a product of a function being applied to each \textit{x}, \textit{y} and \textit{z} sensor axis separately. Sensor features are defined as features where sensor axis are combined. An example for a sensor feature is the Pearson correlation which is calculated for each sensor component pair \textit{xy}, \textit{xz} and \textit{yz}. With sensor features, relations between the components are captured. Lastly, matrix features are a product of a function being applied to both gyroscope and accelerometer time series.\\
+The features extracted are differentiated based on the set of axis where aggregational functions are applied. These can be categorized as column features, sensor features and matrix features, as illustrated in figure \ref{fig:featureextraction}. Column features refer to features that are a product of a function being applied to each \textit{x}, \textit{y} and \textit{z} sensor axis separately. Sensor features are defined as features where sensor axis are combined. An example for a sensor feature is the Pearson correlation which is calculated for each sensor component pair \textit{xy}, \textit{xz} and \textit{yz}. With sensor features, relations between the components are captured. Lastly, matrix features are a product of a function being applied to both gyroscope and accelerometer time series.
 
-% TODO: add fft
-A total of 186 features have been extracted for each individual tap. The table below shows the complete list of features ordered by feature type:
+A total of 203 features have been extracted for each individual tap. The table \ref{table:features} below shows the complete list of features ordered by feature type. Features have been extracted from both the time domain and the frequency domain. To standardize the range of the features extracted, a Min-Max scaling is applied to each feature.
+
 \begin{center}
   % Feature Description
   \begin{tabular}{ | l| l | l | l |}
@@ -159,33 +219,30 @@ A total of 186 features have been extracted for each individual tap. The table b
     \texttt{l2\_norm} & L2 matrix norm & matrix & 1 \\
   \hline
   \end{tabular}
-  \captionof{table}{Table of features extracted from every tap.}  
+  \captionof{table}{Table of features extracted from every tap.}\label{table:features}
 \end{center}
 
 \section{Classification}
 After the features are extracted for all the tap data acquired, learning algorithms are applied in order to measure the classification accuracy. In this experiment, a SVM with radial basis kernel is used as well as a feedforward artifical neural network.
 
 \subsection{Evaluation}
-To evaluate the classifiers trained in the classification part of the experiment, a k-fold cross-validation is used. In k-fold cross-validation, the training set is divided into k subsets of equal sizes. Sequentially, every subset is tested using the classifier trained on the remaining k-1 subsets. During this process, each pattern in the dataset is predicted once. After k classifiers are trained, the mean of the accuracy scores is computed to determine how well the classifier performs.\\
+To evaluate the classifiers trained in the classification part of the experiment, a K-fold cross-validation is used. In K-fold cross-validation, the training set is divided into K subsets of equal sizes. Sequentially, every subset is tested using the classifier trained on the remaining K-1 subsets. During this process, each pattern in the dataset is predicted once. After K classifiers are trained, the mean of the accuracy scores is computed to determine how well the classifier performs.
 
-\subsection{Hyperparameters}
-
-In order to optimize the hyperparameters of each learning algorithm, a grid search is performed. A grid search is an simply an exhausting search through a defined subset of the hyperparameter space for each algorithm. The subset of parameters are combined using the cartesian product in order to configure a classifier. To evaluate the classifier with a set of hyperparameters, a 5-fold cross validation is performed.\\
+\subsection{Grid Search}
+In order to optimize the hyperparameters of each learning algorithm, a grid search is performed. A grid search is an exhausting search through a defined subset of the hyperparameter space for each algorithm. The subset of parameters are combined using the cartesian product in order to configure the classifier. To evaluate the each classifier with a set of hyperparameters, a 5-fold cross validation is performed.
 
 The parameters $C$ and $\gamma$ of the SVM RBF kernel are tested during the grid search using exponential growing sequenced, a recommended method to find suitable parameters \cite{hsu2003practical}.
-
 \begin{align}
   C &= \{ 2^{k} | k \in \{-3, -2, ..., 14, 15\} \}\\ 
   \gamma &= \{ 2^{k} | k \in \{-13, -12, ..., 2, 3\} \}
 \end{align}
-\\
-As for the SVM, hyperparameters are defined for the ANN. Presumably the most crucial parameter in an ANN is the amount of hidden layers defined as when a network is too large it tends to overfit the training data while a too small network can lead to high bias. Therefore, networks ranging from 60 to 1800 nodes are defined and evaluated during the grid search. To regularize the networks an $L_2$ penalty \cite{ng2004feature} is used. The following table \ref{table:anns} lists all configurations of the evaluated ANNs.\\
+As for the SVM, hyperparameters are defined for the ANN. Presumably the most crucial parameter in an ANN is the amount of hidden layers defined as when a network is too large it tends to overfit the training data while a too small network can lead to high bias. Therefore, networks ranging from 60 to 1800 nodes are defined and evaluated during the grid search. To regularize the networks an $L_2$ penalty \cite{ng2004feature} is used. The following table \ref{table:anns} lists all configurations of the evaluated ANNs.
 
 \begin{center}
   \begin{tabular}{ | l | l | l | l | l |}
   \hline
   Hidden Layer & L2 Penalty & Learning Rate & Activation & Optimizer \\ \hline
-  (1000, 500, 200, 100) & 0.001 & 0.01 & RELu & Adam \\
+  (1000, 500, 200, 100) & 0.001 & 0.01 & RELu & Adam \cite{DBLP:journals/corr/KingmaB14} \\
   (400, 200, 50) & 0.003 & 0.01 & & \\
   (200, 100, 25) & 0.0001 & 0.1 & & \\
   (100, 50, 10) & 0.0003 & & & \\
@@ -195,15 +252,14 @@ As for the SVM, hyperparameters are defined for the ANN. Presumably the most cru
   \captionof{table}{ANN configurations during grid search.}\label{table:anns}
 \end{center}
 
+After the grid search is computed, the best performing model with corresponding hyperparameters is used for analysis.
 \subsection{Metrics}
 As the amount of taps are equal for each subject and grid cell, the amount of training examples for each class is balanced. Therefore, the standard accuracy score for the classifier is used.
-
 \begin{align}
-  A(M) &= \frac{TN + TP}{TN + FP + TP + FN} 
+  A &= \frac{TN + TP}{TN + FP + TP + FN} 
 \end{align},
-
 where TN is the number of true negative cases, FP is the number of false positive cases, FN is the number of false negative cases and TP is the number of true positive cases.
-
+\raggedbottom
 % parameter_candidates = [
 %   {'hidden_layer_sizes': [
 %       [1000, 500, 200, 100],

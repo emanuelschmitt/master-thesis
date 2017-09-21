@@ -343,70 +343,70 @@ In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to 
 Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training
 epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
 
-\subsection{Recurrent Neural Networks}
-In the previous section, we have looked at feedforward neural networks where information, as the name implies, flows only in one direction, from the input layer to the output layer. A recurrent neural network (RNN) is similar to a feedforward network, except that it also has cyclic connections. This structure makes a RNN able to memorize previous information that has flown throw the network.\\
+% \subsection{Recurrent Neural Networks}
+% In the previous section, we have looked at feedforward neural networks where information, as the name implies, flows only in one direction, from the input layer to the output layer. A recurrent neural network (RNN) is similar to a feedforward network, except that it also has cyclic connections. This structure makes a RNN able to memorize previous information that has flown throw the network.\\
 
-For each timestep $t$, the recurrent neuron, as illustrated in Figure bla, recieves the input $x_{(t)}$ as well as it's own ouput from the the previously compututed time step $y_{(t_{-1})}$. The network can then be transformed to represent the time axis, as illustrated in Figure bla, which is also refered to as \textit{unrolling through time}.\\
+% For each timestep $t$, the recurrent neuron, as illustrated in Figure bla, recieves the input $x_{(t)}$ as well as it's own ouput from the the previously compututed time step $y_{(t_{-1})}$. The network can then be transformed to represent the time axis, as illustrated in Figure bla, which is also refered to as \textit{unrolling through time}.\\
 
-In comparison to the feedforward neuron, the recurrent neuron has a pair of wights: one represents the inputs $x_{(t)}$ and the other for the ouput of the previous step $y_{(t_{-1})}$. We can define these weight vectors as $w_x$ and $w_y$. The output of a recurrent neuron can then be computed with following equation:\\
+% In comparison to the feedforward neuron, the recurrent neuron has a pair of wights: one represents the inputs $x_{(t)}$ and the other for the ouput of the previous step $y_{(t_{-1})}$. We can define these weight vectors as $w_x$ and $w_y$. The output of a recurrent neuron can then be computed with following equation:\\
 
-\begin{equation}
-y(t) = \varphi \left( x_{(t)}^T  w_{x} + y_{t-1}^T  w_y + b \right)
-\end{equation}
-\\
-where $b$ refers to the \textit{bias} of the node.
+% \begin{equation}
+% y(t) = \varphi \left( x_{(t)}^T  w_{x} + y_{t-1}^T  w_y + b \right)
+% \end{equation}
+% \\
+% where $b$ refers to the \textit{bias} of the node.
 
-\subsection{Long-short term memory}
-As the RNN gains it's possibility to remember because of the recurrent neuron \textit{recurrent connection}, in practise, RNNs can forget patterns after a small amount of steps. Therefore, it is hard to train a RNN to identifiy time correlations of longer sequences. As we will be analyzing the time series data produced from the sensor components of the smartphone, I would like to introduce a varient of the RNN, called Long Short-Term Memory (LSTM).
+% \subsection{Long-short term memory}
+% As the RNN gains it's possibility to remember because of the recurrent neuron \textit{recurrent connection}, in practise, RNNs can forget patterns after a small amount of steps. Therefore, it is hard to train a RNN to identifiy time correlations of longer sequences. As we will be analyzing the time series data produced from the sensor components of the smartphone, I would like to introduce a varient of the RNN, called Long Short-Term Memory (LSTM).
 
-\begin{figure}
-  \centering
-  \begin{tikzpicture}[
-    prod/.style={circle, draw, inner sep=0pt},
-    ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
-    ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
-    filter/.style={circle, draw, minimum width=7mm, inner sep=3pt},
-    mylabel/.style={font=\scriptsize\sffamily},
-    >=LaTeX
-    ]
+% \begin{figure}
+%   \centering
+%   \begin{tikzpicture}[
+%     prod/.style={circle, draw, inner sep=0pt},
+%     ct/.style={circle, draw, inner sep=5pt, ultra thick, minimum width=10mm},
+%     ft/.style={circle, draw, minimum width=8mm, inner sep=1pt},
+%     filter/.style={circle, draw, minimum width=7mm, inner sep=3pt},
+%     mylabel/.style={font=\scriptsize\sffamily},
+%     >=LaTeX
+%     ]
 
-\node[ct, label={[mylabel]Cell}] (ct) {$c_t$};
-\node[filter, right=of ct] (int1) {$\varphi$};
-\node[prod, right=of int1] (x1) {$\times$}; 
-\node[right=of x1] (ht) {$h_t$};
-\node[prod, left=of ct] (x2) {$\times$}; 
-\node[filter, left=of x2] (int2) {$\varphi$};
-\node[prod, below=5mm of ct] (x3) {$\times$}; 
-\node[ft, below=5mm of x3, label={[mylabel]right:Forget Gate}] (ft) {$f_t$};
-\node[ft, above=of x2, label={[mylabel]left:Input Gate}] (it) {$i_t$};
-\node[ft, above=of x1, label={[mylabel]left:Output Gate}] (ot) {$o_t$};
+% \node[ct, label={[mylabel]Cell}] (ct) {$c_t$};
+% \node[filter, right=of ct] (int1) {$\varphi$};
+% \node[prod, right=of int1] (x1) {$\times$}; 
+% \node[right=of x1] (ht) {$h_t$};
+% \node[prod, left=of ct] (x2) {$\times$}; 
+% \node[filter, left=of x2] (int2) {$\varphi$};
+% \node[prod, below=5mm of ct] (x3) {$\times$}; 
+% \node[ft, below=5mm of x3, label={[mylabel]right:Forget Gate}] (ft) {$f_t$};
+% \node[ft, above=of x2, label={[mylabel]left:Input Gate}] (it) {$i_t$};
+% \node[ft, above=of x1, label={[mylabel]left:Output Gate}] (ot) {$o_t$};
 
-\foreach \i/\j in {int2/x2, x2/ct, ct/int1, int1/x1,
-            x1/ht, it/x2, ct/it, ct/ot, ot/x1, ft/x3}
-    \draw[->] (\i)--(\j);
+% \foreach \i/\j in {int2/x2, x2/ct, ct/int1, int1/x1,
+%             x1/ht, it/x2, ct/it, ct/ot, ot/x1, ft/x3}
+%     \draw[->] (\i)--(\j);
 
-\draw[->] (ct) to[bend right=45] (ft);
+% \draw[->] (ct) to[bend right=45] (ft);
 
-\draw[->] (ct) to[bend right=30] (x3);
-\draw[->] (x3) to[bend right=30] (ct);
+% \draw[->] (ct) to[bend right=30] (x3);
+% \draw[->] (x3) to[bend right=30] (ct);
 
-\node[fit=(int2) (it) (ot) (ft), draw, inner sep=0pt] (fit) {};
+% \node[fit=(int2) (it) (ot) (ft), draw, inner sep=0pt] (fit) {};
 
-\draw[<-] (fit.west|-int2) coordinate (aux)--++(180:7mm) node[left]{$x_t$};
-\draw[<-] ([yshift=1mm]aux)--++(135:7mm);
-\draw[<-] ([yshift=-1mm]aux)--++(-135:7mm);
+% \draw[<-] (fit.west|-int2) coordinate (aux)--++(180:7mm) node[left]{$x_t$};
+% \draw[<-] ([yshift=1mm]aux)--++(135:7mm);
+% \draw[<-] ([yshift=-1mm]aux)--++(-135:7mm);
 
-\draw[<-] (fit.north-|it) coordinate (aux)--++(90:7mm) node[above]{$x_t$};
-\draw[<-] ([xshift=1mm]aux)--++(45:7mm);
-\draw[<-] ([xshift=-1mm]aux)--++(135:7mm);
+% \draw[<-] (fit.north-|it) coordinate (aux)--++(90:7mm) node[above]{$x_t$};
+% \draw[<-] ([xshift=1mm]aux)--++(45:7mm);
+% \draw[<-] ([xshift=-1mm]aux)--++(135:7mm);
 
-\draw[<-] (fit.north-|ot) coordinate (aux)--++(90:7mm) node[above]{$x_t$};
-\draw[<-] ([xshift=1mm]aux)--++(45:7mm);
-\draw[<-] ([xshift=-1mm]aux)--++(135:7mm);
+% \draw[<-] (fit.north-|ot) coordinate (aux)--++(90:7mm) node[above]{$x_t$};
+% \draw[<-] ([xshift=1mm]aux)--++(45:7mm);
+% \draw[<-] ([xshift=-1mm]aux)--++(135:7mm);
 
-\draw[<-] (fit.south-|ft) coordinate (aux)--++(-90:7mm) node[below]{$x_t$};
-\draw[<-] ([xshift=1mm]aux)--++(-45:7mm);
-\draw[<-] ([xshift=-1mm]aux)--++(-135:7mm);
-\end{tikzpicture}
-\caption{The figure shows a LSTM cell.}
-\end{figure}
+% \draw[<-] (fit.south-|ft) coordinate (aux)--++(-90:7mm) node[below]{$x_t$};
+% \draw[<-] ([xshift=1mm]aux)--++(-45:7mm);
+% \draw[<-] ([xshift=-1mm]aux)--++(-135:7mm);
+% \end{tikzpicture}
+% \caption{The figure shows a LSTM cell.}
+% \end{figure}
