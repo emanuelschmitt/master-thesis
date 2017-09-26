@@ -61,7 +61,12 @@ Similar to the input modality, it is also plausible that a user that taps a smar
   \caption{This figure shows the overall appraoch to the experiment.} \label{fig:appraoch}
 \end{figure}
 
-The overall experiment is divided into four parts. In the first step, labeled data is acquired from subjects invited to take part in the experiment. For this purpose, the TapSensing application is used. The data acquisition part is necessary to collect sensor data with the corresponding ground truth of the tap locations for the supervised learning task. After the data is successfully acquired, the continuos sensor recordings are preprocessed to obtain the portion of recording which represents each individual tap. Next, features are extracted from the taps in order to train classifiers. To evaluate the classification results statistical tests are performed in the final analysis part. 
+The overall experiment consists of a three step process. In the first step, labeled data is acquired from subjects invited to take part in the experiment. For this purpose, the TapSensing application presented in the last chapter is used. The data acquisition part is necessary to collect sensor data with the corresponding ground truth of the tap locations for the supervised learning task. 
+
+After the data is successfully acquired, the continuos sensor recordings are preprocessed to obtain the portion of recording which represents each individual tap. To extract certain characteristics of the sensor signature created by the each tap, feature are extracted in a further step. These features are then used to train a set of classifiers. 
+
+The classification results are then discussed in the results section of this work.
+% TODO: statistical test.
 
 % - Data acquisition
 %   - Ground truth of the touch Environments with grid_id and timestamps
@@ -73,20 +78,22 @@ The overall experiment is divided into four parts. In the first step, labeled da
 
 \section{Labeled Data Acquisition}
 
-\subsection{Subject}
+\subsection{Subjects}
 A total of 27 subjects were invited to participate in the study. There were no restrictions concerning the demographics of individual subjects. However, each subjects had to be in  possession of one of the permitted iOS devices.
 
-\subsection{Environments}
+\subsection{Devices}
+The devices have been restricted to the Apple iPhone 6, 6s and 7 based on their mutual screen size. Furthermore, as the screen size has a large effects on the sensor signature created by a tap, the screen size is an important factor to enable the comparison of classification results among devices.
+
+\subsection{Environments \& Conditions}
 As the study aimed at collecting sensor reading both in the field as well as in a laboratory environment, the data acquisition is done in two distinct settings:
 \begin{enumerate}
   \item \textbf{Laboratory Evironment}: Subjects were invited to a laboratory room which had a standard office ergonomics setup. Subjects have been asked to either sit at the desk or stand in the room while tapping.
   \item \textbf{Field Environment}: Subjects were asked to generate taps using their smartphone at any place they are currently located. For example, this could be at home, at work or during leisure activity.
 \end{enumerate}
 
-\subsection{Devices}
-The devices have been restricted to the Apple iPhone 6, 6s and 7 based on their mutual screen size. As the screen size has an effects on how user tap on the screen, the screen size is an important factor to enable the comparison of classification results.
+Besides the environment of the recorded sensor data, the collected varies in the input modality and body posture while the tap was made. Subjects are either allowed to use the index finger (while holding the device in the other hand) or the thumb to generate taps. Sitting and Standing are allowed as body postures as these two represent the natural interactions with the smartphone. 
 
-\subsection{Procedure}
+\subsection{Acquisition Procedure}
 In order for participants to generate tap data, the subjects were invited to come to the laboratory for the first part of the experiment. To avoid information asymmetry, each participant read an experiment instruction\footnote{The instruction sheet is to be found in the appendix.}. Subjects should then confirm whether they have understood the previously read information. Additional questions regarding the instructions were answered. In the next step, subjects were asked to fill out an online questionnaire regarding their persona and personal smartphone usage.
 
 % TODO: instruction in appendix
@@ -183,7 +190,7 @@ A feature is an individual measurable property or characteristic of a phenomenon
 
 The features extracted are differentiated based on the set of axis where aggregational functions are applied. These can be categorized as column features, sensor features and matrix features, as illustrated in figure \ref{fig:featureextraction}. Column features refer to features that are a product of a function being applied to each \textit{x}, \textit{y} and \textit{z} sensor axis separately. Sensor features are defined as features where sensor axis are combined. An example for a sensor feature is the Pearson correlation which is calculated for each sensor component pair \textit{xy}, \textit{xz} and \textit{yz}. With sensor features, relations between the components are captured. Lastly, matrix features are a product of a function being applied to both gyroscope and accelerometer time series.
 
-A total of 203 features have been extracted for each individual tap. The table \ref{table:features} below shows the complete list of features ordered by feature type. Features have been extracted from both the time domain and the frequency domain. To standardize the range of the features extracted, a Min-Max scaling is applied to each feature.
+Since taps on different locations of the screen generate different sensor signatures we design features that are able to capture the properties of the sensor readings generated by a tap. For this purpose, a total of 230 features have been extracted for each individual tap. The table \ref{table:features} below shows the complete list of features ordered by feature type. Features have been extracted from both the time domain and the frequency domain. In addition, to standardize the range of the features extracted, a Min-Max scaling is applied to each feature.
 
 \begin{center}
   % Feature Description

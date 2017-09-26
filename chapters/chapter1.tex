@@ -1,34 +1,185 @@
 \chapter{Introduction\label{cha:chapter1}}
+The utlization of smartphones has become an integral part of our everyday life. Smartphones are used for privacy-senstive tasks such as bank transactions or personal communication or for casual tasks such as alarm clocks or checking the weather. Presumably, the success of the smartphone is partly due to it's rich set of embodied sensors, such as an accelerometer, digital compass, gyroscope, GPS, microphone and camera. These sensor have enabled developers to introduce highly interactive applications providing valuable services to the ever growing smartphone user base.
 
-This chapter should have about 4-8 pages and at least one image, describing your topic and your concept. Usually the introduction chapter is separated into subsections like 'motivation', 'objective', 'scope' and 'outline'.
+% Augumented reality ++
+Location based services, for instance, utlizing the GPS sensor can lead the user on the fastest route to a desired destination while health tracking applications enabled by the motion sensors can recommend health beneficial behavior based on the amount of physical activity sensed. As these are positive example for sensor usage, there have also been reports of sensor utilization with a more malicious intent.
 
-\section{Motivation\label{sec:moti}}
+The motion sensors, gyroscope and accelerometer, which are typically used for detecting the device orientation and for gaming applications, can be used to infer the locations of touch-screen taps. As the striking force of a tapping finger creates an identifiable signature on the 3-axis motion sensors, previous research has shown that the granularity of inference is adequate to obtain PINs and passwords. The situation is aggregated by the fact that the location sensor is the only sensor requiring specialized privileges and the user concents on operation system level. To put his in other words, the motion sensors expose a side-channel to eavesdrop on user interactions.
 
-Start describing the situation as it is today or as it has been during the last years. 'Over the last few years there has been a tendency... In recent years...'. The introduction should make people aware of the problem that you are trying to solve with your concept, respectively implementation. Don't start with 'In my thesis I will implement X'.
 
-\section{Objective\label{sec:objective}}
 
-\section{Outline\label{sec:outline}}
 
-The 'structure' or 'outline' section gives a brief introduction into the main chapters of your work. Write 2-5 lines about each chapter. Usually diploma thesis are separated into 6-8 main chapters. 
-\\
-\\
-\noindent This example thesis is separated into 7 chapters.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter2}} is usually termed 'Related Work', 'State of the Art' or 'Fundamentals'. Here you will describe relevant technologies and standards related to your topic. What did other scientists propose regarding your topic? This chapter makes about 20-30 percent of the complete thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter3}} analyzes the requirements for your component. This chapter will have 5-10 pages.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter4}} is usually termed 'Concept', 'Design' or 'Model'. Here you describe your approach, give a high-level description to the architectural structure and to the single components that your solution consists of. Use structured images and UML diagrams for explanation. This chapter will have a volume of 20-30 percent of your thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter5}} describes the implementation part of your work. Don't explain every code detail but emphasize important aspects of your implementation. This chapter will have a volume of 15-20 percent of your thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter6}} is usually termed 'Evaluation' or 'Validation'. How did you test it? In which environment? How does it scale? Measurements, tests, screenshots. This chapter will have a volume of 10-15 percent of your thesis.
-\\
-\\
-\textbf{Chapter \ref{cha:chapter7}} summarizes the thesis, describes the problems that occurred and gives an outlook about future work. Should have about 4-6 pages.
+
+% The rotation of the device is larger when the tap occurs
+% at the edge of the device. The linear acceleration of the
+% device may also be different, depending on how the finger
+% pressure is absorbed by the phone’s metal/glass structure
+% and casing. Of course, sensor noise and other factors will
+% indeed pollute these signals, and in reality the problem of
+% identifying a particular key-press from sensor data alone is
+% hard. Nevertheless, theoretically, it should be conceivable
+% that finger taps could have a fingerprint.
+
+
+
+% Thus, when a user taps on different parts of the screen, it
+% is entirely feasible that these taps produce an identifiable
+% pattern on the 3-axis accelerometer and gyroscope.
+
+
+% The motion of a smartphone during typing depends on
+% several factors: 1) the striking force of the typing finger;
+% 2) the resistance force of the supporting hand; 3) the
+% landing location of the typing finger; and 4) the location
+% of the supporting hand on the smartphone. The first two
+% factors mainly affect the shift of the phone, while the latter
+% two mainly affects the rotation. We observe that the
+% first two factors likely depend on the user, while the latter
+% two are likely to be user-independent because (1) on
+% each soft keyboard configuration, each key is at a fixed
+% location, and (2) a user typically holds her smartphone in
+% a consistent way. Therefore, we would like to extract the
+% rotation components while filtering out the shift components
+% from motion sensor data
+
+
+
+% Recent advances in data analytics have enabled a variety of new applications. 
+
+
+% - Example applications GPS location based services, health tracking, zoom into behavioral patterns
+
+% - Gyrscope and Accelerometer typicall used for detecing orientation or for gaming, VR 
+
+
+% The utilization of smartphones has become an integral part of our everyday life. We use our smartphones throughout the day to to perform tasks such as casually checking the weather to more privacy sensitive tasks such as performing bank transactions or personal communication. The deployment of high resolution sensors embodied within these devices have enabled developers to build rich applications providing value services to it's ever growing customer base. Location based services, for instance, utilizing the GPS sensor can lead smartphone users on the fastest route to their desired destination. Furthermore, Health trackings applications can monitor the physical activity of users by tracking the user's motion and can thus recommend health beneficial behavior.
+
+
+
+% The utlization of smartphones has become an integral part of our everyday life. Smartphones are used from checking the weather to more privacy sensitive tasks such as private communication or bank transactions. The deployment of high-resolution sensors within these devices and recent enhancements in data analytics have enabled a broad range of applications that provide valuable services to its users. Location based services, such as navigation devices, which utilize the GPS sensor can efficiently lead a user on the fastest route to his desired destination. 
+
+% The utilization of smartphones has become an integral part of our everyday life. Smartphones are used as an alarm clock in the morning, as a communication devices during the day and even in some cases as a reading device before going to bed at night. Due to this habitual smartphone usage, we heavily interact with touchscreen throughout the day. \\
+
+% The deployment of high-resolution sensors within these devices and recent enhancements in data analytics have enabled a broad range of applications that provide valuable services to its users. Location based services, such as navigation devices, which utilize the GPS sensor can efficiently lead a user on the fastest route to his desired destination. Health and fitness applications leveraging sensor readings from the accelerometer and gyroscope can track user specific patterns to recommend health improving behavior \cite{pushNot}. \\
+
+% Previous research has shown that it is possible to predict tap locations on a touch screen by utilizing data collected from accelerometer and gyroscope sensor readings \cite{Touchlogger,Tapprints, acc}. However, since the previous work has been limited to using data from a laboratory environment, we would like to investigate if the predictability of tap locations is also applicable to a more realistic data sets. It is plausible that sensor data collected from subjects in the field can include noise making an inference less accurate. To examine these assumptions and to shed light into possible measures effecting these accuracies, we will conduct a laboratory as well as a field study in order to obtain the required data.
+
+% - sensors in mobile smartphones
+% - was kann man alles damit machen
+% - wearables fitness tracker, gaming, GPS, navigation
+
+% - high resolution sensors
+% - handsets are everywhere
+% - rapid growth
+% - developers build highly interactive applications
+% - privacy senstitive tasks are done on movile phones
+
+% - security risks from cameras
+% - combine sensors with data analistics - heart rate monitoring
+
+% - previous research has shown that
+
+% - Thus, when a user taps on different parts of the screen, it
+% is entirely feasible that these taps produce an identifiable
+% pattern on the 3-axis accelerometer and gyroscope. Figure
+% 1 illustrates the intuition.
+
+% Motivation 
+% - javascript MDN
+
+% sensor information from mobile devices – specifically from
+% the accelerometer and gyroscope – can be adequate to infer
+% the locations of touch-screen taps.
+
+
+% Smartphones are ubiquitous. An ever-expanding consumer base
+% carries their handsets everywhere. However, this rapid growth comes
+% with new risks. While the proliferation of smartphones equipped
+% with high-resolution sensors has afforded developers an opportunity
+% to create highly interactive applications, users now rely on their smartphones
+% to perform many privacy-sensitive tasks, such as online financial
+% transactions and personal communications, that can be eavesdropped
+% or exploited. In this paper, we argue that current security
+% measures in mobile platforms do not adequately address the malware
+% that exploits these high-resolution sensors.
+% Current smartphone platforms allow developers access to certain
+% hardware sensors (e.g., accelerometers) without requiring special privileges
+% or explicit user consent. The security risks posed by microphones
+% and cameras have been well documented [18, 21]. However,
+% the security risks of accelerometers have so far been largely
+
+
+% The proliferation of sensors on mobile devices, combined
+% with advances in data analytics, has enabled new directions
+% in personal computing. The ability to continuously sense
+% people-centric data, and distill semantic insights from them,
+% is a powerful tool driving a wide range of application domains.
+% These domains range from remote patient monitoring,
+% to localization, to fine grained context-awareness [16, 3,
+% 2, 24]. While this ability to zoom into behavioral patterns
+% and activities will only get richer over time, it is not surprising
+% that there will be side effects. The research community
+% and industry are already facing the ramifications of exposing
+% location information; rumor has it that insurance companies
+% are on the lookout to mine an individual’s dietary pattern to
+% guide insurance cost and coverage. While these kind of side
+% effects will continue to surface over time, this paper exposes
+% one that may be particularly serious. Briefly, we find that
+% sensor information from mobile devices – specifically from
+% the accelerometer and gyroscope – can be adequate to infer
+% the locations of touch-screen taps. Interpreted differently, a
+% background process running on a mobile device may be able
+% to silently monitor the accelerometer and gyroscope signals,
+% and infer what the user is typing on the software keyboard.
+% Needless to say, the ramifications can be monumental.
+% This finding may not be surprising when one contemplates
+% about it. Modern mobile devices, like smartphones
+% and tablets, are being upgraded with sensitive motion sensors,
+% mostly to support the rapidly growing gaming industry.
+% Thus, when a user taps on different parts of the screen, it
+% is entirely feasible that these taps produce an identifiable
+% pattern on the 3-axis accelerometer and gyroscope. Figure
+% 1 illustrates the intuition.
+
+% We show that accelerometer readings are suffi-
+% cient to extract sequences of entered text on smartphones. We create
+% and evaluate a predictive model, trained only on acceleration
+% measurements, of the security-sensitive task of password entry. We
+% present findings on the inference accuracy as a function of the sampling
+% frequency of the accelerometer, the on-screen location of the
+% keypress, and the size of the predicted screen region. Additionally,
+% we present measures for mitigating this side channel.
+
+
+% This chapter should have about 4-8 pages and at least one image, describing your topic and your concept. Usually the introduction chapter is separated into subsections like 'motivation', 'objective', 'scope' and 'outline'.
+
+% \section{Motivation\label{sec:moti}}
+
+% Start describing the situation as it is today or as it has been during the last years. 'Over the last few years there has been a tendency... In recent years...'. The introduction should make people aware of the problem that you are trying to solve with your concept, respectively implementation. Don't start with 'In my thesis I will implement X'.
+
+% \section{Objective\label{sec:objective}}
+
+% \section{Outline\label{sec:outline}}
+
+% The 'structure' or 'outline' section gives a brief introduction into the main chapters of your work. Write 2-5 lines about each chapter. Usually diploma thesis are separated into 6-8 main chapters. 
+% \\
+% \\
+% \noindent This example thesis is separated into 7 chapters.
+% \\
+% \\
+% \textbf{Chapter \ref{cha:chapter2}} is usually termed 'Related Work', 'State of the Art' or 'Fundamentals'. Here you will describe relevant technologies and standards related to your topic. What did other scientists propose regarding your topic? This chapter makes about 20-30 percent of the complete thesis.
+% \\
+% \\
+% \textbf{Chapter \ref{cha:chapter3}} analyzes the requirements for your component. This chapter will have 5-10 pages.
+% \\
+% \\
+% \textbf{Chapter \ref{cha:chapter4}} is usually termed 'Concept', 'Design' or 'Model'. Here you describe your approach, give a high-level description to the architectural structure and to the single components that your solution consists of. Use structured images and UML diagrams for explanation. This chapter will have a volume of 20-30 percent of your thesis.
+% \\
+% \\
+% \textbf{Chapter \ref{cha:chapter5}} describes the implementation part of your work. Don't explain every code detail but emphasize important aspects of your implementation. This chapter will have a volume of 15-20 percent of your thesis.
+% \\
+% \\
+% \textbf{Chapter \ref{cha:chapter6}} is usually termed 'Evaluation' or 'Validation'. How did you test it? In which environment? How does it scale? Measurements, tests, screenshots. This chapter will have a volume of 10-15 percent of your thesis.
+% \\
+% \\
+% \textbf{Chapter \ref{cha:chapter7}} summarizes the thesis, describes the problems that occurred and gives an outlook about future work. Should have about 4-6 pages.
