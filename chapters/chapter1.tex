@@ -11,61 +11,30 @@ As the data collected in previous research was acquired in a controlled environm
 In order to address the issue, I would like to introduce \textit{TapSensing}. \textit{TapSensing} is an iOS application designed to acquire data tap data with corresponding gyroscope and accelerometer recordings. In a user study with 27 participants, I have collected over 45.000 taps acquired from the laboratory as well the field environment in order to compare the feasibility of touch-screen tap inference for both environments.
 
 \section{Motivation}
-As gyroscope and accelerometer are commonly used for gaming applications or interaction gestures, obtaining sensor readings can easily be done via the platform's off-the-self API\footnote{Application Programming Interface}. Futhermore, both smartphone operating systems don't inform the user when an application is about to sense motion. 
 
-As gyroscope and accelerometer sensor values can both be obtained via standard developer API\footnote{Application Programming Interface} on Android and iOS platforms, a malicious application could sense the motion in the background and upload the data stream to a remote server for analysis. 
+In recent years, the number of smartphone users has rapidly
+increased. According to a report published by Smart
+Insights\footnote{http://www.smartinsights.com/mobile-marketing/mobile-marketing-analytics/mobile-marketing-statistics/}, the number of smartphone users grew from 400 million users in 2007, to more than 1,800 million in 2015. In addition, the report claims that at the end of 2015, 97\% of adults, aged 18 to 34, in the US were mobile device users. Due to this rapid adoption, smartphone have become targets for various attacks \cite{Colp:2015:PDS:2694344.2694380, Aviv:2010:SAS:1925004.1925009, Touchlogger}.
 
-Given their popularity, sensor-rich smartphones and tablets
-are increasingly becoming targets of attacks that compromise
-users’ privacy [8]. The malicious software may even
-take the form of a useful application that can be downloaded
-from a popular application store, such as the Apple App
-Store or the Google Android Market. Unless the access to
-sensor or personal data is restricted by the system or by the
-user, malicious software can use official APIs to access the
-data and upload it to third party servers without the user’s
-consent [13].
-The only sensor that requires explicit user access permission
-on both the Android and the iPhone platforms today
-is the location sensor. Indeed, most users perceive their
-location as being private and few would be happy to see
-their location tracks publicly available. In contrast, accessing
-the accelerometer and gyroscope sensor data does not
-require explicit user permission on any of the major mobile
-platforms. These sensors, initially introduced to drive
-the device’s user interface, are mostly used for gaming and
-are widely perceived as innocuous. For example, Android
-OS allows background running services with accelerometer
-and gyroscope sensor access without restrictions. Moreover,
-there is work aimed at the standardization of Javascript access
-to a device’s accelerometer and gyroscope sensors in
-order for any web application to perform, for example, website
-layout adaptation [4]. In this work, we show that accelerometer
-and gyroscope sensor data can create a serious
-privacy breach. Specifically, we demonstrate that it is possible
-to infer where people tap on the screen and what people
-type by applying machine learning analysis to the stream of
-data from these two motion sensors. The reason we focus
-on the accelerometer and gyroscope sensors is that they are
-able to capture tiny device vibrations and angle rotations,
-respectively, with good precision.
+As gyroscope and accelerometer are commonly used for gaming applications\cite{feijoo2012mobile} or interaction gestures \cite{pylvanainen2005accelerometer}, mobile operating systems offer easy access via the off-the-self APIs\footnote{Application Programming Interface}. Consequently, a smartphone application could sense the user's motion in the background and send the information to a server-side application for machine learning analysis. This is possible due to the fact that background tasks are fully supported on Android while on iOS, methods have been developed to run actually prohibited background tasks\footnote{https://github.com/yarodevuci/backgroundTask} for long durations. All this can be done without the user's consent as there are no access restrictions for motion sensors in comparison to the location sensor.
 
+In 2017, the World Wide Web Consortium, W3C, has released the Device Orientation specification \cite{w3c} for JavaScript allowing browser application to access the motion sensor hardware. Therefore, it is also possible for a malicious website to obtain sensor information which furthermore shows the severeness of the possible security threat.
 
-- user permisson on android and iOS
-- app in background mode could be used however can not push to app store
-- https://github.com/yarodevuci/backgroundTask
+% As the data used for training the inference systems in previous research concerning the topic at hand was collected in a laboratory environment, it is assumed that the data collected in a field environment will be 
 
-In this work, we show that accelerometer
-and gyroscope sensor data can create a serious
-privacy breach. Specifically, we demonstrate that it is possible
-to infer where people tap on the screen and what people
-type by applying machine learning analysis to the stream of
-data from these two motion sensors. The reason we focus
-on the accelerometer and gyroscope sensors is that they are
-able to capture tiny device vibrations and angle rotations,
-respectively, with good precision.
+Besides the privacy issues motion sensors raise, tap location inference could also be used for usability research purposes. Assuming that the inference provides high accuracies, the tap inference could be used as a user tracking for applications where the source code is not available. The inference system could run in a background application to evaluate the user behavior in the target application.
 
+\subsection{Outline}
 
+This work is divided as follows:
+\begin{itemize}
+  \item \textbf{Related Work}: In chapter 2, previous research concerning side-channel attacks is presented. As this work is based on similar studies, they will be outlined in this chapter.
+  \item \textbf{Machine Learning Fundamentals}: In chapter 3, I will review the machine learning fundamentals required to understand the technical aspects of this thesis. Since learning the relation between the sensory data and the tap location is a supervised learning task, two supervised learning algorithms will be introduced in depth.
+  \item \textbf{Data Aquisition System}: In chapter 4, I will introduce \textit{TapSensing} which is the data acquisition system used for obtained taps and sensor readings for both the laboratory and the field environment.
+  \item \textbf{Methodology}: In chapter 5, the methodology of the data acquisition, data pre-processing and machine learning classification is explained.
+  \item \textbf{Results}: In chapter 6, meaningful results are presented from the data acquisition study and the tap inference.
+  \item \textbf{Conclusion}: In the final chapter 7, I will conclude the thesis with an overview of the results and ideas for future studies.
+\end{itemize}
 
 % The rotation of the device is larger when the tap occurs
 % at the edge of the device. The linear acceleration of the
