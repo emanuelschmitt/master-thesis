@@ -3,71 +3,45 @@ As machine learning techniques will be used for the classification of individual
 
 \section{Overview and Definition}
 
-Ever since computers were invented, there has been a desire to enable them to learn \cite{samuel2000some}. This desire has grown into the field of machine learning which seeks to answer questions on how to build build systems that automatically improve with experience, and what the fundamental laws of learning processes are. Today, state-of-the-art ML covers a large set of methods and algorithms designed to accomplish tasks where conventional hard-coded routines have brought insufficient results. From speech recognition to email spam detection or recommendation systems, ML methods find broad usage in a variety of problem domains. \\
+Ever since computers were invented, there has been a desire to enable them to learn \cite{samuel2000some}. This desire has grown into the field of machine learning which seeks to answer questions on how to build systems that automatically improve with experience. Machine learning covers a set of methods and algorithms designed to accomplish tasks where conventional hard-coded routines have brought insufficient results \cite{mitchell2006discipline}.
 
-In order to understand what the principle of machine learning is, we will start with a definition by Samuel \cite{samuel2000some}:\\
-\begin{quote}
-\textit{Machine learning is the field of study that gives computers the ability to learn without being explicitly programmed.}\\
-\end{quote}
+The goal of a machine learning algorithm is to learn a function f that is able to predict sensible output values $y \in Y$ give input values $x \in X$:
 
-In this definition, special emphasis is to be put on the last part of this definition. A computer is only then able to learn when he can perform a task without being explicitly instructed. Thus, in order to learn, the computer must somehow be able to instruct itself without the influence of an outer . As this definition lacks a more detailed view on what computer learning is, we will dive into a definition by Tom Mitchell \cite{mitchell2006discipline}:\\
-\begin{quote}
-\textit{A learning system is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.}\\
-\end{quote}
+\begin{equation}
+  f: X \rightarrow Y
+\end{equation}
 
-The example that Mitchell notes, is one from the games of checkers \cite{mitchell2006discipline}. In this case checkers is the task T that the computer is aiming to learn. In order for the computer to learn, information on previously played matches is required. Since the computer does not know how to evaluate is a particular match was either good or bad, we set the performance to be defined based on how many matches were actually won. If a computer program can raise the amount of games won \textit{(performance measure P)} with the help of the experience from previously placed matches \textit{(experience E)} then it can learn to play checkers \textit{(task T)}. \\
+Solving this problem is hard as the amount of input values used for learning this function is typically smaller in size than the unseen input values on to which f is applied to. Therefore, the challenge lies in finding a function that generalizes to unseen input values without simply remembering the seen inputs.
 
-% TODO: Maybe delete this.
-To break this down into a more practical perspective, the challenge lies in finding an appropriate model in order to learn from data, which is the most common format to represent past experience. By learning, the computer adjusts parameters on the model based on the data that we feed the system with. Once the model has been adjusted, it can perform tasks with new incoming experience.
+Mathematically, machine learning problems are formalized as optimization problems of an objective function which indicates the quality of the functional mapping between $X$ and $Y$. This problem can either be a maximization or minimization problem. If we speak of the latter, the objective function is referred to as the \textit{error function}.
 
-\section{Categorization of Methods}
-As machine learning algorithms and methods differ from their approach to learning and underlying concepts, it is common practice to separate these into the following categories \cite{Duda:2000:PC:954544, Marsland:2009:MLA:1571643}  : Supervised learning, unsupervised learning, reinforcement learning and evolutionary learning. In the following sections I will briefly outline these.\\
+There are four main categories of machine learning methods to be found in literature which all differ in their approach to learn the function f and in respect to the amount of training samples available \cite{Duda:2000:PC:954544, Marsland:2009:MLA:1571643}. These categories consist of \textit{supervised learning}, \textit{unsupervised learning}, \textit{reinforcement learning} and \textit{evolutionary learning}. As the task at hand refers to a supervised learning problem, supervised learning will be outlined in the following.
 
-\begin{itemize}
+\section{Supervised Learning}
 
-  \item[] \textbf{Supervised learning}, which is also named learning from example, is presumably the most prominent category of ML algorithms. The algorithm is given a training set of examples $\{x_0, \dots, x_n \}$, which are also known as \textit{features} and the correct target values $\{y_0, \dots, y_n \}$ mapped to each set of features, which is the answer that the algorithm should produce. The algorithm then generalizes based on the training set in order to respond with sensible outputs on all possible input values. Outputs, if they are discrete labels, correspond to a classification task whereas outputs on a continuous scale refer to a regression task (see \cite{Marsland:2009:MLA:1571643}).
+%%REAL
+Supervised learning refers to the case where $N$ samples are given from $X \times Y$, called the training data set  $T = \{ x^{(i)}, y^{(i)} | i \in \{i=1 \dots N\} \}$. The training data is assumed to consist of approximate samples of a target function $F: X \rightarrow Y$, that is be learned by the learning algorithm. The data samples $x^{(i)} \in X$ are called input \textit{features} whereas $y^{(i)} \in Y$ correspond to the so-called \textit{labels}. If Y consists of discrete labels the learning problem corresponds to a classification task whereas if Y is on a continuous scale the problem refers to a regression task (see \cite{Marsland:2009:MLA:1571643}).
 
-An example for supervised learning is the classification of malignant or benign tumors as seen in cancer diagnosis. Let's assume we have a dataset with different properties of a tumor, such as the size or the color of the cells. These properties form our features $x$. Each set of features is mapped to an output label $y$ stating if the tumor is malignant or benign. The first step is to use the pairs $(x, y)$ of the training set to teach the algorithm the correct mapping of the problem space. As $x$ is linked to the output $y$ in the training set, learning the conjunction of these two values is done under supervision since the output label $y$ is given. Once learned, the algorithm is generalized to map unseen inputs to the correct output label.
+Practical applications of supervised learning are image recognition \cite{simonyan2014very, lecun1990handwritten}, e-mail spam filtering \cite{guzella2009review} or network anomaly detection \cite{lee2010uncovering}. However, these are just a small subset of what can be accomplished so far.
 
-Practical applications are for example digit and handwriting recognition \cite{lecun1990handwritten}, spam filtering \cite{guzella2009review} for e-mails or network anomaly detection \cite{lee2010uncovering}.
+Presumably the most widely known machine learning techniques belong to this category, such as the Support Vector Machines (SVMs), Artificial Neural Networks, Bayesian Statistics, Random Forests and Decision Trees \cite{Duda:2000:PC:954544}.
 
-Presumably the most widely known machine learning techniques belong to this category, such as Support Vector Machines (SVMs), Artificial Neural Networks, Bayesian Statistics, Random Forests and Decision Trees \cite{Duda:2000:PC:954544}.\\
+\section{Bias-Variance Trade-off}
+The error of a supervised learning algorithm can be decomposed into three components being bias, variance and noise (see \cite{efron_hastie_2016}):
 
-%TODO: add referation to how we will solve issues in the thesis.
+\begin{equation}
+  \text{error} = (\text{bias})^2 + \text{variance} + \text{noise}
+\end{equation}
 
-  \item[] \textbf{Unsupervised learning} is the task of learning structures from input values that are not explicitly labeled. In comparison to supervised learning, where correct output values are provided for each input, unsupervised algorithms learn to identify similarities in the input data and can therefore group these \cite{Duda:2000:PC:954544}. These grouping problems are referred to as \textit{clustering}. The underlying idea here, is that humans learn by not explicitly being told what the right answer should be \cite{Marsland:2009:MLA:1571643}. If a human sees different species of snakes, for instance, he or she is able to identify them all as snakes. Hence, the human is aware that there are differences in each specific type of snake without specifically knowing a correct label.
+%In general, more flexible statistical methods have higher variance.
+The \textit{Variance} refers to the amount of which $f$ adapts to the variations in the training data set. Models with a high variance have a tendency to learn minor relations irrespective of the real signal of the input values and are therefore prone to \textit{overfitting} the training examples. This phenomenon applies to very flexible models such as a complex artificial neural network. On the other hand, \textit{bias} is the model's tendency to consistently learn the wrong things from the training examples as it can not take all the information into account. This refers to a too simple model \textit{underfitting} the training examples. An example of high bias would be a linear method such as linear regression trying to map a non-linear function. Finally, the \textit{noise} is the irreducible error of the data distribution (see \cite{James:2014:ISL:2517747}.
 
-A prominent example where unsupervised learning is heavily used, is in recommender systems for online retail shops. Amazon.com, for instance, uses a technique called \textit{collaborative filtering}, which measures similarity in customers based that they have previously bought \cite{linden2003amazon}. Having identified similar customers utilizing the cosine similarity, the algorithm can then recommend items that similar users have bought. This technique is also used for music recommendations \cite{perez2017recommender} or social network recommendations \cite{kautz1997referral}.
-
-The field of unsupervised learning is closely related to density estimation in statistics, as with the density of inputs, we are able to group them. The K-means algorithm is the most prominent in this field \cite{Marsland:2009:MLA:1571643}.\\
-  
-  \item[] \textbf{Reinforcement learning} falls in between supervised and unsupervised learning methods. Whereas supervised learning tries to bridge the gap between input and corresponding output values and unsupervised methods detect groupings in incoming data, reinforcement learning is based on learning with a \textit{critic} \cite{Marsland:2009:MLA:1571643}. The algorithm tries different solution strategies to a problem and is told weather or not the answer provided was correct. An important fact here, is that the algorithm is not told how to correct itself. This practice of "trying-out" is based on the concept of \textit{trail-and-error learning} which is known as the \textit{Law-of-effect} \cite{Marsland:2009:MLA:1571643}. A good example is a child that tries to stand up and learn walking. The child tries out many different strategies for staying upright and receives feedback from the field based on how long it can stand without falling down again. The method that previously worked best is then repeated in order to find the optimal solution resulting in the child learning to walk \cite{Marsland:2009:MLA:1571643}.
-  
- In more mathematical terms, the reinforcement learning problem is formalized with an agent and his environment. The environment in which the agent is set provides a set of \textit{states} on which the agent can perform \textit{actions} to maximize a certain \textit{reward}. By performing actions the state changes and a new reward is calculated. The reward then tells the agent if the action was a good choice. Goal of the algorithm is to maximize the reward \cite{Marsland:2009:MLA:1571643}.
- 
- Reinforcement learning is a practical computational tool for constructing autonomous systems that improve themselves with experience. These applications have ranged from robotics, to industrial manufacturing, to combinatorial search problems such
-as computer game playing \cite{kaelbling1996reinforcement}. 
-Prominent methods of this category are Q-learning, Monte Carlo
-methods and Hidden Markov Models \cite{Marsland:2009:MLA:1571643}.\\
-
-  \item[] \textbf{Evolutionary learning} is inspired by strongly inspired by nature. As biological evolution improves the survival of a species, the strategy of adaptation to improve survival rates and the chance of offspring has inspired researchers to craft genetic algorithms (GA) \cite{Marsland:2009:MLA:1571643}. 
-
-Genetic algorithms are a family of adaptive search procedures which have derived their name from the fact that they are based on models of genetic change in a population of individuals. These models have their foundation in three basic ideas: (1) Each evolutionary state of a population can be evaluated on a \textit{fitness} scale. This is done since biological evolution has a natural bias towards animals that are \" fitter \" than others. These animals tend to live longer, are more attractive and generate healthier and happier offspring, an idea which was originated in Charles Darwin's \"The Origin of Species\". (2) Each population can be mated to generate offspring using a \textit{mating operator}. (3) The third component are \textit{genetic operator}, such as \textit{crossover} and \textit{mutation}, which determine how the offspring solution is composed of the genetic material of the parents \cite{de1988learning}.
-
-Evolutionary learning is often considered when other methods fail to find a reasonable answer. Algorithms find applications in search and mathematical optimization, but also in arts and simulation \cite{Marsland:2009:MLA:1571643}.\\
-\end{itemize}
-
-In this section we have seen several different problems that we can solved with the help of algorithmic learning. In this thesis, the focus is put on supervised learning as mapping the sensory data to the locations of tap event falls into this category. For predictions, two learning algorithms will be used which will be introduced in the following.
+As the goal is to minimize the error function, there is always a trade-off between bias and variance with very flexible models having low bias and high variance, and rigid models having high bias and low variance. Therefore, the model with the ideal predictive capability is the one that leads to the best balance between bias and variance \cite{Duda:2000:PC:954544}.
 
 \section{Support Vector Machines}
+The SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from binary classification problems, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space. 
 
-A SVM is a non-linear kernel based extension of the so-called maximum margin classifier. Originating from binary classification problems, were $y \in \{1, -1\}$, the general idea of a maximum margin classifier is to find a separating hyperplane in the p-dimensional feature space. \\
-
-This hyperplane separates the training examples leading to a maximum distance between the observations of the two classes \cite{James:2014:ISL:2517747}. This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. In order to find a suitable hyperplane only a subset of the training examples are sufficient.\\
-
-Despite all that, linear separability is unlikely to be applicable to most real world problems. However, when a problem is linear separable, the constraint to the support vectors induce an undesirable sensitivity to individual observations, which can lead to high variance of the classifier. For this reason, the maximum margin classifier can be extended to it's more robust successor, the support vector classifier. Still being a linear classifier, the SVM allows for violations in fitting the margin. \\
-
-Mathematically, the support vector classifier can be described via following optimization problem \cite{James:2014:ISL:2517747}:
+This hyperplane separates the training examples leading to a maximum distance between the observations of the two classes. This distance is referred to as margin $M$ measuring the smallest distance of a training observation towards the defined hyperplane. Mathematically, the support vector classifier can be described as following optimization problem \cite{James:2014:ISL:2517747}:
 \begin{eqnarray}
   & \max_{\beta, \epsilon} M \\
   & \textrm{subject to} \sum_{s=1}^{p} \beta^2_s = 1 \\
@@ -75,7 +49,7 @@ Mathematically, the support vector classifier can be described via following opt
   & \epsilon \geq 0, \sum_{i=1}^n \epsilon_i \leq C
 \end{eqnarray}
 
-The objective of this optimization problem is to maximize the margin $M$ while choosing appropriate vector parameters $\beta$ and $\epsilon$. In this context, the parameter vector $\beta$ contains the coefficients of the hyperplane and the vector $\epsilon$ includes so-called slack variables that account for instances which are located on the wrong side of the margin and the hyperplane. These can be expressed as follows assuming that M is positive \cite{James:2014:ISL:2517747}:
+The objective of this optimization problem is to maximize the margin $M$ while choosing appropriate vector parameters $\beta$ and $\epsilon$. In this context, the parameter vector $\beta$ contains the coefficients of the hyperplane whereas the vector $\epsilon$ includes so-called slack variables that account for instances which are located on the wrong side of the margin and the hyperplane. These can be expressed as follows assuming that M is positive \cite{James:2014:ISL:2517747}:
 \begin{equation}
   \epsilon_i =
   \begin{cases}
@@ -85,37 +59,38 @@ The objective of this optimization problem is to maximize the margin $M$ while c
   \end{cases}
 \end{equation}
 
-The hyperparameter C is a non-negative variable, which can be seen as a budget variable that allows for a certain sum of $\epsilon_i$ observations to be on the wrong side of the margin or hyperplane, respectively \cite{James:2014:ISL:2517747}. C manages the bias-variance tradeoff, since a low C tries to find a maximum margin hyperplane that almost exactly separates the two classes, resulting in low bias classifier for the available data set but in a high variance classifier for test data. Concurrently, allowing high budget C results in a high bias classifier that widens the margin, introducing more violations $\epsilon_i$ while reducing the variance of the classifier. Thereby C also controls the number of considered support vectors in dependence of the margin width.\\
+The hyperparameter C allows for a certain sum of $\epsilon_i$ observations to be on the wrong side of the margin or hyperplane, respectively \cite{James:2014:ISL:2517747}. C manages the bias-variance trade-off, since a low C tries to find a maximum margin hyperplane that separates the two classes, resulting in a low bias classifier for the available data set, but in a high variance classifier for test data. Subsequently, allowing a high C results in a high bias classifier that widens the margin, introducing more violations $\epsilon_i$ and reducing the variance of the classifier. Futhermore, C also controls the number of considered support vectors in dependence of the margin width (see \cite{efron_hastie_2016}).
 
-Extending the support vector classifier to non-linear decision boundaries brings us to the SVM. Instead of extending the predictor space using higher order polynomials and interactions, SVM uses the so called ``kernel trick'' \cite{efron_hastie_2016}. In order to apply the ``kernel trick'' , i.a. \citeauthor{efron_hastie_2016} show that the optimization problem above can be rewritten as
+Extending the support vector classifier to non-linear decision boundaries brings us to the SVM. Instead of extending the predictor space using higher order polynomials and interactions, SVM uses the so called ``kernel trick'' \cite{efron_hastie_2016} resulting in the optimization problem to be rewritten as follows:
+
 \begin{equation}
-  \^{f}(x) = \beta_0 + \sum_{i \in S} \alpha_i \langle x, x_i \rangle
+  \hat f(x) = \beta_0 + \sum_{i \in S} \alpha_i \langle x, x_i \rangle \,
 \end{equation}
 
-where $i \in S$ defines the subset of support vectors and $\langle x, x_i \rangle$ is the dot product of all pairs in the support vector. Thus, the parameters $\beta_0$ and $\sum_{i \in S}$ can be estimated with the help of least squares via simply computing the inner products of each pair in the support vector \cite{efron_hastie_2016}. The Expression in $\langle x, x_i \rangle$ can be generalized by a kernel function
-\begin{equation}
+where $i \in S$ defines the subset of support vectors and $\langle x, x_i \rangle$ is the dot product of all pairs in the support vector. Thus, the parameters $\beta_0$ and $\sum_{i \in S}$ can be estimated with the help of least squares by computing the inner products of each pair in the support vector \cite{efron_hastie_2016}. The expression in $\langle x, x_i \rangle$ can be generalized by a kernel function
+\begin{equation} \label{eqn:kernel}
   K(x_i,x_{i'}) = \sum_{s=1}^{p} x_{is} x_{i's}
 \end{equation}
 indicating the linear kernel that quantifies the distance between each pair in the data set \cite{James:2014:ISL:2517747}. Accordingly, the equation above can be rewritten as
 \begin{equation}
-  \^{f}(x) = \beta_0 + \sum_{i \in S} \alpha_i K(x, x_i)
+  \hat f(x) = \beta_0 + \sum_{i \in S} \alpha_i K(x, x_i)
 \end{equation}
-but in spite of restricting $K(\cdot, \cdot)$ to (3.7), we can now choose an arbitrary kernel function that maps our data into a high dimensional space where it is linearly separable. With this ``kernel trick'' the SVM can work in an implicitly enlarged predictor space, just by computing $\binom{n}{2}$  kernel functions $K(\cdot, \cdot)$, as opposed to an explicitly augmented predictor space, which is in fact computationally intractable \cite{James:2014:ISL:2517747}. In this work, we will be using a radial kernel function:
+but in spite of restricting $K(\cdot, \cdot)$ to \ref{eqn:kernel}, an arbitrary kernel function can be chosen mapping the data into a high dimensional space where it is linearly separable. The ``kernel trick'' allows the SVM to work in an enlarged predictor space, by computing $\binom{n}{2}$ kernel functions $K(\cdot, \cdot)$, as opposed to an explicitly augmented predictor space, which is in fact computationally intractable \cite{James:2014:ISL:2517747}. In this work, we will be using a radial kernel function:
 \begin{equation}
   K(x_i,x_{i'}) = \exp(-\gamma(\sum_{s=1}^{p}x_{is}x_{i's})^2),
 \end{equation}
 where $\gamma$ is a tuning parameter. After the parameters are learned on the basis of the training set, a new observation with the feature vector $x_0$ is classified via the following decision rule
 \begin{equation}
-  \^{f}(x) = sign(\beta_0 + \sum_{i \in S} \alpha_i K(x_i, x_{i'})).
+  \hat f(x) = sign(\beta_0 + \sum_{i \in S} \alpha_i K(x_i, x_{i'})).
 \end{equation}
-In view of the task at hand, an extension to multi-class classification of the SVM is utilized via one-versus-one classification. Given C classes, $\binom{C}{2}$ binary classifiers are learned in such a fashion that the C-th class is coded as $+1$ and the C0-th class as $1$. Consequently, a new instance is assigned to the class to which it was classified most frequently.
-\newpage
-\section{Neural Networks}
-In this section, I will introduce neural networks which are interconnected systems used for supervised learning tasks. Besides the SVM, neural networks will be used in this thesis to predict the tap locations based on the collected motion data. Artificial neural networks are computing systems inspired by the biological neural networks found in animal brains. As these systems consist of several components, the first section will cover the neural units forming the fundamental processing unit of a network. After this, individual activation functions of these networks are discussed. In the last section the backpropagation algorithm which is used to train ANNs is explained.
+In view of the task at hand, an extension to multi-class classification of the SVM is utilized via one-versus-one classification. Given n classes, $\binom{n}{2}$ binary classifiers are learned.
 
-\subsection{Neurons}
+\section{Artificial Neural Networks}
+Artificial neural networks (ANNs) are computing systems inspired by the biological neural networks found in animal brains \cite{Haykin:1998:NNC:521706}. As these systems consist of several components, the first section will cover the artificial neuron which forms the fundamental processing unit of a network. Subsequently, individual activation functions of ANNs are discussed followed by the backpropagation algorithm which is used for training.
 
-A neuron is fundamental processing unit of an artificial neural network. The diagram \label{fig:neuron} shows a model \cite{Haykin:1998:NNC:521706} of a neuron which consists of following components:
+\subsection{Artificial Neurons}
+
+A neuron is fundamental processing unit of an artificial neural network. The diagram \label{fig:neuron} shows a model of a neuron which consists of following components (see \cite{Haykin:1998:NNC:521706}):
 \begin{itemize}
   \item A set of \textit{connecting links} or \textit{synapses} which have a certain weight defined as the vector $\vec{w}$. The signal, represented as $\vec{x}$, flows through the \textit{synapse} and is mutipied by it's weight $w_i$.
   \item A \textit{adder} for summing the input signals and weights of the incoming synapses. These operations constitute a linear combiner.
@@ -123,33 +98,58 @@ A neuron is fundamental processing unit of an artificial neural network. The dia
   \item An externally applied \textit{bias} $b$ which has the ability to lower or rise the net input to the activation function depending if the bias is negative or positive.
 \end{itemize}
 \begin{figure}[h]
-	\centering
-	\begin{tikzpicture}
-    \node[draw,circle,minimum size=25pt,inner sep=0pt] (x) at (0,0) {$\Sigma$ $\varphi$};
+  \centering
+  \begin{tikzpicture}[
+    init/.style={
+      draw,
+      circle,
+      inner sep=2pt,
+      font=\Huge,
+      join = by -latex
+    },
+    squa/.style={
+      draw,
+      inner sep=2pt,
+      font=\Large,
+      join = by -latex
+    },
+    start chain=2,node distance=13mm
+    ]
+    \node[on chain=2] 
+      (x2) {$x_2$};
+    \node[on chain=2,join=by o-latex] 
+      {$w_2$};
+    \node[on chain=2,init] (sigma) 
+      {$\displaystyle\Sigma$};
+    \node[on chain=2,squa,label=above:{\parbox{2cm}{\centering Activation \\ function}}]
+      {$f$};
+    \node[on chain=2,label=above:Output,join=by -latex] 
+      {$y$};
+    \begin{scope}[start chain=1]
+    \node[on chain=1] at (0,1.5cm) 
+      (x1) {$x_1$};
+    \node[on chain=1,join=by o-latex] 
+      (w1) {$w_1$};
+    \end{scope}
+    \begin{scope}[start chain=3]
+    \node[on chain=3] at (0,-1.5cm) 
+      (x3) {$x_n$};
+    \node[on chain=3,label=below:Weights,join=by o-latex] 
+      (w3) {$w_n$};
+    \end{scope}
+    \node[label=above:\parbox{2cm}{\centering Bias \\ $b$}] at (sigma|-w1) (b) {};
     
-      \node[inputNode] (x0) at (-3, 1.5) {$\tiny x_0$};
-      \node[inputNode] (x1) at (-3, 0.75) {$\tiny x_1$};
-      \node[inputNode] (x2) at (-3, 0) {$\tiny x_2$};
-      \node[inputNode] (x3) at (-3, -0.75) {$\tiny x_3$};
-      \node[inputNode] (xn) at (-3, -1.75) {$\tiny x_n$};
-
-      \node[inputNode] (b) at (-0.12, 2) {$\tiny b_k$};
+    \draw[-latex] (w1) -- (sigma);
+    \draw[-latex] (w3) -- (sigma);
+    \draw[o-latex] (b) -- (sigma);
     
-      \draw[stateTransition] (x0) to[out=0,in=120] node [midway, sloped, above=-2] {$w_{k0}$} (x);
-      \draw[stateTransition] (x1) to[out=0,in=150] node [midway, sloped, above=-2] {$w_{k1}$} (x);
-      \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above=-2] {$w_{k2}$} (x);
-      \draw[stateTransition] (x3) to[out=0,in=210] node [midway, sloped, above=-2] {$w_{k3}$} (x);
-      \draw[stateTransition] (xn) to[out=0,in=240] node [midway, sloped, above=-2] {$w_{kn}$} (x);
-      \draw[stateTransition] (x) -- (2,0) node [midway,above=-0.cm] {$\tiny h_k$};
-      \draw[stateTransition] (b) -- (-0.12,0.44) node [midway, above=-0cm] {};
-      \draw[dashed] (0,-0.43) -- (0,0.43);
-      \node (dots) at (-3, -1.15) {$\vdots$};
-  \end{tikzpicture}
+    \draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
+    \end{tikzpicture}
   \caption{The diagram shows an artificial neuron's model with it's individual components.}\label{fig:neuron}
 \end{figure}
 
 Mathematically, a neuron $k$ can be expressed with the following equation \cite{Haykin:1998:NNC:521706}
-\begin{eqnarray}
+\begin{eqnarray} \label{eqn:neuron1}
   u_k &= \sum_{j = 1}^{m}w_{kj}x_{j} \\
   h_k &= \varphi(u_k + b_k)
 \end{eqnarray}
@@ -168,7 +168,7 @@ The activation function $\varphi(u_k)$ denotes the output of the neuron $k$ and 
 %   \varphi(v) = \tanh(v)
 % \end{equation}
 % \\
-The logic function, as in \ref{fig:af}, is well suited for classification as it is a non-linear function and it transforms the output values to either side of the curve. This results in a clear distinction between classes. However, the function has a compact domain range, meaning that the logistic function squashes output values into ranges $(0, 1)$. Consequently, when the inputs of a neuron become large, the function saturates at 0 or 1 with a derivative in these points being close to 0. As the derivatives are used for training the network\footnote{The training is performed via the backpropagation algorithm which is explained in section \ref{sec:backprop}}, the network trains slower if the weights or biases are high. This is referred to in literature as the \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
+The logistic function, as in figure \ref{fig:af}, is well suited for classification as it is a non-linear function and it transforms the output values to either side of the curve. This results in a clear distinction between classes. However, the function has a compact domain range, meaning that the logistic function squashes output values into ranges $(0, 1)$. Consequently, when the inputs of a neuron become large, the function saturates at 0 or 1 with a derivative in these points being close to 0. As the derivatives are used for training the network\footnote{The training is performed via the backpropagation algorithm which is explained in section \ref{sec:backprop}}, the network trains slower if the weights or biases are high. This is referred to in literature as the \textit{vanishing gradient problem} \cite{Nair:2010:RLU:3104322.3104425}.\\
 
 \begin{figure}[h!]
   \centering
@@ -244,7 +244,7 @@ In order to avoid saturation problems, a commonly used non-linear activation fun
 ReLUs are non-saturating which results in a neuron always learning if the input is positive. Networks with ReLUs train several times faster and have become, as of 2015, the standard activation function for deep neural networks \cite{lecun2015deep}.
 
 \subsection{Feedforward neural networks}
-A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of layers $L$ of neural units. The goal of a feedforward network is to approximate some function $f^*$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y=f^*(x)$ maps an input $x$ to a label $y$. Consequently, a neural network with $m$ input nodes and 1 output node serves as a function with m inputs and 1 output.
+A feedforward neural network, or multilayer perceptron (MLP), is an ANN which consists of multiple layers $L$ of artificial neurons. The goal of a feedforward network, as to other Ml algorithms, is to approximate some function $\hat f$ \cite{Goodfellow-et-al-2016}. In terms of a classifier, $y= \hat f(x)$ maps an input $x$ to a label $y$. Consequently, a neural network with $m$ input nodes and 1 output node serves as a function with m inputs and 1 output.
 
 \begin{figure}[h]
   \centering
@@ -285,11 +285,11 @@ A feedforward neural network, or multilayer perceptron (MLP), is an ANN which co
     \node[annot,left of=hl] {$L_1$};
     \node[annot,right of=hl] {$L_k$};
 \end{tikzpicture}
-\caption{The diagram shows the structure of a typical feedforward network. The network has two input units in the input layer $L_1$ and one output unit in the output layer $L_k$. Layers $L_{2} \dots L_{k-1}$ the the so-called hidden layers.}\label{fig:ffnn}
+\caption{The diagram shows the typical structure of a feedforward network. The network has two input units in the input layer $L_1$ and one output unit in the output layer $L_k$. Layers $L_{2} \dots L_{k-1}$ the the so-called hidden layers.}\label{fig:ffnn}
 \end{figure}
 The network is named feedforward as it the information flowing through the network passes with the outermost input layer and and ends at the output unit of the output layer \cite{Goodfellow-et-al-2016}. All units in a layer are fully connected to the succeeding layer, however, there is no interconnection between units in the same layer. Figure \ref{fig:ffnn} shows a typical feedforward architecture with three layers including a single hidden layer $L_{k-1}$.\\
 
-Considering equation (3.11) from the neuron section, we can now compute the input to the output node, given by\\
+Considering equation \ref{eqn:neuron1}, we can now compute the input to the output node, given by\\
 \begin{equation}
   \sum_{k=1}^{n} \alpha_k h_k
 \end{equation}
@@ -302,30 +302,32 @@ where $h_k$ is the output of the $k$th hidden node and $\alpha_k$ being the weig
 
 \subsection{Backpropagation}
 \label{sec:backprop}
-The purpose of the backpropagation algorithm \cite{rumelhart1988learning} is to adjust the synaptic weights of the network to approximate the function mapping between the inputs $x$ of the training data with the corresponding output labels $y$. The algorithm describes the process of training. The result of this algorithm is a neural network configured to minimize the error when solving a supervised learning task.\\
+The purpose of the backpropagation algorithm \cite{rumelhart1988learning} is to adjust the synaptic weights of the network to approximate the function $\hat f$ mapping the inputs $x$ of the training data to the corresponding output labels $y$. In an iterative process the algorithm computes the overall error of the functional mapping and adjusts the weights of each neuron according to it's individual error contribution. The result of this algorithm is a neural network configured to sensibly respond to unseen inputs for the specific supervised learning task.
 
-As a first step, the weights of the network are initialized which is usally done in a randomly manner or based on a certain heuristic. Then, each input pattern $p$, with features $p = \{x_0,x_1, x_2, \dots, x_n \}$ and label $y$, is then sequentially processed, layer by layer, by the network in two phases. In the first phase, the \textit{forward phase}, the ouput of the network is computed. The error function for the output nodes j are then calculated as follows, where $\hat{y}_j$ denotes the output node's generated output and $y_j$ is the desired ouput:
+As a first step, the weights of the network are initialized which is usally done in a randomly manner or based on a certain heuristic. Then, each input pattern $p$, with features $p = \{x_0,x_1, x_2, \dots, x_n \}$ and label $y$, is then sequentially processed, layer by layer, by the network in two phases. In the first phase, the \textit{forward phase}, the ouput of the network is computed. The square error for the output nodes j is then calculated as follows, where $\hat{y}_j$ denotes the output node's generated output and $y_j$ is the desired ouput (see \cite{Haykin:1998:NNC:521706}):
 
 \begin{equation}
   E = \frac{1}{2}\sum_{j} (\hat{y}_j - y_j)^2.
 \end{equation}
 
-Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backwards phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network. \\
+Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backwards phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network.
 
 In this iterative process, the error gradients of the error function are calculated based on the partial derivative with respect to each connecting weight. If we define $o_j$ as output of a neural unit with
 \begin{equation}
   o_j = \varphi(net_j)
 \end{equation}
-and the units input as 
+and the units input as
 \begin{equation}
   net_j = \sum_{j=1}^{n}x_{i}w_{ij},
 \end{equation}
 the chain rule can be applied in order to compute the partial derivatives as follows:
+
 \begin{equation}
   \frac{\delta E}{\delta w_{ij}} = \frac{\delta E}{\delta o_j} \frac{\delta o_j}{\delta net_j} \frac{\delta net_j}{\delta w_{ij}}
 \end{equation}
 
 Given the partial derivative in respect to the weight $w_{ij}$, the change of the weight $\Delta w_{ij}$ can be determined. Here, the weight update equation (3.22) is computed depending on two cases. Either if the node $j$ is in the hidden layer or in the output layer:
+
 \begin{equation}
   \Delta w_{ij} = -\eta \frac{\delta E}{\delta w_{ij}} = - \eta \delta_j o_i
 \end{equation}
@@ -337,11 +339,10 @@ Given the partial derivative in respect to the weight $w_{ij}$, the change of th
     \varphi'(net_j) \sum_k \delta_k w_{jk} & \text{node $j \notin L_k$}
   \end{cases}
 \end{equation}
-\\
-In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to which amount the reverse gradients are applied to the weight update; $k$ refers to a node in the successor layer of the node $j$.\\
 
-Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training
-epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
+In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to which amount the reverse gradients are applied to the weight update; $k$ refers to a node in the successor layer of the node $j$.
+
+Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold \cite{Haykin:1998:NNC:521706}. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
 
 % \subsection{Recurrent Neural Networks}
 % In the previous section, we have looked at feedforward neural networks where information, as the name implies, flows only in one direction, from the input layer to the output layer. A recurrent neural network (RNN) is similar to a feedforward network, except that it also has cyclic connections. This structure makes a RNN able to memorize previous information that has flown throw the network.\\
