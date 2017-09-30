@@ -120,13 +120,44 @@ Furthermore, The Wilcoxon signed-rank test shows that the classification results
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{results/lab-vs-field-5x4.png}
-  \caption{} \label{fig:participation}
+  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
 \end{figure}
 
+\section{Input Modalities Comparison}
+As for the comparison between environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As the results between individual grid sizes are similar, only the 5x4 grid is represented here. Results for the other grids are to be found in the appendix.
 
-\section{Global Model}
-\subsection{Within subject accuracies}
-\subsection{Device accuracies}
-\subsection{One model}
+The results show that across all devices the mean accuracy for thumb tap data was lower compared to data containing index finger taps. For the iPhone 7 a mean accuracy of 0.57 (+/- 0.05) was achieved for index taps compared to 0.35 (+/- 0.07) for thumb taps. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies for the thumb were statistically lower than the fold accuracies for the index finger Z = 2, p < 0.05.
+
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{results/index-vs-thumb-5x4.png}
+  \caption{The figure shows the tap inference accuracies for the 5x4 grid of the 10-fold cross-validation.} \label{fig:participation}
+\end{figure}
+
+\begin{table}[h!]
+  \centering
+\begin{tabular}{|l|l|c|c|c|c|c|}
+  \cline{3-7}
+  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
+  \hline
+  \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  mean \\
+  \hline
+  iPhone 6 & Index &      0.37 &     0.27 &     0.46 &     0.06 &        0.34 \\
+  & Thumb &      0.31 &     0.24 &     0.39 &     0.04 &        0.27 \\
+  \hline
+iPhone 7 & Index &      0.57 &     0.48 &     0.63 &     0.05 &        0.55 \\
+  & Thumb &      0.35 &     0.22 &     0.46 &     0.07 &        0.32 \\
+  \hline
+iPhone 6s & Index &      0.47 &     0.34 &     0.58 &     0.07 &        0.44 \\
+  & Thumb &      0.33 &     0.21 &     0.46 &     0.07 &        0.29 \\
+  \hline
+\end{tabular}
+  \caption{Classification results for the 5x4 tapping grid.}
+\end{table}
+
+\section{Body Posture Comparison}
+
+
 
 \section{Discussion}
