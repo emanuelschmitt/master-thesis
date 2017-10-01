@@ -1,21 +1,23 @@
 \chapter{Method\label{cha:chapter5}}
 
 \section{Hypothesis}
-To recall, in the related work section previous research was presented showing that PIN\footnote{Personal Identification Number} and passwords can be obtained by reconstructing touchscreen taps based on motion sensor readings \cite{Tapprints, Accessory, Touchlogger}. However, since the data in these approaches was collected in a controlled environment, it has not been shown that the feasibility to predict tap locations also applies to a more natural environment where users usually engage with their personal smartphones. This question forms the first hypothesis of this thesis.
+To recall, previous research has shown that is it possible to predict location on a smartphone touch screen based on acceleromter and gyroscope recordings \cite{Tapprints, Accessory, Touchlogger}. However, since the data used for classification in these approaches was collected in a controlled environment, it has not been shown that the feasibility to predict tap locations also applies to a field environment. Therefore, data will be collected from both the field and the laboratory environments to investigate how classifiers, when fed with data from these environments, perform. Assumptions are made that the environment has an effect on the classifier's prediction accuracy.
 
 \begin{center}
   \begin{mdframed}[backgroundcolor=gray!10] 
-    \textbf{H1}  The environment of recorded sensor data has an effect on the prediction accuracy.
+    \textbf{H.1}  The environment of recorded sensory data has an effect on the prediction accuracy.
   \end{mdframed}
 \end{center}
 
+In order to test the hypothesis stated above, a further assumption is made assuming that when a subject interacts with a smartphone screen, for instance, while walking or during a public transportation ride, the recorded sensory data will contain more noise compared to the controlled environment. This noise will, most likely, have a negative impact on the prediction accuracies. 
+
 \begin{center}
   \begin{framed}
-    \textbf{H1.1:} The prediction accuracy for a classifier trained with the laboratory data will score higher than one trained with the field data.
+    \textbf{H1.1:} The prediction accuracy for a classifier trained with the data in the laboratory environment will score higher than one trained with data collected in the field.
   \end{framed}
 \end{center}
 
-Furthermore, 
+Next, assumptions are made on the way the user interacts with the device. A user can either use the thumb to touch, which is presumably the most common way of interacting with the device, or the index finger while holding in the device in the other hand. Assuming that the input modality also has an effect on the behavior of the estimator, data sets for both hands will be evaluated.
 
 \begin{center}
   \begin{mdframed}[backgroundcolor=gray!10]
@@ -23,7 +25,7 @@ Furthermore,
   \end{mdframed}
 \end{center}
 
-It is plausible that typing with the index finger and holding the device in the other hand will cause less movement of the smartphone as typing with a thumb will. This is presumably to be reflected in the motion data.
+It is plausible that tapping with the index finger, due to the force resistance of the supporting other hand, will cause less movement of the smartphone as typing with a thumb will. This is presumably to be reflected in the motion data.
 
 \begin{center}
   \begin{framed}
@@ -31,25 +33,18 @@ It is plausible that typing with the index finger and holding the device in the 
   \end{framed}
 \end{center}
 
-Moreover, I presume that 
+Finally, assumptions are made based on the body posture a user has while tapping. Overall, a difference in classification results is assumed between standing and sitting.
 \begin{center}
   \begin{framed}
     \textbf{H3:} The body posture has an effect on the prediction accuracy.
   \end{framed}
 \end{center}
 
-Similar to the input modality, it is also plausible that a user that taps a smartphone screen while sitting will move lesser than standing.
+To show approve or reject this hypothesis, it is assumed that a user while sitting will move less compared to who is standing which, as a result, will lead to a better predictability of the tap location.
 
 \begin{center}
   \begin{framed}
-    \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
-  \end{framed}
-\end{center}
-
-
-\begin{center}
-  \begin{framed}
-    \textbf{H1.1:} The prediction accuracy for a classifier trained with the laboratory data will score higher that one trained with the field data for each of the three grids.
+    \textbf{H2.2:} The prediction accuracy for a classifier trained with taps where a user sat will score higher than one trained with taps where a user stood.
   \end{framed}
 \end{center}
 
