@@ -1,6 +1,6 @@
 \chapter{Results\label{cha:chapter6}}
 \section{Data Acquisition}
-The data acquisition was performed with 27 subjects in total, 12 (44\%) females and 15 (56\%) males. Participants had an average age of 26.4 years (17, 53, 6.39) and all 27 were right-handed (100\%). 19 (70\%) were students, 8 (30\%) had other occupations. All 27 (100\%) were right handed.
+The data acquisition was performed with 27 subjects in total, 12 (44\%) females and 15 (56\%) males. Participants had an average age of 26.4 years (17, 53, 6.39) and all 27 were right-handed (100\%). 19 (70\%) were students, 8 (30\%) had other occupations.
 18 (66\%) subjects stated that their most used input modality is the their thumb while 4 (14\%) preferred using their index finger and 5(18\%) use both thumbs during interactions.\\
 
 \begin{figure}[h!]
@@ -16,10 +16,10 @@ In total over 46.000 taps were generated in the whole data acquisition phase. To
 The devices used to obtain the tap information were 12 (45\%) Apple iPhone 6s, 10 (37\%) iPhone 6 and the least common device was the iPhone 7 with 5 (18\%).
 
 \section{Laboratory and Field Comparison}
-In this section, I present the classification results for the data acquired. The training data has been filtered based on the environment and the mobile device. After performing a grid search of the hyperparameter space for the SVM and the ANN, a 10-fold cross validation has been performed on the best estimator.
+In this section, I present the classification results for the acquired data. The training data has been filtered based on the environment and the mobile device used to obtain the tap records. After performing a grid search of the hyperparameter space for the SVM and the ANN, a 10-fold cross validation has been performed on the best estimator.
 
 \subsubsection{2x2 Grid}
-As illustrated in the box plot, for the 2x2 grid the results show that all classification accuracies are above guessing probability of $\frac{1}{4} = 25\%$ with the iPhone 7 performing best with a mean accuracy score of 0.87 (+/- 0.06) in the laboratory environment.
+As illustrated in the figure \ref{fig:lab2x2}, for the 2x2 grid the results show that all classification accuracies are above guessing probability of $\frac{1}{4} = 25\%$ with the iPhone 7 performing best with a mean accuracy score of 0.87 (+/- 0.06) in the laboratory environment for this particular task.
 
 \begin{table}[h!]
   \centering
@@ -46,17 +46,17 @@ Results show that the model trained with data from the iPhone 7 outperform the m
 
 % For the comparison of devices, the results yield that the iPhone 7 scores higher accuracies compared to the iPhone 6 and and the iPhone 6s for both environments. The iPhone 6 scores lowest with a mean accuracy of 0.76 (+/- 0.85) while the iPhone 7 performs best with a mean accuracy of 0.87 (+/- 0.96) in the controlled environment. For the field environnement the iPhone 7 scores a mean accuracy of 0.75 (+/- 0.83) while the iPhone 6 shows 0.73 (+/- 0.86).
 
-Moreover, the results reveal that all mean accuracy scores across all devices are lower in the field compared to the laboratory environment. The fact that the classification results for both environments differ is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 24, p < 0.05$.
+Moreover, the results reveal that all mean accuracy scores across all devices are lower in the field compared to the laboratory environment. The fact that the classification results for both environments differ significantly is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 24, p < 0.05$.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{results/lab-vs-field-2x2.png}
-  \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:participation}
+  \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:lab2x2}
 \end{figure}
 
 \subsubsection{4x3 Grid}
 
-As for the smallest of the three grids, similar results could be found showing that all inference accuracies are above the probability baseline of guessing which is $\frac{1}{12}= 8.33\%$ for the 4x3 grid. Similarly, the iPhone 7 scores best with a mean accuracy of 0.62 (+/- 0.10) in the laboratory environment.
+As for the smallest of the three grids, similar results could be found for the 4x3 grid size showing that all inference accuracies are above the probability baseline of guessing which is $\frac{1}{12}= 8.33\%$ for the 12 distinguishable buttons. As seen above, the iPhone 7 scores best with a mean accuracy of 0.62 (+/- 0.10) in the laboratory environment.
 
 \begin{table}[h!]
   \centering
@@ -79,7 +79,7 @@ iPhone 6s & Lab &      0.56 &     0.47 &     0.65 &     0.06 &        0.52 \\
   \caption{Classification results for the 4x3 tapping grid.}
 \end{table}
 
-Furthermore, the results show that the iPhone 7 models perform best, followed by the models trained on the iPhone 6s and iPhone 6, consecutively. Again, the iPhone 6 performs worst in comparison to the other devices yielding accuracies of 0.47 (+/- 0.06) in the controlled and 0.41 (+/- 0.04) in the uncontrolled environment. 
+Aligning with the previous result, the results show that the models trained for the iPhone 7 perform best, followed by the models trained on the iPhone 6s and iPhone 6, consecutively. The iPhone 6 performs worst in comparison to the other devices yielding accuracies of 0.47 (+/- 0.06) in the controlled and 0.41 (+/- 0.04) in the uncontrolled environment.
 
 The Wilcoxon signed-rank test shows that the classification results for both environments differ significantly. The fold accuracies in the laboratory were statistically higher than the fold accuracies in the field environment $Z = 21, p < 0.05$.
 
@@ -90,7 +90,7 @@ The Wilcoxon signed-rank test shows that the classification results for both env
 \end{figure}
 
 \subsubsection{5x4 Grid}
-For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) on the iPhone 6. Results show that all inference accuracies are above the baseline of $\frac{1}{20} = 5\%$ for this classification problem.
+For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) for the iPhone 6. Results show that all inference accuracies are above the baseline of $\frac{1}{20} = 5\%$ for this classification problem.
 
 \begin{table}[h!]
   \centering
@@ -124,9 +124,9 @@ Furthermore, The Wilcoxon signed-rank test shows that the classification results
 \end{figure}
 
 \section{Input Modalities Comparison}
-As for the comparison between environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As the results between individual grid sizes are similar, only the 5x4 grid is represented here. Results for the other grids are to be found in the appendix.
+As for the comparison between controlled and uncontrolled environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As subjects were free to decide weather to use the index finger or thumb for the tap data acquisition, the training data size has been downsampled in order to train each classifier with the same amount of training material. For each grid size, similar results were found. For this reason, only the results for the 5x4 grid will be shown here. The results for the other grid sizes are listed in the Appendix. %TODO
 
-The results show that across all devices the mean accuracy for thumb tap data was lower compared to data containing index finger taps. For the iPhone 7 a mean accuracy of 0.57 (+/- 0.05) was achieved for index taps compared to 0.35 (+/- 0.07) for thumb taps. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies for the thumb were statistically lower than the fold accuracies for the index finger Z = 2, p < 0.05.
+For the 5x4 grid, the results show that across all devices the mean inference accuracies for estimators trained with the thumb taps were lower compared to the classifiers trained with data containing index finger taps. For the iPhone 7, the results yield a mean accuracy of 0.57 (+/- 0.05) for index taps compared to 0.35 (+/- 0.07) for thumb taps. Same results apply for the other devices. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 2, p < 0.05.
 
 
 \begin{figure}[h!]
@@ -141,19 +141,19 @@ The results show that across all devices the mean accuracy for thumb tap data wa
   \cline{3-7}
   \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
   \hline
-  \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  mean \\
+  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  mean \\
   \hline
-  iPhone 6 & Index &      0.37 &     0.27 &     0.46 &     0.06 &        0.34 \\
-  & Thumb &      0.31 &     0.24 &     0.39 &     0.04 &        0.27 \\
+  iPhone 6 & Index &      0.38 &     0.30 &     0.47 &     0.06 &        0.35 \\
+  & Thumb &      0.35 &     0.31 &     0.38 &     0.02 &        0.31 \\
   \hline
-iPhone 7 & Index &      0.57 &     0.48 &     0.63 &     0.05 &        0.55 \\
-  & Thumb &      0.35 &     0.22 &     0.46 &     0.07 &        0.32 \\
+iPhone 7 & Index &      0.57 &     0.48 &     0.64 &     0.05 &        0.55 \\
+  & Thumb &      0.41 &     0.36 &     0.46 &     0.03 &        0.38 \\
   \hline
-iPhone 6s & Index &      0.47 &     0.34 &     0.58 &     0.07 &        0.44 \\
-  & Thumb &      0.33 &     0.21 &     0.46 &     0.07 &        0.29 \\
+iPhone 6s & Index &      0.46 &     0.34 &     0.61 &     0.08 &        0.43 \\
+  & Thumb &      0.35 &     0.29 &     0.37 &     0.02 &        0.31 \\
   \hline
 \end{tabular}
-  \caption{Classification results for the 5x4 tapping grid.}
+  \caption{Classification results for the 5x4 tapping grid for both input modalities: thumb and index finger.}
 \end{table}
 
 \section{Body Posture Comparison}
