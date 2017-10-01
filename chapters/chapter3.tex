@@ -3,91 +3,63 @@ In this chapter, I would like to introduce TapSensing. TapSensing is a labeled d
 
 \section{Overall System Architecture}
 
-The TapSensing application consists of two main components: the mobile and the server-side application. In brief, the mobile client provides the ability for a user to generate tap information including the motion sensor recordings. For the data to be stored in a centralized manner, the server-side application provides HTTP endpoints as a gateway to the database. The architecture, as illustrated in figure \ref{fig:architecture}, consists of various components which are outlined in the following. \\
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.7\textwidth]{architecture.png}
-  \caption{The diagram shows the overall architecture of TapSensing.} \label{fig:architecture}
-\end{figure}
+The TapSensing application consists of two main components: the mobile and the server-side application. In brief, the mobile client provides the ability for a user to generate taps with corresponding motion sensor signals. For the data to be stored in a centralized manner, the server-side application provides HTTP endpoints as a gateway to the database. The architecture, as illustrated in figure \ref{fig:architecture}, consists of various components which are outlined in the following.
 
 \begin{itemize}
-  \item \textbf{Mobile application}: The iOS application provides interfaces for the user to generate taps with corresponding sensor information. Furthermore, the application is capable of sending the acquired data to the backend application. More features of the mobile application are presented in section \ref{sec:mobileapp}. % # TODO
+  \item \textbf{Mobile application}: The iOS application provides interfaces for the user to generate taps and to label the data created. Furthermore, the application is capable of sending the acquired data to the server-side application. More features of the mobile application are presented in section \ref{sec:mobileapp}. % # TODO
   \item \textbf{NGINX}: For accepting and routing incoming HTTP requests, an NGINX reverse proxy/load balancer is used. The reverse proxy forwards the incoming requests to the server-side application and is capable of serving static content, such as images, HTML, CSS and JavaScript files of the form application.
-  \item \textbf{Gunicorn}: Gunicorn is a Python Web Server Gateway Interface (WSGI) HTTP server which runs the source code of the backend application.
-  \item \textbf{Backend Application}: The backend application provides HTTP API endpoints which inherit the server-side logic. The backend provides authentication and persistence functionalities. More information on the backend application is to be found in section \ref{sec:backend}
+  \item \textbf{Gunicorn}: Gunicorn\footnote{For more information on Gunicorn, visit \url{http://gunicorn.org/}.} is a Python Web Server Gateway Interface (WSGI) HTTP server which runs the source code of the backend application.
+  \item \textbf{Backend Application}: The backend application provides authentication and persistence functionalities which are accessible through HTTP endpoints. More information on the backend application is to be found in section \ref{sec:backend}
   \item \textbf{PostgreSQL}: TapSensing uses a PostgreSQL\footnote{PostgreSQL is a general purpose and object-relational database management system.} database for storing the application state, user related information, the survey data and the retrieved tap and sensor information.
   \item \textbf{Form application}: The form application provides a web user interface where study participants can answer survey questions.
 \end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{architecture.png}
+  \caption{The diagram shows the overall architecture of TapSensing.} \label{fig:architecture}
+\end{figure}
+
 
 % For the network requests containing the tap information which come from the mobile device to reach the backend, it must first pass through a reverse proxy. As reverse proxy we have chosen NGINX due to it's easy configurability. In this case, NGINX forwards requests to the TapSensing application and serves static files.\\
 % The TapSensing backend is written upon the Python Django Framework\footnote{https://www.djangoproject.com/} which is being executed upon the gunicorn application server. Django uses a so-called ORM to perform transactions with the Database, which in our case is a PostgreSQL database.
 
 \section{Mobile Application}
-
+The TapSensing mobile application is a iOS App written in the Swift programming language designed to run on devices with iOS 10 and above. The main purpose of the application is to provide a user interface for subjects to create taps with accelerometer and gyroscope readings for the labeled data acquisition phase of the experiment.
 \label{sec:mobileapp}
 
 \subsection{User Interface}
-\subsubsection{Login}
-When the application is opened for the first time, a login screen appears. As in standard login screens, the interface asks for credentials including username and password. Authenticating users, has the advantage, that the generated data can be mapped to individual users.
-
-% The source code of the of the question view is to be found in \texttt{LoginViewController.swift}.
-
+\subsubsection{Login Screen}
+When the application is opened for the first time, a login screen appears. As in standard login screens, the interface asks for credentials including username and password. Authenticating users, has the advantage, that the generated data can be mapped to individual users automatically.
 \subsubsection{Start Screen}
-During the trial the user is asked to generate taps once a day. In order to indicate if the user is eligible to perform a tap generation trial, the start screen shows a button that is either active or inactive. This switch depends on 4 distinct conditions: \\
-
+During the trial the user is asked to generate taps once a day. In order to indicate if the user is eligible to perform a tap generation trial, the start screen shows a button that is either active or inactive. This switch depends on 4 distinct conditions:
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{iphones_startscreen.png}
   \caption{This figure shows the start screen in different configurations. On the left hand-side screenshot, the user has not performed a trial while the the middle image shows the screen where a trial has been performed. The right-hand side image shows the \textit{lab mode} where trails can permanently be performed.}
 \end{figure}
-
-When data is collected in the laboratory environment, the app is set to \textit{lab mode}. In \textit{lab mode} the button is always active and trials can be performed. When a user has not performed a trial today, the button is inactive. In contrast, when a user has performed a trial today, the button is inactive and a further trial can be performed the next day. Once all field trials are performed, the app confirms that all data is collected and the button remains inactive.
-
-% The source code of the of the question view is to be found in \texttt{StartViewController.swift}.
-\subsubsection{Tap Input}
-
+When data is collected in the laboratory environment, the app is set to \textit{lab mode}. In \textit{lab mode} the button is always active and trials can be performed. When a user has not performed a trial today, the button is inactive. Consequently, when a user has already performed a trial on a specific day, the button is inactive and a further trial can only be performed on the following day. Once all field trials are performed, the app confirms that all data is collected and the button remains inactive.
+\subsubsection{Tap Input Screen}
+To acquire individual user taps the mobile application offers a user interface where buttons are aligned in a grid shape structure. The structure is calculated based on a specific configuration set where the amount the vertical and horizontal buttons in the interface can be set. Figure \ref{fig:grid} shows the interface, where 4, 12 and 20 distinguishable buttons are configured.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{grids_iphone.png}
   \caption{The figure shows the tap input user interface with buttons aligned in a grid shape structure. The leftmost structure offers 4 buttons, the middle offers 12 buttons whereas displays 20 distinguishable buttons.}\label{fig:grid}
 \end{figure}
-
-To acquire individual user taps the mobile application offers a user interface where buttons are aligned in a grid shape structure. The structure is calculated based on a specific configuration set where the amount the vertical and horizontal buttons in the interface can be set. Figure \ref{fig:grid} shows the interface, where 4, 12 and 20 distinguishable buttons are configured.\\
-
 For the user to tap on every location of the screen exactly once, a red button indicating the next button to tap is highlighted guiding the user through the interaction process. While the user is tapping the grid, the gyroscope and accelerometer information is recorded. After all buttons gave been tapped, either a new grid is loaded or the tap acquisition phase ends proceeding with the question interface.
 
-% Maybe a table
-% \begin{itemize}
-% \item 2 x 2
-% \item 4 x 3
-% \item 4 x 5
-% \end{itemize}
-
-% \begin{center}
-%     \begin{tabular}{ | l | l | l | }
-%     \hline
-%     \# & height & width \\ \hline
-%     1 & 2 & 2 \\
-%     2 & 4 & 3 \\
-%     3 & 4 & 5 \\
-%     \hline
-%     \end{tabular}
-% \end{center}
-
-% The source code of the of the tap input view is to be found in \texttt{GridViewController.swift}.
-
-
-\subsubsection{Questions}
+\subsubsection{Questions Screen}
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{questions_iphone.png}
   \caption{The figure displays question views with icons as answer possibilities.}
 \end{figure}
 
-To furthermore label the data acquired in the tap input interface, the application provides screens for the user to answer several questions. These question regard the various condition in which the user has generated taps. In the table below the asked questions with corresponding answer choices are to be found.
+To label the data acquired in the tap input interface, the application provides screens for the user to answer several questions. These question regard the body posture, input modality and the mood in which the user has generated the taps. In the table \ref{table:questions} below the questions asked with corresponding answer choices are to be found.
 
-\begin{center}
+
+\begin{table}
+  \centering
   \begin{tabular}{| l | l | l | l |}
   \hline
   \textbf{Question} & \textbf{Answer Choices} \\ \hline
@@ -97,93 +69,22 @@ To furthermore label the data acquired in the tap input interface, the applicati
   What is your current mood? & 1 - 5 \\
   \hline
   \end{tabular}
-  \caption{The Table shows the questions asked in the question view.}
-\end{center}
+  \caption{The Table shows the questions asked in the question view.}\label{table:questions}
+\end{table}
 
 To enable fast interactions, each answer possibility to a question is represented in the interface with an icon. Once an icon has been pressed, the application transits to the next question until all questions have been answered.
 
-% The source code of the of the question view is to be found in \texttt{QuestionViewController.swift}.
-
-\subsubsection{Upload}
+\subsubsection{Upload Screen}
 After all taps and questions are gathered, the acquired data is sent to the server. The interface at this points displays a spinning wheel for the user to acknowledge that the mobile phone is processing the data. In case an upload fails, the application provides a manual upload screen, where past sessions can be uploaded.
-
-% The source code of the of the upload views are to be found in \texttt{UploadViewController.swift} and  \texttt{ManualUploadViewController.swift}.
-% \subsection{Smartphone Sensors}
-% Modern smartphones come with a variety of different sensors offering valuable services to it's users and enhancing many applications. The newest Apple iPhone to date, the iPhone 7, has a fingerprint sensor, a barometer, a three-axis gyroscope and accelerometer (MEMS), a proximity sensor and an ambient light sensor attached to it's main-board \cite{iphone7techspecs}. As we are going to predict finger taps on the iPhone screen, the only sensors that are effected by the force of the tap are the gyroscope and the accelerometer. Therefore, these will be outlined in the following sections.
-
-% \subsubsection{Accelerometer}
-
-% The accelerometer is a sensor module that measures the acceleration it encounters by either movement or gravity \cite{sensorsstudy}. However, the acceleration caused by movement, the so-called inertial acceleration and the gravitational acceleration can not be distinguished by the sensor. This is due to Einstein's equivalence principal stating that the effects of gravity on an object are indistinguishable from the acceleration of the object's reference frame \cite{doi:10.1021/ed014p49.2}. \\
-
-% \begin{figure}[h!]
-%   \centering
-%   \includegraphics[width=0.35\textwidth]{iphone-acc.png}
-%   \caption{Apple iPhone with the corresponding axes of the accelerometer.}
-% \end{figure}
-
-% When the position of the device is fixed, as for example when it is placed on a table the accelerometer values would yield $a = \{ a_x = 0, a_y = 0, a_z = -1\}$. This feature make it suitable for detecting device screen rotations. As the device flips from landscape to portrait orientation, the gravity is sensed by a different set of accelerometer axis \cite{sensorsstudy}.\\
-
-% The values of the acceleration are quantified in the SI unit metres per second per second ($m/s^2$). However, in engineering the acceleration is typically expressed in terms of the standard gravity ($g$).
-
-% \subsubsection{Gyroscope}
-
-% As the accelerometer is suitable for detecting orientations, it lacks the ability to detect spin or more precise rotation movements. These spin movements are detected by the gyroscope sensor which is responsible for detecting and maintaining orientation \cite{sensorsstudy}. \\
-
-% A mechanical gyroscope typically composes of a spinning wheel which is set within three so-called gimbals. These gimbals enable the spinning wheel to be set in any orientation. Although the orientation does not remain fixed when the device is rotated, it changes in response to an external torque much lesser and in a different direction than it would be without the large angular momentum associated with it. Each gimbals translates to one of the three gyroscope outputs, namely \textit{pitch}, \textit{roll} and \textit{jaw} (See \cite{wiki:Gyroscope}). \\
-
-% The gyroscope sensor within the MEMS\footnote{Microelectromechanical systems}, the chip deployed in the iPhone, is between 1 to 100 micrometers of size. When the gyroscope is rotated, a small resonating mass is shifted as the angular velocity changes. This movement is converted into very low-current electrical signals that can be amplified and read by a host system. \\
-
-% The values of the gyroscope are quantified in as rotations per seconds (RPS) or as degrees per second ($\deg/s$).
-
-% \subsubsection{Accessing sensor values}
-% % Apple offers api for accessing these values.
-% In order to access gyroscope and accelerometer Apple provides a high level API\footnote{An Application Program Interface is a set of rules and subroutines provided by an application system for the developer to use. Here is a link to the Core Motion API Documentation: \url{https://developer.apple.com/documentation/coremotion/} } for accessing the device's sensors: \texttt{Core Motion}. Core Motion reports motion and environmental related data from sensors including accelerometers, gyroscopes, pedometers, magnetometers, and barometers in easy to use manner. \\
-
-% Sensor values can either be accessed as proceeded version including aggregations of the values and a raw version. For TapSensing, we make sure to record the raw values to avoid any form of bias. The update interval can be configures at ranges from $10$Hz - $100$Hz. Higher update-rates are possible but are not ensured to be processed in real-time by the device. For TapSensing, the update rate is configured with the highest (safe) value possible. This ensures that tap patterns are captured with an accurate resolution to make a later classification easier. The figure below is a code snipping depicting how sensor values are retrieved in the TapSensing application.
-
-% \begin{figure}[thp]
-% \centering
-% \begin{minipage}{0.7\textwidth}
-
-% \begin{minted}{swift}
-% let UPDATE_INTERVAL = 0.01
-% let motionManager = CMMotionManager()
-
-% // Set the update interval on both sensors
-% motionManager.gyroUpdateInterval = UPDATE_INTERVAL
-% motionManager.accelerometerUpdateInterval = UPDATE_INTERVAL
-
-% // Start reading the sensor values
-% motionManager.startAccelerometerUpdates()
-% motionManager.startGyroUpdates()
-
-% // Pass in a function to handle sensor update values,
-% // which arrive in the update interval rate.
-% motionManager.startAccelerometerUpdates(to: .bg) {
-%     (data: CMAccelerometerData?, error: Error?) in
-%     // handle incoming data
-%     ...
-% }
-% motionManager.startGyroUpdates(to: .bg) {
-%     (data: CMGyroData?, error: Error?) in
-%     // handle incoming data
-%     ...
-% }
-% \end{minted}
-% \end{minipage}
-% \caption{Swift code snippet displaying how to access sensor values with Core Motion.}
-% \label{test}
-% \end{figure}
-
 \subsection{Implementation Notes}
 \subsubsection{Obtaining Sensor Information}
-In order to access the gyroscope and the accelerometer, Apple provides a high-level API\footnote{An Application Program Interface is a set of rules and subroutines provided by an application system for the developer to use. The following link leads to the Core Motion API documentation: \url{https://developer.apple.com/documentation/coremotion/} } for accessing the device's sensors: \textit{Core Motion}. Core Motion provides motion and environmental related data from sensors including accelerometers, gyroscopes, pedometers, magnetometers, and barometers in easy to use manner. \\
+In order to access the gyroscope and the accelerometer, Apple provides a high-level API\footnote{An Application Program Interface is a set of rules and subroutines provided by an application system for the developer to use. The following link leads to the Core Motion API documentation: \url{https://developer.apple.com/documentation/coremotion/} } for accessing the device's sensors: \textit{Core Motion}. Core Motion provides motion and environmental related data from sensors including accelerometers, gyroscopes, pedometers, magnetometers, and barometers in easy to use manner.
 
 Sensor values can either be accessed as proceeded including aggregations of the values or as raw version. For TapSensing, raw values are recorded to avoid any form of bias. The update interval can be configures at ranges from $10$Hz - $100$Hz. Higher update-rates are possible but are not ensured to be processed in real-time by the device. For TapSensing, the update rate is configured with the highest (safe) value possible. This ensures that tap patterns are captured with high resolution in order to make a classification easier.
 \subsubsection{Local Persistence}
 It is possible that a session upload fails due to lack of internet access or another reason. Due to this, the application stores all session information and sensory data in it's local SQLite database. For local persistence Apple provides it's own framework called \textit{Core Data} which is extensively used in TapSensing. Once the data has been successfully received by the backend, the data is deleted from the local database.
 \subsubsection{Ensuring data consistency}
-Sending all collected data in a single HTTP-request results in the sent package being too large for the server-side system to process. For this reason, the data is split up into packages of 300 objects per request. To send these requests in an asynchronous manner, the \textit{Promise}\footnote{Promises are a software abstracting for dealing with asynchronous computation. Promises are objects that may produce a value at some point in the future.}\cite{Liskov:1988:PLS:53990.54016} library \textit{Hydra}\footnote{\url{https://github.com/malcommac/Hydra}} is used. \\
+Sending all collected data in a single HTTP-request results in the sent package being too large for the server-side system to process. For this reason, the data is split up into packages of 300 objects per request. To send these requests in an asynchronous manner, the \textit{Promise}\footnote{Promises are a software abstracting for dealing with asynchronous computation. Promises are objects that may produce a value at some point in the future.}\cite{Liskov:1988:PLS:53990.54016} library \textit{Hydra}\footnote{\url{https://github.com/malcommac/Hydra}} is used.
 
 During an upload phase, packages are sent in a sliding window approach. Packets are sent three at a time until all packages have been acknowledged by the server-side application. For each transmitted package, the server responds with the amount of data objects contained within the request. The mobile client can therefore track the amount of packages transmitted to ensure that all data has been transmitted successfully.
 If one packet fails to arrive, the package is resent with an exponential back-off.
@@ -193,11 +94,14 @@ TapSensing is registered with the Apple Push Notification Service allowing the a
 Installing iOS applications that are not uploaded to the Apple App Store, requires each device to be registered in the Apple Developer Portal with the smartphone's serial number. To avoid this, the application has been uploaded to the App Store enabling an easy distribution.
 
 \section{Backend application}
+The purpose of the backend application is to provide persistence functionalities for the acquired taps generated with the mobile application. The application is written on top of the Django\footnote{\url{https://www.djangoproject.com/}} web application framework and the Django REST framework\footnote{\url{http://www.django-rest-framework.org/}}.
+
 \label{sec:backend}
 \subsection{HTTP Endpoints}
 \label{sec:endpoints}
 For the purpose of interoperability the network communication from the mobile application and the forms application to the server-side application is done via HTTP Requests in the JSON\footnote{JSON (JavaScript Object Notation)\cite{ietf-jsonbis-rfc7159bis-04} is a lightweight data-interchange format.} format. The endpoints listed below represent tiny logic components that can be called from an external client.
-\begin{center}
+
+\begin{table}[h!]
   \begin{tabular}{|p{2cm}|p{4cm}|p{8cm}|}
   \hline
   \textbf{HTTP \newline Method} & \textbf{URL} & \textbf{Description} \\ \hline
@@ -217,8 +121,8 @@ For the purpose of interoperability the network communication from the mobile ap
   \hline
 
   \end{tabular}
-  \caption{The Table shows the questions asked in the question view.}
-\end{center}
+  \caption{The table shows all HTTP endpoints of the server-side application.}\label{table:endpoints.}
+\end{table}
 
 \subsection{Data Model}
 TapSensing's data model reflect the schemas that are used in the PostgreSQL database. As seen in figure \ref{fig:erdiagram}, the data model consists of 4 data objects that I will describe in this section:
@@ -253,7 +157,7 @@ The authentication mechanism implemented in TapSensing is based on a standard to
 The token is then added to the HTTP-request in the ``Authorization'' header to authenticate the user.
 
 \subsubsection{Push Notifications}
-As a previous study has shown that push notifications greatly enhance user participation \cite{pushNot} during a mobile field study, notifications are sent on a daily basis reminding the participants to take action. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to futhermore impact the participation. Following these assumptions, a push notification strategy has been designed combining notifications with and without sound. Figure \ref{fig:push-notifications} shows this implemented strategy with corresponding trigger times. \\
+As a previous study has shown that push notifications greatly enhance user participation \cite{pushNot} during a mobile field study, notifications are sent on a daily basis reminding the participants to take action. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to futhermore impact the participation. Following these assumptions, a push notification strategy has been designed combining notifications with and without sound. Figure \ref{fig:push-notifications} shows this implemented strategy with corresponding trigger times.
 
 % \begin{figure}[h!]
 %   \centering
