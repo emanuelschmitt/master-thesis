@@ -15,11 +15,37 @@ In total over 46.000 taps were generated in the whole data acquisition phase. To
 
 The devices used to obtain the tap information were 12 (45\%) Apple iPhone 6s, 10 (37\%) iPhone 6 and the least common device was the iPhone 7 with 5 (18\%).
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\textwidth]{results/tap4x32.png}
+  \caption{ } \label{fig:taps}
+\end{figure}
+
+\afterpage{%
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\textwidth]{results/tsne_2.png}
+  \caption{ Visualization of 230-dimensional feature vectors reduced to 2 dimensions.
+  The used t-SNE dimensionality reduction technique is unsupervised, thus it does
+  not consider the labels during the optimization} \label{fig:tsne}
+\end{figure}
+\clearpage
+}
+
 \section{Laboratory and Field Comparison}
-In this section, I present the classification results for the acquired data. The training data has been filtered based on the environment and the mobile device used to obtain the tap records. After performing a grid search of the hyperparameter space for the SVM and the ANN, a 10-fold cross validation has been performed on the best estimator.
+For the analysis between the controlled and the uncontrolled environment, a subset of the overall training material has been filtered based on the environment, grid size and the mobile device. After performing a grid search of the hyperparameter space for the SVM and, likewise, for the ANN, a 10-fold cross validation has been performed on the best estimator yielding the highest mean accuracy.
+
+The results show that the neural network classifier outperforms the SVM in all given tasks. This includes all grid sizes, environments and devices alike.
 
 \subsubsection{2x2 Grid}
-As illustrated in the figure \ref{fig:lab2x2}, for the 2x2 grid the results show that all classification accuracies are above guessing probability of $\frac{1}{4} = 25\%$ with the iPhone 7 performing best with a mean accuracy score of 0.87 (+/- 0.06) in the laboratory environment for this particular task.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{results/lab-vs-field-2x2.png}
+  \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:lab2x2}
+\end{figure}
+
+As illustrated in the figure \ref{fig:lab2x2}, for the 2x2 grid the results show that all classification accuracies are above the guessing probability of $\frac{1}{4} = 25\%$ with the iPhone 7 data scoring highest with a mean accuracy of 0.87 (+/- 0.06) in the laboratory environment and 0.75 (+/- 0.10) for the field environment.
 
 \begin{table}[h!]
   \centering
@@ -48,15 +74,17 @@ Results show that the model trained with data from the iPhone 7 outperform the m
 
 Moreover, the results reveal that all mean accuracy scores across all devices are lower in the field compared to the laboratory environment. The fact that the classification results for both environments differ significantly is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 24, p < 0.05$.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{results/lab-vs-field-2x2.png}
-  \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:lab2x2}
-\end{figure}
-
 \subsubsection{4x3 Grid}
 
-As for the smallest of the three grids, similar results could be found for the 4x3 grid size showing that all inference accuracies are above the probability baseline of guessing which is $\frac{1}{12}= 8.33\%$ for the 12 distinguishable buttons. As seen above, the iPhone 7 scores best with a mean accuracy of 0.62 (+/- 0.10) in the laboratory environment.
+The classification results for the 4x3 grid size show that all inference accuracies are above the probability baseline of guessing ($\frac{1}{12}= 8.33\%$ for the 12 distinguishable buttons). Here, the iPhone 7 scores best with a mean accuracy of 0.62 (+/- 0.10) in the laboratory environment and 0.48 (+/- 0.10) in the field environment.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{results/lab-vs-field-4x3.png}
+  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
+\end{figure}
+
+Aligning with the results of the small grid, the results show that the models trained for the iPhone 7 perform best, followed by the models trained on the iPhone 6s and iPhone 6, consecutively. The iPhone 6 performs worst in comparison to the other devices yielding accuracies of 0.47 (+/- 0.06) in the controlled and 0.41 (+/- 0.04) in the uncontrolled environment.
 
 \begin{table}[h!]
   \centering
@@ -79,15 +107,7 @@ iPhone 6s & Lab &      0.56 &     0.47 &     0.65 &     0.06 &        0.52 \\
   \caption{Classification results for the 4x3 tapping grid.}
 \end{table}
 
-Aligning with the previous result, the results show that the models trained for the iPhone 7 perform best, followed by the models trained on the iPhone 6s and iPhone 6, consecutively. The iPhone 6 performs worst in comparison to the other devices yielding accuracies of 0.47 (+/- 0.06) in the controlled and 0.41 (+/- 0.04) in the uncontrolled environment.
-
 The Wilcoxon signed-rank test shows that the classification results for both environments differ significantly. The fold accuracies in the laboratory were statistically higher than the fold accuracies in the field environment $Z = 21, p < 0.05$.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{results/lab-vs-field-4x3.png}
-  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
-\end{figure}
 
 \subsubsection{5x4 Grid}
 For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) for the iPhone 6. Results show that all inference accuracies are above the baseline of $\frac{1}{20} = 5\%$ for this classification problem.
@@ -124,7 +144,11 @@ Furthermore, The Wilcoxon signed-rank test shows that the classification results
 \end{figure}
 
 \section{Input Modalities Comparison}
-As for the comparison between controlled and uncontrolled environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As subjects were free to decide weather to use the index finger or thumb for the tap data acquisition, the training data size has been downsampled in order to train each classifier with the same amount of training material. For each grid size, similar results were found. For this reason, only the results for the 5x4 grid will be shown here. The results for the other grid sizes are listed in the Appendix. %TODO
+As for the comparison between controlled and uncontrolled environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As subjects were free to decide which input modality to use during the field study, the sample size has been adjusted in order to train each classifier with the same amount of training material. 
+
+For this experiment, results show across all devices and grid sizes, that the neural network classifier outperforms the SVM during the grid search.
+
+For each grid size, similar results were found. For this reason, only the results for the 5x4 grid will be shown here. The results for the other grid sizes are listed in the Appendix. %TODO
 
 For the 5x4 grid, the results show that across all devices the mean inference accuracies for estimators trained with the thumb taps were lower compared to the classifiers trained with data containing index finger taps. For the iPhone 7, the results yield a mean accuracy of 0.57 (+/- 0.05) for index taps compared to 0.35 (+/- 0.07) for thumb taps. Same results apply for the other devices. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 2, p < 0.05.
 
@@ -157,7 +181,76 @@ iPhone 6s & Index &      0.46 &     0.34 &     0.61 &     0.08 &        0.43 \\
 \end{table}
 
 \section{Body Posture Comparison}
+The results for the body posture comparison yield fairly similar results for individual grid sized, therefore only the 5x4 grid is presented in this section. The findings show the mean accuracies between the two body modalities were either higher or lower or similar without showing a clearer separation compared to the lab/field environment or the input modality (See \ref{bodypos5x4}). This is also confirmed by a Wilcoxon signed-rank test showing that the classification results for both factors did not alter significantly $Z = 176, p > 0.05$. The lack in statistical significance is also to be found for the other grid sizes (Results are to be found in the Appendix). Notable is that the variance in the fold accuracies of the classifier trained with data where a user stood is higher compared to data where a user sat.
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{results/standing-vs-sitting-5x4.png}
+  \caption{The figure shows the tap inference accuracies for the 5x4 grid of the 10-fold cross-validation.} \label{fig:bodypos5x4}
+\end{figure}
+
+\begin{table}[h!]
+  \centering
+\begin{tabular}{|l|l|c|c|c|c|c|}
+  \cline{3-7}
+  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
+  \hline
+  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  mean \\
+  \hline
+  iPhone 6 & Standing &      0.32 &     0.25 &     0.38 &     0.04 &        0.29 \\
+  & Sitting &      0.34 &     0.32 &     0.38 &     0.02 &        0.31 \\
+  \hline
+iPhone 7 & Standing &      0.45 &     0.19 &     0.59 &     0.11 &        0.43 \\
+  & Sitting &      0.37 &     0.34 &     0.40 &     0.02 &        0.34 \\
+  \hline
+iPhone 6s & Standing &      0.39 &     0.28 &     0.49 &     0.06 &        0.36 \\
+  & Sitting &      0.37 &     0.32 &     0.41 &     0.03 &        0.34 \\
+  \hline
+\end{tabular}
+  \caption{Classification results for the 5x4 tapping grid for both input modalities: thumb and index finger.}
+\end{table}
 
 
 \section{Discussion}
+For the hypothesis tests, the assumptions made in section \ref{sec:sec:hypothesis} will be either rejected or approved based on the results stated in the previous chapter.
+
+\begin{center}
+  \begin{mdframed}[backgroundcolor=green!005] 
+    \textbf{H.1}  The environment of recorded sensory data has an effect on the prediction accuracy.\\
+    \hline
+    \textbf{H1.1:} The prediction accuracy for a classifier trained with the data in the laboratory environment will score higher than one trained with data collected in the field.
+  \end{mdframed}
+\end{center}
+
+Both assumptions can be approves as the results yield a significant difference between the performance measures of the estimators for both environments. Across all available grid sizes analysis shows that a tap inference is reasonably possible for both environments. This is not an upper bound to what is feasible, however, the results indicate a clear performance drop in the accuracy measures found for data from the field environment. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
+
+% The drop in performance can be explained by looking at the usual behavior of smartphone users when interacting with their devices.
+
+Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field experiment, is prone to polluting the sensor signals with increased noise. It is assumed that the increase in noise effects the time-series necessary to make a clear prediction. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets negatively impacting the classification accuracies.
+
+These findings have implications regarding the actual security threat of tap location inference. Similar experiments, such as \cite{Tapprints, Accessory}, proclaimed that PINs and Passwords could be obtained by capturing gyroscope and accelerometer signals. However, as the data obtained for training the classifiers in these experiments originated from a controlled environment, the proclaimed security threat has to be reassessed with the results found in this experiment. \\
+
+\begin{center}
+  \begin{mdframed}[backgroundcolor=green!005]
+    \textbf{H2:} The input modality has an effect on the prediction accuracy.\\
+    \hline
+    \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
+  \end{mdframed}
+\end{center}
+
+
+
+
+\begin{center}
+  \begin{framed}
+    \textbf{H3:} The body posture has an effect on the prediction accuracy.
+  \end{framed}
+\end{center}
+
+To show approve or reject this hypothesis, it is assumed that a user while sitting will move less compared to who is standing which, as a result, will lead to a better predictability of the tap location.
+
+\begin{center}
+  \begin{framed}
+    \textbf{H2.2:} The prediction accuracy for a classifier trained with taps where a user sat will score higher than one trained with taps where a user stood.
+  \end{framed}
+\end{center}
