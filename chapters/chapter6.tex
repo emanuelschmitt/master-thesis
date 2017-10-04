@@ -15,10 +15,12 @@ In total over 46.000 taps were generated in the whole data acquisition phase. To
 
 The devices used to obtain the tap information were 12 (45\%) Apple iPhone 6s, 10 (37\%) iPhone 6 and the least common device was the iPhone 7 with 5 (18\%).
 
+In order to visualize the data collected, a t-Distributed Stochastic Neighbor Embedding (t-SNE) embedding is shown in figure \ref{fig:tsne} where the 230-dimensional feature vector has been reduced to 2 dimensions. Furthermore, \ref{ref:taps} shows the interpolated gyroscope and accelerometer signals acquired during a single tap generation trial.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\textwidth]{results/tap4x32.png}
-  \caption{ } \label{fig:taps}
+  \caption{The visualization shows the collected gyroscope and accelerometer components for the 4x3 grid. In the top left corner the grid class 11 is shown which corresponds to the top left corner of the mobile device.} \label{fig:taps}
 \end{figure}
 
 \afterpage{%
@@ -148,9 +150,9 @@ As for the comparison between controlled and uncontrolled environments, the same
 
 For this experiment, results show across all devices and grid sizes, that the neural network classifier outperforms the SVM during the grid search.
 
-For each grid size, similar results were found. For this reason, only the results for the 5x4 grid will be shown here. The results for the other grid sizes are listed in the Appendix. %TODO
+Classifier trained for the individual grid sizes show similar results. For this reason, only the results for the 5x4 grid will be shown here. The results for the other grid sizes are listed in the Appendix. %TODO
 
-For the 5x4 grid, the results show that across all devices the mean inference accuracies for estimators trained with the thumb taps were lower compared to the classifiers trained with data containing index finger taps. For the iPhone 7, the results yield a mean accuracy of 0.57 (+/- 0.05) for index taps compared to 0.35 (+/- 0.07) for thumb taps. Same results apply for the other devices. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 2, p < 0.05.
+For the 5x4 grid, the results show that across all devices the mean inference accuracies for estimators trained with the thumb taps were lower compared to the classifiers trained with data containing index finger taps. For the iPhone 7, the estimator yields a mean accuracy of 0.57 (+/- 0.05) for index finger samples compared to 0.35 (+/- 0.07)  for data representing the thumb as input modality. Same results apply for the other tested devices. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 2, p < 0.05.
 
 
 \begin{figure}[h!]
@@ -181,7 +183,9 @@ iPhone 6s & Index &      0.46 &     0.34 &     0.61 &     0.08 &        0.43 \\
 \end{table}
 
 \section{Body Posture Comparison}
-The results for the body posture comparison yield fairly similar results for individual grid sized, therefore only the 5x4 grid is presented in this section. The findings show the mean accuracies between the two body modalities were either higher or lower or similar without showing a clearer separation compared to the lab/field environment or the input modality (See \ref{bodypos5x4}). This is also confirmed by a Wilcoxon signed-rank test showing that the classification results for both factors did not alter significantly $Z = 176, p > 0.05$. The lack in statistical significance is also to be found for the other grid sizes (Results are to be found in the Appendix). Notable is that the variance in the fold accuracies of the classifier trained with data where a user stood is higher compared to data where a user sat.
+For the comparison between the two body postures (sitting and standing) the overall training material was filtered based on the device and body posture the user had while tapping. As for the comparison of input modalities, the amount of training material was balanced for both postures. Aligning with the previous results, the ANN outperforms the SVM in all tasks.
+
+The results show similar results for the three grids sizes. Therefore only the results for 5x4 grid are presented in this section. The findings show that the mean accuracies between the two body modalities did not show clear distinctions. In some cases data referencing a sitting posture resulted in higher accuracies while in other cases the standing data yielded higher results (See figure \ref{fig:bodypos5x4}). This is also indicated in a Wilcoxon signed-rank test showing that the classification results for both factors did not alter significantly $Z = 176, p > 0.05$. This lack in statistical significance is also to be found for the other grid sizes (Results are to be found in the Appendix).
 
 \begin{figure}[h!]
   \centering
@@ -215,42 +219,45 @@ iPhone 6s & Standing &      0.39 &     0.28 &     0.49 &     0.06 &        0.36 
 For the hypothesis tests, the assumptions made in section \ref{sec:sec:hypothesis} will be either rejected or approved based on the results stated in the previous chapter.
 
 \begin{center}
-  \begin{mdframed}[backgroundcolor=green!005] 
+  \begin{framed}
     \textbf{H.1}  The environment of recorded sensory data has an effect on the prediction accuracy.\\
-    \hline
     \textbf{H1.1:} The prediction accuracy for a classifier trained with the data in the laboratory environment will score higher than one trained with data collected in the field.
-  \end{mdframed}
+  \end{framed}
 \end{center}
 
-Both assumptions can be approves as the results yield a significant difference between the performance measures of the estimators for both environments. Across all available grid sizes analysis shows that a tap inference is reasonably possible for both environments. This is not an upper bound to what is feasible, however, the results indicate a clear performance drop in the accuracy measures found for data from the field environment. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
+Both assumptions can be approved as the results yield a significant difference between the performance measures of the estimators for both environments. Across all available grid sizes analysis has shown that a tap inference is reasonably possible in the field as well as in the laboratory environment, however with a clear performance drop found for data in the field. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment. The inference accuracies measured should not be interpreted as an upper bound to what is feasible, however should indicate that tap location inference in the field is considerably more difficult.
+
+% The performance measured is not an upper bound to what is feasible, however, the results indicate a clear performance drop in the accuracy measures found for data from the field. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
 
 % The drop in performance can be explained by looking at the usual behavior of smartphone users when interacting with their devices.
 
-Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field experiment, is prone to polluting the sensor signals with increased noise. It is assumed that the increase in noise effects the time-series necessary to make a clear prediction. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets negatively impacting the classification accuracies.
+Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field experiment, is presumably prone to polluting the sensor signals with increased noise. The results hint that the increase in noise undermines the actual signal caused by the tap event furthermore aggravating clear predictions of the tap location. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets negatively impacting the classification accuracies.
 
-These findings have implications regarding the actual security threat of tap location inference. Similar experiments, such as \cite{Tapprints, Accessory}, proclaimed that PINs and Passwords could be obtained by capturing gyroscope and accelerometer signals. However, as the data obtained for training the classifiers in these experiments originated from a controlled environment, the proclaimed security threat has to be reassessed with the results found in this experiment. \\
+These findings have implications regarding the actual security threat posed by motion sensor emanations. Similar experiments, such as \cite{Tapprints, Accessory}, proclaimed that PINs and Passwords could be obtained by capturing gyroscope and accelerometer signals. However, as the data obtained for training the classifiers in these experiments originated from a controlled environment, the proclaimed security threat has to be reassessed with the results found in this experiment. If an inference system was to be deployed for a real world attack, the system would have to overcome increased environmental noise and users switching input modalities and body postures, as modelled in this experiment. \\
 
 \begin{center}
-  \begin{mdframed}[backgroundcolor=green!005]
+  \begin{framed}
     \textbf{H2:} The input modality has an effect on the prediction accuracy.\\
-    \hline
     \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
-  \end{mdframed}
-\end{center}
-
-
-
-
-\begin{center}
-  \begin{framed}
-    \textbf{H3:} The body posture has an effect on the prediction accuracy.
   \end{framed}
 \end{center}
 
-To show approve or reject this hypothesis, it is assumed that a user while sitting will move less compared to who is standing which, as a result, will lead to a better predictability of the tap location.
+The analysis has shown that classification results, when comparing the input modalities, differed significantly. As the index finger taps could be predicted at higher measures compared to the thumb taps, both hypothesis can be approved.
+
+This outcome can be explained by comparing the motion of the individual input modalities. When tapping the device with the index finger, the striking force of the finger is applied in a more linear fashion and with a higher force compared to when the thumb is used. In addition, when tapping with the index finger the other hand is used as a support which resists the force and does not cause the device to tilt. When tapping with the thumb, on the other hand, as the device is held in the same hand, the force causes a rotation of the device in addition to the shifting movement. We can derive from this, that the predictability of a tap is strongly influences by the striking force of the physical tap and resisting force of the supporting hand.
+
+
+% - 
+
+% When tapping with the index finger the striking force of the finger is applied to the device in a more linear fashion compared to when tapping with thumb. Secondly, the supporting other hand stabilizes the device which results in less movement of the device. In comparison, the tap movement of the thumb, when holding the device in one hand, causes the device to rotate. This movement is even stronger when tapping on the top left or right corner of the device.
+
+% . When tapping the smartphone with index finger while holding the device in the other hand, the supporting hand holds the smartphone in place 
 
 \begin{center}
   \begin{framed}
-    \textbf{H2.2:} The prediction accuracy for a classifier trained with taps where a user sat will score higher than one trained with taps where a user stood.
+    \textbf{H3}: The body posture has an effect on the prediction accuracy.\\
+    \textbf{H3.1:} The prediction accuracy for a classifier trained with taps where a user sat will score higher than one trained with taps where a user stood.
   \end{framed}
 \end{center}
+
+The analysis has shown that the difference in classification measures for both body postures, sitting and standing, did not significantly differ. Both assumptions can be rejected. 
