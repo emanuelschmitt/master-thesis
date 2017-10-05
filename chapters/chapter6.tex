@@ -15,13 +15,7 @@ In total over 46.000 taps were generated in the whole data acquisition phase. To
 
 The devices used to obtain the tap information were 12 (45\%) Apple iPhone 6s, 10 (37\%) iPhone 6 and the least common device was the iPhone 7 with 5 (18\%).
 
-In order to visualize the data collected, a t-Distributed Stochastic Neighbor Embedding (t-SNE) embedding is shown in figure \ref{fig:tsne} where the 230-dimensional feature vector has been reduced to 2 dimensions. Furthermore, \ref{ref:taps} shows the interpolated gyroscope and accelerometer signals acquired during a single tap generation trial.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\textwidth]{results/tap4x32.png}
-  \caption{The visualization shows the collected gyroscope and accelerometer components for the 4x3 grid. In the top left corner the grid class 11 is shown which corresponds to the top left corner of the mobile device.} \label{fig:taps}
-\end{figure}
+In order to visualize the data collected, a t-Distributed Stochastic Neighbor Embedding (t-SNE) embedding is shown in figure \ref{fig:tsne} where the 230-dimensional feature vector has been reduced to 2 dimensions. Furthermore, a plot showing the interpolated gyroscope and accelerometer signals acquired during a single tap generation trial is to be found in the Appendix.
 
 \afterpage{%
 \begin{figure}
@@ -181,9 +175,9 @@ iPhone 6s & Index &      0.44 &     0.35 &     0.54 &     0.06 &  SVM \\
 \end{table}
 
 \section{Body Posture Comparison}
-For the comparison between the two body postures (sitting and standing) the overall training material was filtered based on the device and body posture the user had while tapping. As for the comparison of input modalities, the amount of training material was balanced for both postures. Aligning with the previous results, the ANN outperforms the SVM in all tasks.
+For the comparison between the two body postures (sitting and standing) the overall training material was filtered based on the device and body posture the user had while tapping. Furthermore, only index finger taps are considered in this experiment. As for the comparison of input modalities, the amount of training material was balanced.
 
-The results show similar results for the three grids sizes. Therefore only the results for 5x4 grid are presented in this section. The findings show that the mean accuracies between the two body modalities did not show clear distinctions. In some cases data referencing a sitting posture resulted in higher accuracies while in other cases the standing data yielded higher results (See figure \ref{fig:bodypos5x4}). This is also indicated in a Wilcoxon signed-rank test showing that the classification results for both factors did not alter significantly $Z = 176, p > 0.05$. This lack in statistical significance is also to be found for the other grid sizes (Results are to be found in the Appendix).
+Only the 5x4 grid is presented here, as similar results are found for the other grid sizes (see Appendix). The findings show that the mean accuracies between the two body modalities differ (See figure \ref{fig:bodypos5x4}). This is also indicated in a Wilcoxon signed-rank test showing that the classification results for both factors differed significantly $Z = 31, p > 0.05$.
 
 \begin{figure}[h!]
   \centering
@@ -194,25 +188,26 @@ The results show similar results for the three grids sizes. Therefore only the r
 \begin{table}[h!]
   \centering
 \begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-7}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
+  \cline{3-6}
+  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
   \hline
-  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  mean \\
+  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
   \hline
-  iPhone 6 & Standing &      0.32 &     0.25 &     0.38 &     0.04 &        0.29 \\
-  & Sitting &      0.34 &     0.32 &     0.38 &     0.02 &        0.31 \\
+  iPhone 6 & Standing &      0.30 &     0.19 &     0.45 &     0.08 &  SVM \\
+  & Sitting &      0.35 &     0.29 &     0.41 &     0.03 &  ANN \\
   \hline
-iPhone 7 & Standing &      0.45 &     0.19 &     0.59 &     0.11 &        0.43 \\
-  & Sitting &      0.37 &     0.34 &     0.40 &     0.02 &        0.34 \\
+iPhone 6s   & Standing &      0.37 &     0.34 &     0.42 &     0.03 &  SVM \\
+& Sitting &      0.47 &     0.34 &     0.61 &     0.08 &  SVM \\
   \hline
-iPhone 6s & Standing &      0.39 &     0.28 &     0.49 &     0.06 &        0.36 \\
-  & Sitting &      0.37 &     0.32 &     0.41 &     0.03 &        0.34 \\
+  iPhone 7 &    Sitting     &      0.58 &     0.44 &     0.82 &     0.11 &  SVM\\
+  & Standing &      0.43 &     0.35 &     0.52 &     0.05 &  ANN \\
   \hline
 \end{tabular}
-  \caption{Classification results for the 5x4 tapping grid for both input modalities: thumb and index finger.}
+  \caption{Classification results for the 5x4 tapping grid for both body postures: sitting and standing.}
 \end{table}
 
 
+\newpage
 \section{Discussion}
 For the hypothesis tests, the assumptions made in section \ref{sec:sec:hypothesis} will be either rejected or approved based on the results stated in the previous chapter.
 
