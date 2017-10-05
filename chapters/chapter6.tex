@@ -29,7 +29,7 @@ In order to visualize the data collected, a t-Distributed Stochastic Neighbor Em
 }
 
 \section{Laboratory and Field Comparison}
-For the analysis between the controlled and the uncontrolled environment, a subset of the overall training material has been filtered based on the environment, grid size and the mobile device. After performing a grid search of the hyperparameter space for the SVM and, likewise, for the ANN, a 10-fold cross validation has been performed on the best estimator yielding the highest mean accuracy.
+For the analysis between the controlled and the uncontrolled environment, a subset of the overall training material has been filtered based on the environment, grid size and the mobile device. After performing a grid search of the hyperparameter space for the SVM and, likewise, for the ANN, a 10-fold cross validation has been performed on the best of the two estimators yielding the highest mean accuracy.
 
 \subsubsection{2x2 Grid}
 
@@ -39,38 +39,38 @@ For the analysis between the controlled and the uncontrolled environment, a subs
   \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:lab2x2}
 \end{figure}
 
-As illustrated in the figure \ref{fig:lab2x2}, for the 2x2 grid the results show that all classification accuracies are above the guessing probability of $\frac{1}{4} = 25\%$ with the iPhone 7 data scoring highest with a mean accuracy of 0.87 (+/- 0.06) in the laboratory environment and 0.75 (+/- 0.10) for the field environment.
+For the 2x2 grid, the results show mean accuracy measures in range 0.79 to 0.87 for the laboratory environment and ranges 0.68 to 0.76 for the field environment. Furthermore, the iPhone 7 data scores highest with a mean accuracy score of the 0.85 for this particular classification problem.
 
 \begin{table}[h!]
   \centering
-\begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-7}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
-  \hline
-  \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  mean \\
-  \hline
-  iPhone 6 & Lab &      0.76 &     0.68 &     0.85 &     0.06 &        0.68 \\
-  & Field &      0.73 &     0.64 &     0.86 &     0.07 &        0.64 \\
-  \hline
-iPhone 7 & Lab &      0.87 &     0.73 &     0.96 &     0.06 &        0.83 \\
-  & Field &      0.75 &     0.54 &     0.83 &     0.10 &        0.66 \\
-  \hline
-iPhone 6s & Lab &      0.86 &     0.80 &     0.94 &     0.05 &        0.81 \\
-  & Field &      0.72 &     0.49 &     0.87 &     0.11 &        0.63 \\
-  \hline
-\end{tabular}
-  \caption{Classification results for the 2x2 tapping grid.}
+  \begin{tabular}{|l|l|c|c|c|c|c|}
+    \cline{3-6}
+    \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
+    \hline
+    \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  \textbf{Classifier} \\
+    \hline
+    iPhone 6 & Laboratory &      0.79 &     0.72 &     0.87 &     0.05 &  SVM \\
+    & Field &      0.71 &     0.62 &     0.83 &     0.06 &  SVM \\
+    \hline
+iPhone 6s     & Laboratory &      0.85 &     0.77 &     0.96 &     0.06 &  SVM \\
+& Field &      0.68 &     0.52 &     0.81 &     0.09 &  SVM \\
+    \hline
+iPhone 7 & Laboratory &      0.87 &     0.73 &     0.96 &     0.08 &  SVM \\
+& Field &      0.76 &     0.56 &     0.92 &     0.09 &  SVM \\
+    \hline
+  \end{tabular}
+  \caption{Classification results for the 2x2 tapping grid. The measured classification accuracies are above the guessing probability of $\frac{1}{4} = 25\%$. Notably, the SVM outperforms the ANN for this task.}
 \end{table}
 
-Results show that the model trained with data from the iPhone 7 outperform the models trained with the iPhone 6 and iPhone 6s, respectively. The iPhone 6 models shows least accuracy scores of 0.76 (+/- 0.06) for the controlled and 0.73 (+/- 0.07) for the uncontrolled environment.
+% Results show that the model trained with data from the iPhone 7 outperform the models trained with the iPhone 6 and iPhone 6s, respectively. The iPhone 6 models shows least accuracy scores of 0.76 (+/- 0.06) for the controlled and 0.73 (+/- 0.07) for the uncontrolled environment.
 
 % For the comparison of devices, the results yield that the iPhone 7 scores higher accuracies compared to the iPhone 6 and and the iPhone 6s for both environments. The iPhone 6 scores lowest with a mean accuracy of 0.76 (+/- 0.85) while the iPhone 7 performs best with a mean accuracy of 0.87 (+/- 0.96) in the controlled environment. For the field environnement the iPhone 7 scores a mean accuracy of 0.75 (+/- 0.83) while the iPhone 6 shows 0.73 (+/- 0.86).
 
-Moreover, the results reveal that all mean accuracy scores across all devices are lower in the field compared to the laboratory environment. The fact that the classification results for both environments differ significantly is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 24, p < 0.05$.
+Moreover, across all devices, the results list that the mean accuracies for the field data are always lower compared to the laboratory data. The fact that the classification measures for both environments differ significantly is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 5, p < 0.05$.
 
 \subsubsection{4x3 Grid}
 
-The classification results for the 4x3 grid size show that all inference accuracies are above the probability baseline of guessing ($\frac{1}{12}= 8.33\%$ for the 12 distinguishable buttons). Here, the iPhone 7 scores best with a mean accuracy of 0.62 (+/- 0.10) in the laboratory environment and 0.48 (+/- 0.10) in the field environment.
+For the 4x3 grid, the analysis shows mean accuracy scores in range 0.46 to 0.59 for the laboratory environment and ranges 0.40 to 0.47 for the field environment. Furthermore, the iPhone 7 data scores highest with a mean accuracy score of the 0.59 for this 12-class problem.
 
 \begin{figure}[h!]
   \centering
@@ -78,64 +78,66 @@ The classification results for the 4x3 grid size show that all inference accurac
   \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
 \end{figure}
 
-Aligning with the results of the small grid, the results show that the models trained for the iPhone 7 perform best, followed by the models trained on the iPhone 6s and iPhone 6, consecutively. The iPhone 6 performs worst in comparison to the other devices yielding accuracies of 0.47 (+/- 0.06) in the controlled and 0.41 (+/- 0.04) in the uncontrolled environment.
-
 \begin{table}[h!]
   \centering
 \begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-7}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
+  \cline{3-6}
+  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
   \hline
-  \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  mean \\
+  \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  \textbf{Classifier} \\
   \hline
-  iPhone 6 & Lab &      0.47 &     0.36 &     0.56 &     0.06 &        0.42 \\
-  & Field &      0.41 &     0.35 &     0.48 &     0.04 &        0.35 \\
+  iPhone 6 & Laboratory &      0.46 &     0.38 &     0.57 &     0.06 &  SVM \\
+  & Field &      0.40 &     0.34 &     0.44 &     0.03 &  SVM \\
   \hline
-iPhone 7 & Lab &      0.62 &     0.41 &     0.78 &     0.10 &        0.59 \\
-  & Field &      0.48 &     0.31 &     0.63 &     0.10 &        0.43 \\
-  \hline
-iPhone 6s & Lab &      0.56 &     0.47 &     0.65 &     0.06 &        0.52 \\
-  & Field &      0.42 &     0.29 &     0.54 &     0.07 &        0.36 \\
+iPhone 6s  & Laboratory &      0.57 &     0.50 &     0.68 &     0.06 &  SVM \\
+ &   Field    &      0.43 &     0.29 &     0.55 &     0.07 &  ANN \\
+ \hline
+iPhone 7   & Laboratory &      0.59 &     0.36 &     0.76 &     0.11 &  SVM \\
+& Field &      0.47 &     0.33 &     0.57 &     0.08 &  SVM \\
   \hline
 \end{tabular}
-  \caption{Classification results for the 4x3 tapping grid.}
+  \caption{Classification results for the 4x3 tapping grid. The measured inference accuracies are above the probability baseline of guessing ($\frac{1}{12}= 8.33\%$ for the 12 distinguishable buttons).}
 \end{table}
 
-The Wilcoxon signed-rank test shows that the classification results for both environments differ significantly. The fold accuracies in the laboratory were statistically higher than the fold accuracies in the field environment $Z = 21, p < 0.05$.
+A performed Wilcoxon signed-rank test shows that the classification results for both environments differ significantly. The fold accuracies in the laboratory were statistically higher than the fold accuracies in the field environment $Z = 19, p < 0.05$.
 
 \subsubsection{5x4 Grid}
-For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) for the iPhone 6. Results show that all inference accuracies are above the baseline of $\frac{1}{20} = 5\%$ for this classification problem.
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-7}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
-  \hline
-  \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  mean \\
-  \hline
-  iPhone 6 & Lab &      0.35 &     0.28 &     0.45 &     0.06 &        0.32 \\
-  & Field &      0.28 &     0.23 &     0.33 &     0.03 &        0.24 \\
-  \hline
-iPhone 7 & Lab &      0.46 &     0.21 &     0.63 &     0.11 &        0.43 \\
-  & Field &      0.34 &     0.25 &     0.47 &     0.08 &        0.31 \\
-  \hline
-iPhone 6s & Lab &      0.42 &     0.34 &     0.50 &     0.05 &        0.39 \\
-  & Field &      0.30 &     0.18 &     0.38 &     0.06 &        0.26 \\
-  \hline
-\end{tabular}
-  \caption{Classification results for the 5x4 tapping grid.}
-\end{table}
-
-Aligning with the results from the two previous grids, the iPhone 7 models show higher mean accuracies compared to the other devices. 
-
-Furthermore, The Wilcoxon signed-rank test shows that the classification results for both environments alter significantly. The fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 22, p < 0.05$.
+For the grid with 20 distinguishable areas the inference accuracies measures range from 0.35 to 0.43 for the laboratory and 0.28 to 0.32 for the field data, respectively. Aligning with the previous results, the iPhone 7 shows highest mean accuracy scores of 0.43 for the data collected in the laboratory. 
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{results/lab-vs-field-5x4.png}
-  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
+  \caption{The figure shows the tap inference accuracies for the 5x4 grid of the 10-fold cross-validation. Results show that all inference accuracies are above the baseline of $\frac{1}{20} = 5\%$ for this classification problem.} \label{fig:results-lf-5x4}
 \end{figure}
+
+% For the 4x3 grid, the analysis shows mean accuracy scores in range 0.46 to 0.59 for the laboratory environment and ranges 0.40 to 0.47 for the field environment. Furthermore, the iPhone 7 data scores highest with a mean accuracy score of the 0.59 for this 12-class problem.
+
+% For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) for the iPhone 6. 
+
+Furthermore, The Wilcoxon signed-rank test shows that the classification results for both environments alter significantly. The fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 12, p < 0.05$.
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|l|l|c|c|c|c|c|}
+    \cline{3-6}
+    \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
+    \hline
+    \textbf{Device} & \textbf{Environment} & mean &   min &   max  & std &  \textbf{Classifier} \\
+    \hline
+    iPhone 6 & Lab &      0.35 &     0.28 &     0.44 &     0.05 &  ANN \\
+    & Field &      0.28 &     0.22 &     0.36 &     0.04 &  ANN \\
+    \hline
+    iPhone 6s & Lab &      0.42 &     0.34 &     0.49 &     0.05 &  SVM \\
+    &   Field    &    0.31 &     0.21 &     0.39 &     0.06 &  ANN \\
+    \hline
+    iPhone 7 & Lab &      0.43 &     0.25 &     0.62 &     0.09 &  SVM \\
+    & Field &      0.32 &     0.21 &     0.45 &     0.08 &  SVM \\    
+    \hline
+  \end{tabular}
+  \caption{Classification results for the 5x4 tapping grid.}
+\end{table}
+
+
 
 \section{Input Modalities Comparison}
 As for the comparison between controlled and uncontrolled environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As subjects were free to decide which input modality to use during the field study, the sample size has been adjusted in order to train each classifier with the same amount of training material.
