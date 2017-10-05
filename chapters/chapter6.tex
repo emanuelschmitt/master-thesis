@@ -146,13 +146,11 @@ Furthermore, The Wilcoxon signed-rank test shows that the classification results
 \end{figure}
 
 \section{Input Modalities Comparison}
-As for the comparison between controlled and uncontrolled environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As subjects were free to decide which input modality to use during the field study, the sample size has been adjusted in order to train each classifier with the same amount of training material. 
-
-For this experiment, results show across all devices and grid sizes, that the neural network classifier outperforms the SVM during the grid search.
+As for the comparison between controlled and uncontrolled environments, the same classification experiment was performed to detect differences in the predictive models between the two input modalities: Index finger and thumb. As subjects were free to decide which input modality to use during the field study, the sample size has been adjusted in order to train each classifier with the same amount of training material.
 
 Classifier trained for the individual grid sizes show similar results. For this reason, only the results for the 5x4 grid will be shown here. The results for the other grid sizes are listed in the Appendix. %TODO
 
-For the 5x4 grid, the results show that across all devices the mean inference accuracies for estimators trained with the thumb taps were lower compared to the classifiers trained with data containing index finger taps. For the iPhone 7, the estimator yields a mean accuracy of 0.57 (+/- 0.05) for index finger samples compared to 0.35 (+/- 0.07)  for data representing the thumb as input modality. Same results apply for the other tested devices. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 2, p < 0.05.
+For the 5x4 grid, the results show that across all devices the mean inference accuracies for estimators trained with the thumb taps were lower compared to the classifiers trained with data containing index finger taps. For the iPhone 7, the estimator yields a mean accuracy of 0.54 (+/- 0.04) for index finger samples compared to 0.38 (+/- 0.04)  for data representing the thumb as input modality.  Same results apply for the other tested devices. A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 29, p < 0.05.
 
 
 \begin{figure}[h!]
@@ -164,19 +162,19 @@ For the 5x4 grid, the results show that across all devices the mean inference ac
 \begin{table}[h!]
   \centering
 \begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-7}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}} & \textbf{Kappa} \\
+  \cline{3-6}
+  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
   \hline
-  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  mean \\
+  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
   \hline
-  iPhone 6 & Index &      0.38 &     0.30 &     0.47 &     0.06 &        0.35 \\
-  & Thumb &      0.35 &     0.31 &     0.38 &     0.02 &        0.31 \\
+  iPhone 6 & Index &      0.38 &     0.28 &     0.47 &     0.06 &  ANN \\
+  & Thumb &      0.35 &     0.33 &     0.37 &     0.01 &  ANN \\
   \hline
-iPhone 7 & Index &      0.57 &     0.48 &     0.64 &     0.05 &        0.55 \\
-  & Thumb &      0.41 &     0.36 &     0.46 &     0.03 &        0.38 \\
+iPhone 6s & Index &      0.44 &     0.35 &     0.54 &     0.06 &  SVM \\
+  & Thumb &      0.37 &     0.33 &     0.41 &     0.02 &  ANN \\
   \hline
-iPhone 6s & Index &      0.46 &     0.34 &     0.61 &     0.08 &        0.43 \\
-  & Thumb &      0.35 &     0.29 &     0.37 &     0.02 &        0.31 \\
+  iPhone 7 & Index &      0.54 &     0.45 &     0.59 &     0.04 &  SVM \\
+  & Thumb &      0.38 &     0.30 &     0.42 &     0.04 &  ANN \\
   \hline
 \end{tabular}
   \caption{Classification results for the 5x4 tapping grid for both input modalities: thumb and index finger.}
@@ -225,13 +223,15 @@ For the hypothesis tests, the assumptions made in section \ref{sec:sec:hypothesi
   \end{framed}
 \end{center}
 
-Both assumptions can be approved as the results yield a significant difference between the performance measures of the estimators for both environments. Across all available grid sizes analysis has shown that a tap inference is reasonably possible in the field as well as in the laboratory environment, however with a clear performance drop found for data in the field. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment. The inference accuracies measured should not be interpreted as an upper bound to what is feasible, however should indicate that tap location inference in the field is considerably more difficult.
+Both assumptions can be approved as the results yield a significant difference between the performance measures of the estimators for both environments. Across all available grid sizes analysis has shown that a tap inference is reasonably possible in the field as well as in the laboratory environment. 
+
+For the 4x3 grid, a mean accuracy of xx was shown for the laboratory and xx for the field data, respectively. In contrast, for the 5x4 grid an average accuracy of xx was shown for the field was well as xx for the controlled dataset. It can be assumed that these accuracies could be sufficient to obtain PINs in a malicious attack or at least significantly reduce the search space of cracking a PIN. However, these inference accuracies measured should not be interpreted as an upper bound to what is feasible, but should indicate that tap location inference in the field is considerably more difficult. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
 
 % The performance measured is not an upper bound to what is feasible, however, the results indicate a clear performance drop in the accuracy measures found for data from the field. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
 
 % The drop in performance can be explained by looking at the usual behavior of smartphone users when interacting with their devices.
 
-Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field experiment, is presumably prone to polluting the sensor signals with increased noise. The results hint that the increase in noise undermines the actual signal caused by the tap event furthermore aggravating clear predictions of the tap location. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets negatively impacting the classification accuracies.
+Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field experiment, is presumably prone to polluting the sensor signals with increased noise. The results hint that the increase in noise undermines the actual signal caused by the tap event aggravating clear predictions of the tap location. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets with increased variability negatively impacting the classification accuracies.
 
 These findings have implications regarding the actual security threat posed by motion sensor emanations. Similar experiments, such as \cite{Tapprints, Accessory}, proclaimed that PINs and Passwords could be obtained by capturing gyroscope and accelerometer signals. However, as the data obtained for training the classifiers in these experiments originated from a controlled environment, the proclaimed security threat has to be reassessed with the results found in this experiment. If an inference system was to be deployed for a real world attack, the system would have to overcome increased environmental noise and users switching input modalities and body postures, as modelled in this experiment. \\
 
@@ -244,14 +244,11 @@ These findings have implications regarding the actual security threat posed by m
 
 The analysis has shown that classification results, when comparing the input modalities, differed significantly. As the index finger taps could be predicted at higher measures compared to the thumb taps, both hypothesis can be approved.
 
-This outcome can be explained by comparing the motion of the individual input modalities. When tapping the device with the index finger, the striking force of the finger is applied in a more linear fashion and with a higher force compared to when the thumb is used. In addition, when tapping with the index finger the other hand is used as a support which resists the force and does not cause the device to tilt. When tapping with the thumb, on the other hand, as the device is held in the same hand, the force causes a rotation of the device in addition to the shifting movement. We can derive from this, that the predictability of a tap is strongly influences by the striking force of the physical tap and resisting force of the supporting hand.
+This outcome can be explained by comparing the motion of the individual input modalities. When a user taps the device with the index finger, the striking force of the finger is applied in a linear fashion causing a shift towards the z-axis. In addition, the other hand is used as a support, which partially resists the applied force and stops the device from tilting. In comparison, when a user taps with the thumb, the striking force causes the device to rotate in addition to the shift movement as the device is held in the same hand. This rotation causes a higher variance in the recorded data which result in an inferior predictability.
 
+% We can derive from this, that the predictability of a tap is strongly influences by the striking force of the physical tap and resisting force of the supporting hand.
 
 % - 
-
-% When tapping with the index finger the striking force of the finger is applied to the device in a more linear fashion compared to when tapping with thumb. Secondly, the supporting other hand stabilizes the device which results in less movement of the device. In comparison, the tap movement of the thumb, when holding the device in one hand, causes the device to rotate. This movement is even stronger when tapping on the top left or right corner of the device.
-
-% . When tapping the smartphone with index finger while holding the device in the other hand, the supporting hand holds the smartphone in place 
 
 \begin{center}
   \begin{framed}
@@ -260,4 +257,66 @@ This outcome can be explained by comparing the motion of the individual input mo
   \end{framed}
 \end{center}
 
-The analysis has shown that the difference in classification measures for both body postures, sitting and standing, did not significantly differ. Both assumptions can be rejected. 
+The analysis has shown that the difference in classification measures for both body postures, sitting and standing, differ significantly. The classification for sitting data yielded higher accuracies as compared to the standing data sets. Due to this finding, both assumptions can be approved. 
+
+These findings indicate that the body posture poses an important influence factor on the variability in the motion data collected. This result can be explained based on two assumptions. Firstly, it is likely that subjects used their device while walking during the field study which poses a source for increased noise. Secondly, during the data acquisition in the laboratory environment, it is known that subject did not walk while tapping the device. As this data was also contained in the training examples, the assumption can be made that standing on the spot also causes movement in the body of the user.
+
+%-----
+Speaking of algorithms, the results show that the SVM with RBF kernel was capable of scoring higher accuracies for most tasks at hand. The t-SNE embedding, see figure \ref{fig:tsne}, and the fact that high gamma and C values where chosen during the grid search hint that the classification problem posed is indeed non-trivial. This results in the classifiers having to learn complex non-linear decision boundaries which both classifiers are capable of. Yet, as the ANN has the tendency to overfit the training data when limited data is available, this result can be explained.
+
+Moreover, the observation has been made that data collected iPhone 7 achieves higher performance compared to the other device tested, especially for the iPhone 6 data. This can be explained by the fact on high CPU loads the sampling rate of the sensors drop. It could be observed that for the iPhone 6 the sample frequency has dropped under 80Hz which effects the classification performance.
+% Furthermore, the results have shown that the ANN classifier outperformed the SVM with RBF Kernel in all given tasks. 
+
+In summary, in this work we have seen that the tap inference is feasible in the field environment. By measuring and comparing the performance of classifiers trained on different sets of data, several source of variability have been identified. Following the hypothesis stated, this implies that a real world implementation would have to overcome increased variability originating from the input modality, the body posture, the environment in which the tap was recorded and the device model (including CPU, screen size and sensors). 
+
+% Sources of Variability: A real-world implementation of this attack
+% would have to address several sources of variability such as
+% different hand sizes, typing styles, screen sizes, and keyboard user
+% interfaces. Nevertheless, we do not claim that our models are generalizable
+% to address these issues. Individual calibration will likely
+% always be a necessity, but we believe our model can be extended to
+% address these and other sources of variability given the appropriate
+% training data.
+% In general, though there certainly exists subtle variabilities, most
+% people enter text on smartphones in a similar fashion. We observe
+% several categories of typing styles. For example, some people prefer
+% to hold a phone with one hand while using the index finger of the
+% other hand to enter text, while others prefer to hold a phone with both
+% hands and enter text using their thumbs. Typing style also depends
+% on whether the phone is held in a portrait or landscape orientation. A
+% sample of the acceleration measurements can be used to identify the
+% holding style of the user. This enables the adversary to switch to the
+% appropriate translation model.
+% Some variables can be identified directly by the running application
+% (e.g., the screen size and keyboard UI). In the case of variability
+% that is not easily identified from the acceleration measurements or by
+% the application, the adversary can train the model separately for each
+% configuration and use the results of the model that produces the most
+% sensible output. We make simplifying assumptions because the goal
+% of our work is to show that such attacks are feasible due to the nature
+% of information leaked by accelerometers.
+% Real-World Threat: Major websites typically limit the number
+% of retries for entering a password. Our results indicate that a small
+% fraction of passwords can be cracked in a limited number of trials
+% (e.g., 1 of 99 passwords was cracked in 1 attempt and 6 of 99 in 4.5
+% median attempts). Attackers can perform this attack in a scalable
+% manner where cracking just 1% of passwords can be lucrative.
+% Our model makes no assumptions about the text being entered–
+% it simply maps sensor data to screen locations to keys. This attack
+% can be used to extract other types of text, such as text messages and
+% e-mail, where a perfect translation is not necessary to produce an
+% approximate text representation and enable the extraction of sensitive
+% information. Furthermore, the structured form of natural-language
+% text makes it vulnerable to further analysis (e.g., analysis that uses
+% a dictionary-backed sequencing model, such as the n-gram language
+% model, to further disambiguate the entered text.
+% There do exist simpler methods for attackers to obtain sensitive
+% information from smartphones. We discuss some of these threats in
+% §1 and §6. However, the accelerometer is a particularly interesting
+% case since it presents a physical side channel that cannot be easily
+% shielded or detected. It is prudent to consider an adversary with more
+% resources that is willing to invest the extra time needed to develop a
+% robust eavesdropping application with these stealthy properties. Our
+% model represents a proof-of-concept design to demonstrate that this
+% is a real threat.
+

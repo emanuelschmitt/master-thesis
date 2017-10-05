@@ -239,17 +239,17 @@ The parameters $C$ and $\gamma$ of the SVM RBF kernel are tested during the grid
   C &= \{ 2^{k} | k \in \{-3, -2, ..., 14, 15\} \}\\ 
   \gamma &= \{ 2^{k} | k \in \{-13, -12, ..., 2, 3\} \}
 \end{align}
-As for the SVM, hyperparameters are defined for the ANN. Presumably the most crucial parameter in an ANN is the amount of hidden layers defined as when a network is too large it tends to overfit the training data while a too small network can lead to high bias. Therefore, networks ranging from 60 to 1800 nodes are defined and evaluated during the grid search. To regularize the networks an $L_2$ penalty \cite{ng2004feature} is used. The following table \ref{table:anns} lists all configurations of the evaluated ANNs.
+As for the SVM, hyperparameters are defined for the ANN. Presumably the most crucial parameter in an ANN is the amount of hidden layers defined as when a network is too large it tends to overfit the training data while a too small network can lead to high bias. Therefore, networks ranging from 2 to 12 hidden units that are defined and evaluated during the grid search. To regularize the networks an $L_2$ penalty \cite{ng2004feature} is used. The following table \ref{table:anns} lists all configurations of the evaluated ANNs.
 
 \begin{center}
   \begin{tabular}{ | l | l | l | l | l |}
   \hline
-  Hidden Layer & L2 Penalty & Learning Rate & Activation & Optimizer \\ \hline
-  (1000, 500, 200, 100) & 0.001 & 0.01 & RELu & Adam \cite{DBLP:journals/corr/KingmaB14} \\
-  (400, 200, 50) & 0.003 & 0.01 & & \\
-  (200, 100, 25) & 0.0001 & 0.1 & & \\
-  (100, 50, 10) & 0.0003 & & & \\
-  (50, 10) & & & & \\
+  Hidden units & L2 Penalty & Learning Rate & Activation & Optimizer \\ \hline
+  12 & 0.001 & 0.01 & RELu & Adam \cite{DBLP:journals/corr/KingmaB14} \\
+  10 & 0.003 & 0.01 & & \\
+  8 & 0.0001 & 0.1 & & \\
+  4 & 0.0003 & & & \\
+  2 & & & & \\
   \hline
   \end{tabular}
   \captionof{table}{ANN configurations during grid search.}\label{table:anns}
