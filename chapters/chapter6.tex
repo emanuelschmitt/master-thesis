@@ -66,7 +66,7 @@ iPhone 7 & Laboratory &      0.87 &     0.73 &     0.96 &     0.08 &  SVM \\
 
 % For the comparison of devices, the results yield that the iPhone 7 scores higher accuracies compared to the iPhone 6 and and the iPhone 6s for both environments. The iPhone 6 scores lowest with a mean accuracy of 0.76 (+/- 0.85) while the iPhone 7 performs best with a mean accuracy of 0.87 (+/- 0.96) in the controlled environment. For the field environnement the iPhone 7 scores a mean accuracy of 0.75 (+/- 0.83) while the iPhone 6 shows 0.73 (+/- 0.86).
 
-Moreover, across all devices, the results list that the mean accuracies for the field data are always lower compared to the laboratory data. The fact that the classification measures for both environments differ significantly is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 5, p < 0.05$.
+Moreover, across all devices, the results list that the mean accuracies for the field data are always lower compared to the laboratory data. The fact that the classification measures for both environments differ significantly is confirmed by a Wilcoxon signed-rank test yielding that the fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment Z = 5, p < 0.05.
 
 \subsubsection{4x3 Grid}
 
@@ -99,7 +99,7 @@ iPhone 7   & Laboratory &      0.59 &     0.36 &     0.76 &     0.11 &  SVM \\
   \caption{Classification results for the 4x3 tapping grid.}
 \end{table}
 
-A performed Wilcoxon signed-rank test shows that the classification results for both environments differ significantly. The fold accuracies in the laboratory were statistically higher than the fold accuracies in the field environment $Z = 19, p < 0.05$.
+A performed Wilcoxon signed-rank test shows that the classification results for both environments differ significantly. The fold accuracies in the laboratory were statistically higher than the fold accuracies in the field environment Z = 19, p < 0.05.
 
 \subsubsection{5x4 Grid}
 For the grid with 20 distinguishable areas the inference accuracies measures range from 0.35 to 0.43 for the laboratory and 0.28 to 0.32 for the field data, respectively. Aligning with the previous results, the iPhone 7 shows highest mean accuracy scores of 0.43 for the data collected in the laboratory. 
@@ -114,7 +114,7 @@ For the grid with 20 distinguishable areas the inference accuracies measures ran
 
 % For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) for the iPhone 6. 
 
-Furthermore, The Wilcoxon signed-rank test shows that the classification results for both environments alter significantly. The fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment $Z = 12, p < 0.05$.
+Furthermore, The Wilcoxon signed-rank test shows that the classification results for both environments alter significantly. The fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment Z = 12, p < 0.05.
 
 \begin{table}[h!]
   \centering
@@ -197,7 +197,7 @@ iPhone 6s   & Standing &      0.37 &     0.34 &     0.42 &     0.03 &  SVM \\
   \caption{Classification results for the 5x4 tapping grid for both body postures: sitting and standing.}
 \end{table}
 
-Only the 5x4 grid is presented here, as similar results are found for the other grid sizes (see Appendix). The findings show that the mean accuracies between the two body modalities differ (See figure \ref{fig:bodypos5x4}). This is also indicated in a Wilcoxon signed-rank test showing that the classification results for both factors differed significantly $Z = 31, p > 0.05$.
+Only the 5x4 grid is presented here, as similar results are found for the other grid sizes (see Appendix). The findings show that the mean accuracies between the two body modalities differ (See figure \ref{fig:bodypos5x4}). This is also indicated in a Wilcoxon signed-rank test showing that the classification results for both factors differed significantly Z = 31, p > 0.05.
 
 \begin{figure}[h!]
   \centering
@@ -205,111 +205,17 @@ Only the 5x4 grid is presented here, as similar results are found for the other 
   \caption{The figure shows the tap inference accuracies for the 5x4 grid of the 10-fold cross-validation.} \label{fig:bodypos5x4}
 \end{figure}
 
-\newpage
-\section{Discussion}
-For the hypothesis tests, the assumptions made in section \ref{sec:sec:hypothesis} will be either rejected or approved based on the results stated in the previous chapter.
+\section{Cross User Experiment}
+In order to determine if it is possible to train a classifier with data from a set of users to infer taps from people not involved in the training phase, a cross user experiment was performed. Here, a SVM classifier was trained for each subject with laboratory data from 4 randomly selected subjects sharing the same device. The subject's field data was then tested on the classifier and the accuracy was measured.
 
-\begin{center}
-  \begin{framed}
-    \textbf{H.1}  The environment of recorded sensory data has an effect on the prediction accuracy.\\
-    \textbf{H1.1:} The prediction accuracy for a classifier trained with the data in the laboratory environment will score higher than one trained with data collected in the field.
-  \end{framed}
-\end{center}
+For each subject, the accuracy results for the 5x4 grid are displayed in in the bar chart \ref{fig:cross_user_exp}. It can be seen that for user 86 the prediction accuracy was at minimum value of 0.09 whereas for user 87 the overall maximal value of 0.34 could be measured. The mean score measured was 0.25.
 
-Both assumptions can be approved as the results yield a significant difference between the performance measures of the estimators for both environments. Across all available grid sizes analysis has shown that a tap inference is reasonably possible in the field as well as in the laboratory environment. 
+% In this experiment a classifier has been trained for each subject on laboratory data from 4 randomly selected subjects sharing the same device. In order to determine how the tap inference would behave in the field on a classifier trained on laboratory data, each subject's field data is tested on the classifier.
 
-For the 4x3 grid, a mean accuracy of xx was shown for the laboratory and xx for the field data, respectively. In contrast, for the 5x4 grid an average accuracy of xx was shown for the field was well as xx for the controlled dataset. It can be assumed that these accuracies could be sufficient to obtain PINs in a malicious attack or at least significantly reduce the search space of cracking a PIN. However, these inference accuracies measured should not be interpreted as an upper bound to what is feasible, but should indicate that tap location inference in the field is considerably more difficult. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\textwidth]{results/classifer_lab_field.png}
+  \caption{Results of the cross user experiment on the 5x4 grid.} \label{fig:cross_user_exp}
+\end{figure}
 
-% The performance measured is not an upper bound to what is feasible, however, the results indicate a clear performance drop in the accuracy measures found for data from the field. This is especially the case for the more complex classification problems as for the higher grid sizes in this experiment.
-
-% The drop in performance can be explained by looking at the usual behavior of smartphone users when interacting with their devices.
-
-Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field experiment, is presumably prone to polluting the sensor signals with increased noise. The results hint that the increase in noise undermines the actual signal caused by the tap event aggravating clear predictions of the tap location. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets with increased variability negatively impacting the classification accuracies.
-
-These findings have implications regarding the actual security threat posed by motion sensor emanations. Similar experiments, such as \cite{Tapprints, Accessory}, proclaimed that PINs and Passwords could be obtained by capturing gyroscope and accelerometer signals. However, as the data obtained for training the classifiers in these experiments originated from a controlled environment, the proclaimed security threat has to be reassessed with the results found in this experiment. If an inference system was to be deployed for a real world attack, the system would have to overcome increased environmental noise and users switching input modalities and body postures, as modelled in this experiment. \\
-
-\begin{center}
-  \begin{framed}
-    \textbf{H2:} The input modality has an effect on the prediction accuracy.\\
-    \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
-  \end{framed}
-\end{center}
-
-The analysis has shown that classification results, when comparing the input modalities, differed significantly. As the index finger taps could be predicted at higher measures compared to the thumb taps, both hypothesis can be approved.
-
-This outcome can be explained by comparing the motion of the individual input modalities. When a user taps the device with the index finger, the striking force of the finger is applied in a linear fashion causing a shift towards the z-axis. In addition, the other hand is used as a support, which partially resists the applied force and stops the device from tilting. In comparison, when a user taps with the thumb, the striking force causes the device to rotate in addition to the shift movement as the device is held in the same hand. This rotation causes a higher variance in the recorded data which result in an inferior predictability.
-
-% We can derive from this, that the predictability of a tap is strongly influences by the striking force of the physical tap and resisting force of the supporting hand.
-
-% - 
-
-\begin{center}
-  \begin{framed}
-    \textbf{H3}: The body posture has an effect on the prediction accuracy.\\
-    \textbf{H3.1:} The prediction accuracy for a classifier trained with taps where a user sat will score higher than one trained with taps where a user stood.
-  \end{framed}
-\end{center}
-
-The analysis has shown that the difference in classification measures for both body postures, sitting and standing, differ significantly. The classification for sitting data yielded higher accuracies as compared to the standing data sets. Due to this finding, both assumptions can be approved. 
-
-These findings indicate that the body posture poses an important influence factor on the variability in the motion data collected. This result can be explained based on two assumptions. Firstly, it is likely that subjects used their device while walking during the field study which poses a source for increased noise. Secondly, during the data acquisition in the laboratory environment, it is known that subject did not walk while tapping the device. As this data was also contained in the training examples, the assumption can be made that standing on the spot also causes movement in the body of the user.
-
-%-----
-Speaking of algorithms, the results show that the SVM with RBF kernel was capable of scoring higher accuracies for most tasks at hand. The t-SNE embedding, see figure \ref{fig:tsne}, and the fact that high gamma and C values where chosen during the grid search hint that the classification problem posed is indeed non-trivial. This results in the classifiers having to learn complex non-linear decision boundaries which both classifiers are capable of. Yet, as the ANN has the tendency to overfit the training data when limited data is available, this result can be explained.
-
-Moreover, the observation has been made that data collected iPhone 7 achieves higher performance compared to the other device tested, especially for the iPhone 6 data. This can be explained by the fact on high CPU loads the sampling rate of the sensors drop. It could be observed that for the iPhone 6 the sample frequency has dropped under 80Hz which effects the classification performance.
-% Furthermore, the results have shown that the ANN classifier outperformed the SVM with RBF Kernel in all given tasks. 
-
-In summary, in this work we have seen that the tap inference is feasible in the field environment. By measuring and comparing the performance of classifiers trained on different sets of data, several source of variability have been identified. Following the hypothesis stated, this implies that a real world implementation would have to overcome increased variability originating from the input modality, the body posture, the environment in which the tap was recorded and the device model (including CPU, screen size and sensors). 
-
-% Sources of Variability: A real-world implementation of this attack
-% would have to address several sources of variability such as
-% different hand sizes, typing styles, screen sizes, and keyboard user
-% interfaces. Nevertheless, we do not claim that our models are generalizable
-% to address these issues. Individual calibration will likely
-% always be a necessity, but we believe our model can be extended to
-% address these and other sources of variability given the appropriate
-% training data.
-% In general, though there certainly exists subtle variabilities, most
-% people enter text on smartphones in a similar fashion. We observe
-% several categories of typing styles. For example, some people prefer
-% to hold a phone with one hand while using the index finger of the
-% other hand to enter text, while others prefer to hold a phone with both
-% hands and enter text using their thumbs. Typing style also depends
-% on whether the phone is held in a portrait or landscape orientation. A
-% sample of the acceleration measurements can be used to identify the
-% holding style of the user. This enables the adversary to switch to the
-% appropriate translation model.
-% Some variables can be identified directly by the running application
-% (e.g., the screen size and keyboard UI). In the case of variability
-% that is not easily identified from the acceleration measurements or by
-% the application, the adversary can train the model separately for each
-% configuration and use the results of the model that produces the most
-% sensible output. We make simplifying assumptions because the goal
-% of our work is to show that such attacks are feasible due to the nature
-% of information leaked by accelerometers.
-% Real-World Threat: Major websites typically limit the number
-% of retries for entering a password. Our results indicate that a small
-% fraction of passwords can be cracked in a limited number of trials
-% (e.g., 1 of 99 passwords was cracked in 1 attempt and 6 of 99 in 4.5
-% median attempts). Attackers can perform this attack in a scalable
-% manner where cracking just 1% of passwords can be lucrative.
-% Our model makes no assumptions about the text being entered–
-% it simply maps sensor data to screen locations to keys. This attack
-% can be used to extract other types of text, such as text messages and
-% e-mail, where a perfect translation is not necessary to produce an
-% approximate text representation and enable the extraction of sensitive
-% information. Furthermore, the structured form of natural-language
-% text makes it vulnerable to further analysis (e.g., analysis that uses
-% a dictionary-backed sequencing model, such as the n-gram language
-% model, to further disambiguate the entered text.
-% There do exist simpler methods for attackers to obtain sensitive
-% information from smartphones. We discuss some of these threats in
-% §1 and §6. However, the accelerometer is a particularly interesting
-% case since it presents a physical side channel that cannot be easily
-% shielded or detected. It is prudent to consider an adversary with more
-% resources that is willing to invest the extra time needed to develop a
-% robust eavesdropping application with these stealthy properties. Our
-% model represents a proof-of-concept design to demonstrate that this
-% is a real threat.
 

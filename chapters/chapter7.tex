@@ -1,2 +1,188 @@
+\chapter{Discussion}
+For the hypothesis tests, the assumptions made in section \ref{sec:sec:hypothesis} will be either rejected or approved based on the results observed in the previous chapter.
+
+\begin{center}
+  \begin{framed}
+    \textbf{H.1}  The environment of recorded sensory data has an effect on the prediction accuracy.\\
+    \textbf{H1.1:} The prediction accuracy for a classifier trained with the data in the laboratory environment will score higher than one trained with data collected in the field.
+  \end{framed}
+\end{center}
+
+Both assumptions can be approved as the results yield a significant difference between the performance measures of the estimators for both environments. 
+
+Across all available grid sizes the analysis shows that tap location inference is reasonably possible in the field as well as in the laboratory environment. For the field environment an accuracy drop of approximately 20\% was measured when comparing the two environments. Moreover, the results hint that PINs could be obtained in a real-world attack as the granularity of inferable locations is sufficient to project a PIN input mask on the 4x3 grid. Compared to previously proposed inference systems, the system presented in this work yields lower prediction accuracies than \textit{TapPrints} \cite{Tapprints}. However, as the scope of this work is to highlight the difference between inference models, the measurements should not be interpreted as an upper bound to what is feasible, but should indicate that tap inference in the field is considerably more difficult.
+
+% Across all available grid sizes analysis has shown that a tap inference is reasonably possible in the field as well as in the laboratory environment. The accuracies measured hint that PINs could be obtained in a real-world attack as the granularity of inferable locations is sufficient to project a PIN input mask on the 4x3 grid. The accuracies measured should not be interpreted as an upper bound of what is feasible, but should rather indicate the tap location inference in the field environment is considerably more difficult. As accuracy drops of approximately 20\% for field tap compared to laboratory taps have been seen, this statement is furthermore underlined.
+% Across all available grid sizes analysis has shown that a tap inference is reasonably possible in the field as well as in the laboratory environment. The accuracies measured hint that PINs could be obtained in a real-world attack as the granularity of inferable locations is sufficient to project a PIN input mask on the 4x3 grid. Compared to previously proposed inference systems, the system presented in this work yields lower prediction accuracies compared to \textit{TapPrints} \cite{Tapprints}. Hence, as the scope of this work was not to build a more superior inference system, the measurements should not be interpreted as an upper bound to what is feasible. Instead, the results should indicate that tap location inference in the field is considerably more difficult. As we have seen an accuracy drop of approximately 20\% for field tap compared to laboratory taps, this statement is furthermore underlined.
+
+Since device motion sensors are capable of capturing the slightest device vibrations, a vibrant environment or activity, one to which subjects where exposed during the field acquisition, is presumably prone to polluting the sensor signals with increased noise. The results have shown that this noise distorts the tap information encoded in the sensor signals aggravating clear predictions of the tap locations. Consequently, as subjects where free to perform tap generation trails where and how they wanted, this freedom is reflected in the recorded data sets with increased variability negatively impacting the classification accuracies.
+
+When comparing the tested devices, the analysis has shown that the iPhone 7 taps could be predicted with higher accuracies compared to the iPhone 6 and iPhone 6s, respectively. During the feature extraction, it was observed that the iPhone 6 and the iPhone 6s have generated taps that were partially below the sampling rate of 100Hz, the rate initially defined in the TapSensing application. It is assumed that this is caused by high CPU loads. Therefore, due to lower resolution signals, this outcome can be explained.
+
+\begin{center}
+  \begin{framed}
+    \textbf{H2:} The input modality has an effect on the prediction accuracy.\\
+    \textbf{H2.2:} The prediction accuracy for a classifier trained with index finger tap data will score higher than one trained with thumb tap data.
+  \end{framed}
+\end{center}
+
+The analysis has shown that classification results of the computed models, when comparing the input modalities, differed significantly. As the index finger taps could be predicted at higher measures compared to the thumb taps, both hypothesis can be approved.
+
+This outcome can be explained by comparing the motion of the individual input modalities. When a user taps the device with the index finger, the striking force of the finger hits the smartphone screen causing a shift towards the z-axis. As the other hand is used as a support, the applied force is partially resisted stopping the device from tilting. In contrast, when a user taps with the thumb, the striking force causes the device to rotate as the device is held in the same hand. This rotation causes a higher variance in the recorded data which result in an inferior predictability.
+
+% We can derive from this, that the predictability of a tap is strongly influences by the striking force of the physical tap and resisting force of the supporting hand.
+
+% - 
+
+\begin{center}
+  \begin{framed}
+    \textbf{H3}: The body posture has an effect on the prediction accuracy.\\
+    \textbf{H3.1:} The prediction accuracy for a classifier trained with taps where a user sat will score higher than one trained with taps where a user stood.
+  \end{framed}
+\end{center}
+
+The results have shown that the difference in classification measures for both body postures, sitting and standing, differed significantly. The classification for sitting data yielded higher accuracies when compared to the standing data sets. Due to this finding, both assumptions can be approved.
+
+The analysis indicates that the body posture poses an important influence factor on the variability in the motion data collected. This result can be explained based on two assumptions. Firstly, it is likely that subjects used their device while walking during the field study which poses a source for increased noise. Secondly, during the data acquisition in the laboratory environment, it is known that subject did not walk while tapping the device. As this data was also contained in the training examples for this experiment, it is assumed that standing on the spot also invokes the user to make slight movements effecting the variability of the recorded samples.
+
+Lastly, in the cross user experiment, it has been shown that it is possible to predict tap locations of users in the field that where not involved in the training process. This shows that in a real-world scenario an attacker could compute a model trained on several test users and, consequently, make predictions on unseen users in the field. However, as the accuracies measured ranged from 0.9 to a 0.34 for the individual users tested, the varying results indicate that the cross user inference can yield unreliable predictions.
+
+% However, as the accuracies measured suffered from strong fluctuation, it is remains unclear if a real-world attack, as modelled in this experiment, could reliably infer tap locations in order to obtain relevant information from a user.
+With the findings in this work, it has been shown that the performance of a tap inference system is influenced by various sources of data variability. Consequently, if an inference system was to be deployed for a real-world attack, it would have to overcome the user switching input modalities, changing body postures and a potential increase in environmental noise from the user's current location in the field. As the impact of the environment was not modelled in related experiments \cite{Tapprints,Touchlogger,Accessory}, the proclaimed security threat of tap location inference has to be reassessed taking the variance of field data into account. 
+
+
+% However, I believe that with the use of appropriate filtering techniques or the design of more resilient features, the performance gap between the laboratory and the field environment could be bridged. 
+
+
+% Although TapPrints should be only deemed as an early
+% step towards the use of mobile devices’ motion sensors for
+% tap and letter inference, it exposes a latent security threat:
+% An attacker could silently tap into the motion sensor data
+% stream using a background running application with little
+% effect on the device performance – the impact on the battery
+% is minimal given the low power requirements of the
+% accelerometer and gyroscope [22].
+
+% We show that the inference accuracy can increase by leveraging
+% the correlated sensing data patterns from tapping a
+% same letter or icon multiple times. More sophisticated attacks
+% could combine TapPrints with targeted dictionary min-
+% ing techniques, which exploit the information from the confusion
+% matrix to narrow down the inference of a letter by just
+% searching the dictionary space associated with the top-most
+% confused letters [1].
+
+% mitingation 
+% pause motion sensor when keyboard active
+% reduction of sample rate
+% user has to give access to sensors
+
+
+% Besides the user behavior related influence factors on the inference system, additional constraints where found concerning the device. This includes the CPU, the on-board sensor hardware, the position of the sensor on the logic board, the screen size and, as seen in this study, a potentially varying sensor sampling rate. 
+
+
+% noise was not modelled in the similar experiments, 
+
+% In addition, performance constraints were also to be found for the device. 
+
+% The overall finding have implications regarding the actual security threat posed by tap location inference. Despite similar studies strongly emphasizing the potential dangers of this practice \cite{Tapprints, Accessory, Touchlogger}, I believe that the dangers have to be reassessed with the findings in this study. It has been shown that the performance of tap inference system can suffer from various sources of data variability. Consequently, if an inference system was to be deployed for a real-world attack, it would have to overcome the user switching input modalities, changing body postures and a potential increase in environmental noise from the users current location. Furthermore, predicting tap locations across user's yield a further 
+
+% As these were only user behavior related influence factors, there are two more important constraints to consider. Firstly, the inference is dependant on properties of the device itself which includes the CPU, the on-board sensor hardware, the position of the sensor on the logic board, the screen size and, as seen in this study, a potentially varying sampling rate. 
+
+% Secondly, in order to extract information from the predicted tap locations, the position of the user interface components have to been known which is not always the case. One example of a varying interfaces is the fact that Android and iOS platform offer alternative software keyboard that differ in their keyboard layout.
+
+
+
+% feature engeneering
+% fingerprint sensors
+% --- 
+
+
+
+% These overall finding have implications regarding of the actual security threat posed by tap location inference. As similar experiment strongly emphasize the dangers of motion sensor emanation \cite{Tapprints, Accessory, Touchlogger}, . However as the experiments in these similar studies were based on data from single environments and with limited variations in the input modalities, the proclaimed threat would have to be reassessed with the finding in this study. If an inference system was to be deployed for a real-world attack the inference system would have to overcome various sources of variability originating from permanently changing environments, users switching input modalities, changing body postures and not to name different device models (with fluctuating sample rates). 
+
+% In summary, in this work we have seen that the tap inference is feasible in the field environment. By measuring and comparing the performance of classifiers trained on different sets of data, several source of variability have been identified. Following the hypothesis stated, this implies that a real world implementation would have to overcome increased variability originating from the input modality, the body posture, the environment in which the tap was recorded and the device model (including CPU, screen size and sensors).
+
+% These findings have implications regarding the actual security threat posed by motion sensor emanations. Similar experiments, such as \cite{Tapprints, Accessory}, proclaimed that PINs and Passwords could be obtained by capturing gyroscope and accelerometer signals. However, as the data obtained for training the classifiers in these experiments originated from a controlled environment, the proclaimed security threat has to be reassessed with the results found in this experiment. If an inference system was to be deployed for a real world attack, the system would have to overcome increased environmental noise and users switching input modalities and body postures, as modelled in this experiment. \\
+
+% Sources of Variability: A real-world implementation of this attack
+% would have to address several sources of variability such as
+% different hand sizes, typing styles, screen sizes, and keyboard user
+% interfaces. Nevertheless, we do not claim that our models are generalizable
+% to address these issues. Individual calibration will likely
+% always be a necessity, but we believe our model can be extended to
+% address these and other sources of variability given the appropriate
+% training data.
+% In general, though there certainly exists subtle variabilities, most
+% people enter text on smartphones in a similar fashion. We observe
+% several categories of typing styles. For example, some people prefer
+% to hold a phone with one hand while using the index finger of the
+% other hand to enter text, while others prefer to hold a phone with both
+% hands and enter text using their thumbs. Typing style also depends
+% on whether the phone is held in a portrait or landscape orientation. A
+% sample of the acceleration measurements can be used to identify the
+% holding style of the user. This enables the adversary to switch to the
+% appropriate translation model.
+% Some variables can be identified directly by the running application
+% (e.g., the screen size and keyboard UI). In the case of variability
+% that is not easily identified from the acceleration measurements or by
+% the application, the adversary can train the model separately for each
+% configuration and use the results of the model that produces the most
+% sensible output. We make simplifying assumptions because the goal
+% of our work is to show that such attacks are feasible due to the nature
+% of information leaked by accelerometers.
+% Real-World Threat: Major websites typically limit the number
+% of retries for entering a password. Our results indicate that a small
+% fraction of passwords can be cracked in a limited number of trials
+% (e.g., 1 of 99 passwords was cracked in 1 attempt and 6 of 99 in 4.5
+% median attempts). Attackers can perform this attack in a scalable
+% manner where cracking just 1% of passwords can be lucrative.
+% Our model makes no assumptions about the text being entered–
+% it simply maps sensor data to screen locations to keys. This attack
+% can be used to extract other types of text, such as text messages and
+% e-mail, where a perfect translation is not necessary to produce an
+% approximate text representation and enable the extraction of sensitive
+% information. Furthermore, the structured form of natural-language
+% text makes it vulnerable to further analysis (e.g., analysis that uses
+% a dictionary-backed sequencing model, such as the n-gram language
+% model, to further disambiguate the entered text.
+% There do exist simpler methods for attackers to obtain sensitive
+% information from smartphones. We discuss some of these threats in
+% §1 and §6. However, the accelerometer is a particularly interesting
+% case since it presents a physical side channel that cannot be easily
+% shielded or detected. It is prudent to consider an adversary with more
+% resources that is willing to invest the extra time needed to develop a
+% robust eavesdropping application with these stealthy properties. Our
+% model represents a proof-of-concept design to demonstrate that this
+% is a real threat.
+
 \chapter{Conclusion\label{cha:chapter7}}
+% grid sizs
+
+In this thesis, \textit{TapSensing} was presented, a data acquisition system that collects touchscreen tap event information with corresponding accelerometer and gyroscope readings. Having performing a data acquisition study with 27 subjects for 3 different iPhone models, a total of 45,000 labeled taps could be acquired from a laboratory and the field environment. After having performed a feature extraction on the acquired sensor recordings, several machine learning classifiers have been trained and compared in order to determine if (1) the tap location inference is feasible for the field environment and (2) to identify the sources of variability in the collected data. Furthermore, (3) a real-world attack scenario has been evaluated where it has been tested if the user's field taps can be predicted based on a classifier trained on laboratory data from a different set of users.
+
+The overall findings show that tap location inference is reasonably possible for the data collected in the field as well as in the laboratory setting. Secondly, the results could show that when comparing the laboratory and the field environment a significant performance drop of 20\% was registered for the data from the field. Moreover, the results have shown that the body posture and the input modality used for tapping has a significant influence on the predication accuracies of the estimators. Lastly, it has been shown that it is possible to predict tap locations of users in the field that where not involved in the training process.
+
+% concluding statement
+
+% In this paper, we presented TapPrints, a framework to infer
+% where people tap and what people type on a smartphone
+% or tablet display based on accelerometer and gyroscope sensor
+% readings. Using about 40,000 labeled taps collected from
+% ten participants on three different platforms and with the
+% support of machine learning analysis, we showed that TapPrints
+% is able to achieve up to 90% and 80% accuracy for,
+% respectively, inferring tap locations across the display and
+% letters. Although our findings are initial, we demonstrated
+% that motion sensors, normally used for activity recognition
+% and gaming, could potentially be used to compromise users’
+% privacy. We hope that our research will accelerate follow up
+% efforts to address the vulnerabilities stemming from unrestricted
+% access to motion sensors.
+
 \section{Further Outlook}
+In this thesis we have identified the field environment as a potential source for variance in the sensor recordings with a clear performance drop in the field to be measured when comparing data from the laboratory and field environment. It is assumed that vibrant environments or activities of the user are responsible for the increase in noise in the field environment. Consequently, it could be investigated if applying appropriate filter on the sensor data could mitigate the ``field effect''. A second option would be to hand-craft features that are resilient against the noise. However, as hand-crafting features in a specific application area require high domain knowledge, convolution neural networks could be used instead.
+
+Convolution neural networks have shown to achieve high accuracies solving the Human Activity Recognition (HAR) problem \cite{zeng2014convolutional} in which accelerometer signals are used to predict which activity the smartphone user currently has. As the gyroscope and accelerometer signals could be encoded as a single matrix, the convolution network is able to apply convolution filters on the input to automatically extract features. This approach could not only be resilient against environmental noise but could also achieve higher accuracies than the currently proposed methods.
+
+
