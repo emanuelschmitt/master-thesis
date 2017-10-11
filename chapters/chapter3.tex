@@ -77,7 +77,7 @@ To enable fast interactions, each answer possibility to a question is represente
 \subsubsection{Upload Screen}
 After all taps and questions are gathered, the acquired data is sent to the server. The interface at this points displays a spinning wheel for the user to acknowledge that the mobile phone is processing the data. In case an upload fails, the application provides a manual upload screen, where past sessions can be uploaded.
 
-\subsection{Implementation Notes}
+\subsection{Additional Features \& Implementations}
 \subsubsection{Obtaining Sensor Information}
 In order to access the gyroscope and the accelerometer, Apple provides a high-level API\footnote{An Application Program Interface is a set of rules and subroutines provided by an application system for the developer to use. The following link leads to the Core Motion API documentation: \url{https://developer.apple.com/documentation/coremotion/} } for accessing the device's sensors: \textit{Core Motion}. Core Motion provides motion and environmental related data from sensors including accelerometers, gyroscopes, pedometers, magnetometers, and barometers in easy to use manner.
 
@@ -149,7 +149,7 @@ TapSensing's data model reflect the schemas that are used in the PostgreSQL data
 %   \caption{The diagram shows TapSensing's data model with the user, session, sensordata and touchevent data object.} \label{fig:erdiagram}
 % \end{figure}
 
-\subsection{Implementation Notes}
+\subsection{Additional Features \& Implementations}
 \subsubsection{Authentication}
 The authentication mechanism implemented in TapSensing is based on a standard token authentication scheme. This allows the association of an incoming request with a set of identifying credentials, which is - in this context - the user the request came from. In order to obtain an authentication token, the mobile application sends the login credentials of a user including username and password to the login endpoint\footnote{The login endpoint is described in section \ref{sec:endpoints}.}. When the credentials have been checked for validity, the endpoints returns an authentication token in the following format:
 \begin{minted}[tabsize=4]{js}

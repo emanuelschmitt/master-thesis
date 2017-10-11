@@ -11,11 +11,21 @@ The data acquisition was performed with 27 subjects in total, 12 (44\%) females 
 
 In regards to the participation during the study, 26 subjects managed to finish all laboratory and field study trials while 1 subject dropped out in the field study. Figure \ref{fig:participation} shows on which day individual participants performed trails. 4 participants did not accept push notification and were therefore not reminded on a daily basis.
 
-In total over 46.000 taps were generated in the whole data acquisition phase. To be more precise, approx. 25.000 taps were collected on the 5x4 grid, over 15.000 taps on the 4x3 grid and more than 5.000 taps on the 2x2 grid.
+In total over 46.000 taps were generated in the whole data acquisition phase. To be more precise, approx. 25.000 taps were collected on the 5x4 grid, over 15.000 taps on the 4x3 grid and more than 5.000 taps on the 2x2 grid. Concerning the distribution of the body posture and the input modality, subjects used their thumb more frequently compared to the index finger and sat more often during the trails compared to the standing posture. The distributions are illustrated in figure \ref{fig:bpimdis}.
 
 The devices used to obtain the tap information were 12 (45\%) Apple iPhone 6s, 10 (37\%) iPhone 6 and the least common device was the iPhone 7 with 5 (18\%).
 
 In order to visualize the data collected, a t-Distributed Stochastic Neighbor Embedding (t-SNE) embedding is shown in figure \ref{fig:tsne} where the 230-dimensional feature vector has been reduced to 2 dimensions. Furthermore, a plot showing the interpolated gyroscope and accelerometer signals acquired during a single tap generation trial is to be found in the Appendix.
+
+\begin{figure}
+  \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=50mm]{results/pie-bp-lab} &   \includegraphics[width=50mm]{results/pie-bp-field} \\
+   \includegraphics[width=50mm]{results/pie-im-lab} &   \includegraphics[width=50mm]{results/pie-im-field} \\
+  \end{tabular}
+  \caption{The pie charts show the distribution of the input modalities and the body postures using in the field and the laboratory trials.}\label{fig:bpimdis}
+\end{figure}
+
 
 \afterpage{%
 \begin{figure}
