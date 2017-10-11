@@ -1,9 +1,9 @@
 \chapter{Data Acquisition System\label{cha:chapter3}}
-In this chapter, I would like to introduce TapSensing. TapSensing is a labeled data acquisition system designed to collect user generated taps with corresponding sensor readings. The system comprises of an iOS Swift and a Python Django server-side application. The chapter begins with a broader view on the system by explaining the overall system architecture and will then dive into it's individual components and implementation.
+In this chapter, I will introduce TapSensing. TapSensing is a labeled data acquisition system designed to collect user generated taps with corresponding sensor readings. The chapter begins with a broader view on the system by explaining the overall system architecture and will then dive into it's individual components and implementation.
 
 \section{Overall System Architecture}
 
-The TapSensing application consists of two main components: the mobile and the server-side application. In brief, the mobile client provides the ability for a user to generate taps with corresponding motion sensor signals. For the data to be stored in a centralized manner, the server-side application provides HTTP endpoints as a gateway to the database. The architecture, as illustrated in figure \ref{fig:architecture}, consists of various components which are outlined in the following.
+The TapSensing application consists of two main components: the mobile and the server-side application. In brief, the mobile client provides the ability for a user to generate taps with corresponding motion sensor signals. For the data to be stored in a centralized manner, the server-side application provides HTTP endpoints as a gateway to the database. The architecture, as illustrated in figure \ref{fig:architecture}, consists of various components which are outlined in the following:
 
 \begin{itemize}
   \item \textbf{Mobile application}: The iOS application provides interfaces for the user to generate taps and to label the data created. Furthermore, the application is capable of sending the acquired data to the server-side application. More features of the mobile application are presented in section \ref{sec:mobileapp}. % # TODO
@@ -16,7 +16,7 @@ The TapSensing application consists of two main components: the mobile and the s
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=1\textwidth]{architecture.png}
+  \includegraphics[width=0.85\textwidth]{architecture.png}
   \caption{The diagram shows the overall architecture of TapSensing.} \label{fig:architecture}
 \end{figure}
 
@@ -25,7 +25,7 @@ The TapSensing application consists of two main components: the mobile and the s
 % The TapSensing backend is written upon the Python Django Framework\footnote{https://www.djangoproject.com/} which is being executed upon the gunicorn application server. Django uses a so-called ORM to perform transactions with the Database, which in our case is a PostgreSQL database.
 
 \section{Mobile Application}
-The TapSensing mobile application is a iOS App written in the Swift programming language designed to run on devices with iOS 10 and above. The main purpose of the application is to provide a user interface for subjects to create taps with accelerometer and gyroscope readings for the labeled data acquisition phase of the experiment.
+The TapSensing mobile application is an iOS App written in the Swift programming language designed to run on devices with iOS 10 and above. The main purpose of the application is to provide a user interface for subjects to create taps with accelerometer and gyroscope readings for the labeled data acquisition phase of the experiment.
 \label{sec:mobileapp}
 
 \subsection{User Interface}
@@ -35,7 +35,7 @@ When the application is opened for the first time, a login screen appears. As in
 During the trial the user is asked to generate taps once a day. In order to indicate if the user is eligible to perform a tap generation trial, the start screen shows a button that is either active or inactive. This switch depends on 4 distinct conditions:
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{iphones_startscreen.png}
+  \includegraphics[width=0.9\textwidth]{iphones_startscreen.png}
   \caption{This figure shows the start screen in different configurations. On the left hand-side screenshot, the user has not performed a trial while the the middle image shows the screen where a trial has been performed. The right-hand side image shows the \textit{lab mode} where trails can permanently be performed.}
 \end{figure}
 When data is collected in the laboratory environment, the app is set to \textit{lab mode}. In \textit{lab mode} the button is always active and trials can be performed. When a user has not performed a trial today, the button is inactive. Consequently, when a user has already performed a trial on a specific day, the button is inactive and a further trial can only be performed on the following day. Once all field trials are performed, the app confirms that all data is collected and the button remains inactive.
@@ -43,7 +43,7 @@ When data is collected in the laboratory environment, the app is set to \textit{
 To acquire individual user taps the mobile application offers a user interface where buttons are aligned in a grid shape structure. The structure is calculated based on a specific configuration set where the amount the vertical and horizontal buttons in the interface can be set. Figure \ref{fig:grid} shows the interface, where 4, 12 and 20 distinguishable buttons are configured.
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{grids_iphone.png}
+  \includegraphics[width=0.9\textwidth]{grids_iphone.png}
   \caption{The figure shows the tap input user interface with buttons aligned in a grid shape structure. The leftmost structure offers 4 buttons, the middle offers 12 buttons whereas displays 20 distinguishable buttons.}\label{fig:grid}
 \end{figure}
 For the user to tap on every location of the screen exactly once, a red button indicating the next button to tap is highlighted guiding the user through the interaction process. While the user is tapping the grid, the gyroscope and accelerometer information is recorded. After all buttons gave been tapped, either a new grid is loaded or the tap acquisition phase ends proceeding with the question interface.
@@ -51,11 +51,11 @@ For the user to tap on every location of the screen exactly once, a red button i
 \subsubsection{Questions Screen}
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=1\textwidth]{questions_iphone.png}
+  \includegraphics[width=0.9\textwidth]{questions_iphone2.png}
   \caption{The figure displays question views with icons as answer possibilities.}
 \end{figure}
 
-To label the data acquired in the tap input interface, the application provides screens for the user to answer several questions. These question regard the body posture, input modality and the mood in which the user has generated the taps. In the table \ref{table:questions} below the questions asked with corresponding answer choices are to be found.
+To label the data acquired in the tap input interface, the application provides screens for the user to answer several questions. These question regard the body posture, input modality and the hand used to generated the taps. In the table \ref{table:questions} below the questions asked with corresponding answer choices are to be found.
 
 
 \begin{table}
@@ -66,7 +66,7 @@ To label the data acquired in the tap input interface, the application provides 
   Which body posture was used during the interaction ? & Standing, Sitting \\
   Which finger did you use while tapping? & Index Finer, Thumb \\
   Which hand did you use to tap? & Left, Right \\
-  What is your current mood? & 1 - 5 \\
+  % What is your current mood? & 1 - 5 \\
   \hline
   \end{tabular}
   \caption{The Table shows the questions asked in the question view.}\label{table:questions}
@@ -81,9 +81,9 @@ After all taps and questions are gathered, the acquired data is sent to the serv
 \subsubsection{Obtaining Sensor Information}
 In order to access the gyroscope and the accelerometer, Apple provides a high-level API\footnote{An Application Program Interface is a set of rules and subroutines provided by an application system for the developer to use. The following link leads to the Core Motion API documentation: \url{https://developer.apple.com/documentation/coremotion/} } for accessing the device's sensors: \textit{Core Motion}. Core Motion provides motion and environmental related data from sensors including accelerometers, gyroscopes, pedometers, magnetometers, and barometers in easy to use manner.
 
-Sensor values can either be accessed as proceeded including aggregations of the values or as raw version. For TapSensing, raw values are recorded to avoid any form of bias. The update interval can be configures at ranges from $10$Hz - $100$Hz. Higher update-rates are possible but are not ensured to be processed in real-time by the device. For TapSensing, the update rate is configured with the highest (safe) value possible. This ensures that tap patterns are captured with high resolution in order to make a classification easier.
+Sensor values can either be accessed as proceeded including aggregations of the values or as raw version. For TapSensing, raw values are recorded to avoid any form of bias. The update interval can be configures at ranges from $10$Hz - $100$Hz. Higher update-rates are possible but are not ensured to be processed in real-time by the device. For TapSensing, the update rate is configured with the highest (safe) value possible. This ensures that tap patterns are captured with high resolution in order to make a classification of the lap location easier.
 \subsubsection{Local Persistence}
-It is possible that a session upload fails due to lack of internet access or another reason. Due to this, the application stores all session information and sensory data in it's local SQLite database. For local persistence Apple provides it's own framework called \textit{Core Data} which is extensively used in TapSensing. Once the data has been successfully received by the backend, the data is deleted from the local database.
+It is possible that a session upload fails due to lack of internet access or other reasons. Due to this, the application stores all session information and sensory data in a local SQLite database. For local persistence Apple provides it's own framework called \textit{Core Data} which is extensively used in TapSensing. Once the data has been successfully received by the backend, the data is deleted from the local database.
 \subsubsection{Ensuring data consistency}
 Sending all collected data in a single HTTP-request results in the sent package being too large for the server-side system to process. For this reason, the data is split up into packages of 300 objects per request. To send these requests in an asynchronous manner, the \textit{Promise}\footnote{Promises are a software abstracting for dealing with asynchronous computation. Promises are objects that may produce a value at some point in the future.}\cite{Liskov:1988:PLS:53990.54016} library \textit{Hydra}\footnote{\url{https://github.com/malcommac/Hydra}} is used.
 
@@ -103,7 +103,7 @@ The purpose of the backend application is to provide persistence functionalities
 For the purpose of interoperability the network communication from the mobile application and the forms application to the server-side application is done via HTTP Requests in the JSON\footnote{JSON (JavaScript Object Notation)\cite{ietf-jsonbis-rfc7159bis-04} is a lightweight data-interchange format.} format. The endpoints listed below represent tiny logic components that can be called from an external client.
 
 \begin{table}[h!]
-  \begin{tabular}{|p{2cm}|p{4cm}|p{8cm}|}
+  \begin{longtable}{|p{2cm}|p{4cm}|p{8cm}|}
   \hline
   \textbf{HTTP \newline Method} & \textbf{URL} & \textbf{Description} \\ \hline
   POST & /login & Provides login functionalities for the mobile client. This method returns an authentication, that is used for further requests to authenticate the user.\\
@@ -121,12 +121,12 @@ For the purpose of interoperability the network communication from the mobile ap
   POST & /survey & Provides upload functionalities for the survey form application.\\
   \hline
 
-  \end{tabular}
+  \end{longtable}
   \caption{The table shows all HTTP endpoints of the server-side application.}\label{table:endpoints.}
 \end{table}
 
 \subsection{Data Model}
-TapSensing's data model reflect the schemas that are used in the PostgreSQL database. As seen in figure \ref{fig:erdiagram}, the data model consists of 4 data objects that I will describe in this section:
+TapSensing's data model reflect the schemas that are used in the PostgreSQL database. As seen in figure \ref{fig:datamodel}, the data model consists of 4 data objects that are described in the following:
 
 \begin{itemize}
   \item \textbf{User}: The user model is inherited by the Django's user model\footnote{For more information on the Django user model, the following URL leads to the model's documentation: \url{https://docs.djangoproject.com/en/1.11/ref/contrib/auth/}}. The user model is used for authentication and persisting the authentication token. The other models described in this section are connected to the user model through a foreign key relation to identify the user associated with the data object.
@@ -138,7 +138,7 @@ TapSensing's data model reflect the schemas that are used in the PostgreSQL data
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{datamodel1.png}
-  \caption{The diagram shows TapSensing's data model with the user, session, sensordata and touchevent data object.} \label{fig:erdiagram}
+  \caption{The diagram shows TapSensing's data model with the user, session, sensordata and touchevent data object.} \label{fig:datamodel}
 \end{figure}
 
 % An additional model was created for the survey application.

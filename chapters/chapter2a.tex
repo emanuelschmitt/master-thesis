@@ -1,5 +1,5 @@
 \chapter{Machine Learning Fundamentals}
-As machine learning techniques will be used for the classification of individual tap locations on a smartphone touchscreen, the following chapter will give a brief overview of the fundamental concepts evolving around statistical learning. Individual categories of learning algorithms will be discussed followed by two supervised-learning algorithms, namly Support Vector Machines and Neural Networks.
+As machine learning techniques will be used for the classification of individual tap locations on a smartphone touchscreen, the following chapter will give an general overview of the machine learning concepts necessary to understand the classification aspects of this thesis.
 
 \section{Overview and Definition}
 
@@ -34,7 +34,7 @@ The error of a supervised learning algorithm can be decomposed into three compon
 \end{equation}
 
 %In general, more flexible statistical methods have higher variance.
-The \textit{Variance} refers to the amount of which $f$ adapts to the variations in the training data set. Models with a high variance have a tendency to learn minor relations irrespective of the real signal of the input values and are therefore prone to \textit{overfitting} the training examples. This phenomenon applies to very flexible models such as a complex artificial neural network. On the other hand, \textit{bias} is the model's tendency to consistently learn the wrong things from the training examples as it can not take all the information into account. This refers to a too simple model \textit{underfitting} the training examples. An example of high bias would be a linear method such as linear regression trying to map a non-linear function. Finally, the \textit{noise} is the irreducible error of the data distribution (see \cite{James:2014:ISL:2517747}.
+The \textit{Variance} refers to the amount of which $f$ adapts to the variations in the training data set. Models with a high variance have a tendency to learn minor relations irrespective of the real signal of the input values and are therefore prone to \textit{overfitting} the training examples. This phenomenon applies to very flexible models such as a complex artificial neural network. On the other hand, \textit{bias} is the model's tendency to consistently learn the wrong things from the training examples as it can not take all the information into account. This refers to a too simple model \textit{underfitting} the training examples. An example of high bias would be a linear method such as linear regression trying to map a non-linear function. Finally, the \textit{noise} is the irreducible error of the data distribution (see \cite{James:2014:ISL:2517747}).
 
 As the goal is to minimize the error function, there is always a trade-off between bias and variance with very flexible models having low bias and high variance, and rigid models having high bias and low variance. Therefore, the model with the ideal predictive capability is the one that leads to the best balance between bias and variance \cite{Duda:2000:PC:954544}.
 
@@ -310,7 +310,7 @@ As a first step, the weights of the network are initialized which is usally done
   E = \frac{1}{2}\sum_{j} (\hat{y}_j - y_j)^2.
 \end{equation}
 
-Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backwards phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network.
+Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backwards phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network (See \cite{Mitchell:1997:ML:541177}).
 
 In this iterative process, the error gradients of the error function are calculated based on the partial derivative with respect to each connecting weight. If we define $o_j$ as output of a neural unit with
 \begin{equation}
@@ -326,7 +326,7 @@ the chain rule can be applied in order to compute the partial derivatives as fol
   \frac{\delta E}{\delta w_{ij}} = \frac{\delta E}{\delta o_j} \frac{\delta o_j}{\delta net_j} \frac{\delta net_j}{\delta w_{ij}}
 \end{equation}
 
-Given the partial derivative in respect to the weight $w_{ij}$, the change of the weight $\Delta w_{ij}$ can be determined. Here, the weight update equation (3.22) is computed depending on two cases. Either if the node $j$ is in the hidden layer or in the output layer:
+Given the partial derivative in respect to the weight $w_{ij}$, the change of the weight $\Delta w_{ij}$ can be determined. Here, the weight update equation (3.22) is computed depending on two cases. Either if the node $j$ is in the hidden layer or in the output layer (See \cite{Mitchell:1997:ML:541177}):
 
 \begin{equation}
   \Delta w_{ij} = -\eta \frac{\delta E}{\delta w_{ij}} = - \eta \delta_j o_i

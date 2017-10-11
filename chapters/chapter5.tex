@@ -1,8 +1,12 @@
 \chapter{Method\label{cha:chapter5}}
 
-\section{Hypothesis}
+\section{Hypothesis \& Research Questions}
 \label{sec:hypothesis}
-To recall, previous research has shown that is it possible to predict location on a smartphone touch screen based on acceleromter and gyroscope recordings \cite{Tapprints, Accessory, Touchlogger}. However, since the data used for classification in these approaches was collected in a controlled environment, it has not been shown that the feasibility to predict tap locations also applies to a field environment. Therefore, data will be collected from both the field and the laboratory environments to investigate how classifiers, when fed with data from these environments, perform. Assumptions are made that the environment has an effect on the classifier's prediction accuracy.
+To recall, previous research has not shown that it is possible to predict tap location on smartphone screen for data collected in a field environment. Due to this reason, data will be collected from both the field and the laboratory environment to investigate how classifiers, when trained with data from these environments, perform.
+Initial assumptions are made that the environment has an effect on the classifier's prediction accuracy.
+% In order to show this, a tap data set will be collected in the field as well as the laboratory environment. To show 
+% As the feasibility of tap location inference has not been shown for data collected in the field environment, 
+% To recall, previous research has shown that is it possible to predict location on a smartphone touch screen based on acceleromter and gyroscope recordings \cite{Tapprints, Accessory, Touchlogger}. However, since the data used for classification in these approaches was collected in a controlled environment, it has not been shown that the feasibility to predict tap locations also applies to a field environment. Therefore, data will be collected from both the field and the laboratory environments to investigate how classifiers, when fed with data from these environments, perform. Assumptions are made that the environment has an effect on the classifier's prediction accuracy.
 
 \begin{center}
   \begin{mdframed}[backgroundcolor=gray!10] 
@@ -10,7 +14,7 @@ To recall, previous research has shown that is it possible to predict location o
   \end{mdframed}
 \end{center}
 
-In order to test the hypothesis stated above, a further assumption is made assuming that when a subject interacts with a smartphone screen, for instance, while walking or during a public transportation ride, the recorded sensory data will contain more noise compared to the controlled environment. This noise will, most likely, have a negative impact on the prediction accuracies. 
+In order to test the hypothesis stated above, a further assumption is made assuming that when a subject interacts with a smartphone screen, for instance, while walking or during a public transportation ride, the recorded sensory data will contain distortions which will, most likely, have a negative impact on the prediction accuracies. 
 
 \begin{center}
   \begin{framed}
@@ -18,7 +22,7 @@ In order to test the hypothesis stated above, a further assumption is made assum
   \end{framed}
 \end{center}
 
-Next, assumptions are made on the way the user interacts with the device. A user can either use the thumb to touch, which is presumably the most common way of interacting with the device, or the index finger while holding in the device in the other hand. Assuming that the input modality also has an effect on the behavior of the estimator, data sets for both hands will be evaluated.
+Moreover, assumptions are made on the way the user interacts with the device. A user can either use the thumb to touch or the index finger while holding in the device in the other hand. Assuming that the input modality also has an effect on the behavior of the estimator, data sets for both hands will be evaluated.
 
 \begin{center}
   \begin{mdframed}[backgroundcolor=gray!10]
@@ -36,9 +40,9 @@ It is plausible that tapping with the index finger, due to the force resistance 
 
 Finally, assumptions are made based on the body posture a user has while tapping. Overall, a difference in classification results is assumed between standing and sitting.
 \begin{center}
-  \begin{framed}
+  \begin{mdframed}[backgroundcolor=gray!10]
     \textbf{H3:} The body posture has an effect on the prediction accuracy.
-  \end{framed}
+  \end{mdframed}
 \end{center}
 
 To show approve or reject this hypothesis, it is assumed that a user while sitting will move less compared to who is standing which, as a result, will lead to a better predictability of the tap location.
@@ -49,6 +53,8 @@ To show approve or reject this hypothesis, it is assumed that a user while sitti
   \end{framed}
 \end{center}
 
+As a more severe scenario arises if an attacker could scale out the attack to predict tap locations on touch screen of unseen users, a cross user experiment will be performed as a next step. Here, the question will posed if it is possible to infer tap location of unseen user in the field with a classifier trained on a different set of users.
+
 \section{Experimental Approach}
 
 \begin{figure}[h!]
@@ -57,20 +63,11 @@ To show approve or reject this hypothesis, it is assumed that a user while sitti
   \caption{This figure shows the overall appraoch to the experiment.} \label{fig:appraoch}
 \end{figure}
 
-The overall experiment consists of a three step process. In the first step, labeled data is acquired from subjects invited to take part in the experiment. For this purpose, the TapSensing application presented in the last chapter is used. The data acquisition part is necessary to collect sensor data with the corresponding ground truth of the tap locations for the supervised learning task. 
+The overall experiment consists of a three step process. In the first step, labeled data is acquired from subjects in the field and in the laboratory. For this purpose, the TapSensing application presented in the last chapter is used. The data acquisition part is a necessary step to collect sensor data with the corresponding ground truth of the tap locations for the supervised learning task. 
 
-After the data is successfully acquired, the continuos sensor recordings are preprocessed to obtain the portion of recording which represents each individual tap. To extract certain characteristics of the sensor signature created by the each tap, feature are extracted in a further step. These features are then used to train a set of classifiers. 
+After the data is successfully acquired, the continuos sensor recordings are pre-processed to obtain the portion of recording which represents each individual tap. To extract certain characteristics of the sensor signature, feature are extracted in a further step. These features are then used to train a classifier.
 
-The classification results are then discussed in the results section of this work.
-% TODO: statistical test.
-
-% - Data acquisition
-%   - Ground truth of the touch Environments with grid_id and timestamps
-%   - Sensory recordings of gryoscope and accelerometer
-%   - input modalities and body posture
-%   - Environments Lab and field
-% - Preprocessing Feature Extraction
-
+In order to compare individual estimators, as for instance for the comparison between laboratory and field, a classifier will be evaluated using a k-fold cross-validation. The individual accuracy scores of the cross-validation are then compared by means of a Wilcoxon signed-rank test.
 
 \section{Labeled Data Acquisition}
 
@@ -81,13 +78,19 @@ A total of 27 subjects were invited to participate in the study. There were no r
 The devices have been restricted to the Apple iPhone 6, 6s and 7 based on their mutual screen size. Furthermore, as the screen size has a large effects on the sensor signature created by a tap, the screen size is an important factor to enable the comparison of classification results among devices.
 
 \subsection{Environments \& Conditions}
-As the study aimed at collecting sensor reading both in the field as well as in a laboratory environment, the data acquisition is done in two distinct settings:
+As the study aims at collecting sensor reading both in the field as well as in a laboratory environment, the data acquisition is done in two distinct settings:
+
 \begin{enumerate}
   \item \textbf{Laboratory Evironment}: Subjects were invited to a laboratory room which had a standard office ergonomics setup. Subjects have been asked to either sit at the desk or stand in the room while tapping.
   \item \textbf{Field Environment}: Subjects were asked to generate taps using their smartphone at any place they are currently located. For example, this could be at home, at work or during leisure activity.
 \end{enumerate}
 
-Besides the environment of the recorded sensor data, the collected varies in the input modality and body posture while the tap was made. Subjects are either allowed to use the index finger (while holding the device in the other hand) or the thumb to generate taps. Sitting and Standing are allowed as body postures as these two represent the natural interactions with the smartphone. 
+Besides the environment of the recorded sensor data, the collected data varies in the input modality and body posture. Subjects are either allowed to use the index finger (while holding the device in the other hand) or the thumb to generate taps. Sitting and Standing are allowed as body postures as these two represent the natural interactions with the smartphone.
+
+Regarding the distribution of the input modalities and body postures, in the laboratory part of the data acquisition, the input modality and body posture will be instructed for an equal distribution of both variables. In the field acquisition, however, the body posture and input modality can be decided by the subject in order to gain a more natural distribution of both factors.
+
+\subsection{Survey}
+In a short survey subjects are asked about their basic demographics. This includes the age, gender, current occupation and if they are left or right-handed. In a further step, questions are asked regarding their personal smartphone usage. It is asked which device model they own, which input modalities they generally use and which input modality they use most often. As answer possibilities for the question concerning the input modality, tapping with the index finger, tapping with the thumb or typing with both thumbs is considered.
 
 \subsection{Acquisition Procedure}
 In order for participants to generate tap data, the subjects were invited to come to the laboratory for the first part of the experiment. To avoid information asymmetry, each participant read an experiment instruction\footnote{The instruction sheet is to be found in the appendix.}. Subjects should then confirm whether they have understood the previously read information. Additional questions regarding the instructions were answered. In the next step, subjects were asked to fill out an online questionnaire regarding their persona and personal smartphone usage.
@@ -101,7 +104,7 @@ To begin with the data acquisition, participants were asked to download the appl
   \caption{This figure shows the procedure every subject has to perform in the study.} \label{fig:study_design}
 \end{figure}
 
-Subsequently, subjects were asked to perform 6 consecutive trials in the TapSensing application, whereas one trail includes tapping each grid four times in randomized order. Recall, the grid sizes defined consist of 4, 12 and 20 distinguishable buttons. For an equal distribution of the body posture and the input modality while tapping, each trial is dependent on one of four configurations onto which each subject is assigned. These configuration are to be seen in Figure \ref{fig:study_design}.  It is important to note that each subject is not allowed to alter the body posture or input modality during a trial. After all trials are performed, subjects were asked to continue with the field study.\\
+Subsequently, subjects were asked to perform 6 consecutive trials in the TapSensing application, whereas one trail includes tapping each grid four times in randomized order. Recall, the grid sizes defined consist of 4, 12 and 20 distinguishable buttons. For an equal distribution of the body posture and the input modality while tapping, each trial is dependent on one of four configurations onto which each subject is assigned. These configuration are to be seen in Figure \ref{fig:study_design}.  It is important to note that each subject is not allowed to alter the body posture or input modality during a trial. After all trials are performed, subjects were asked to continue with the field study.
 
 During the field study, subjects performed one trial daily on 6 separate days. On each day push notifications were sent as a reminder to participate. Subjects were free to decide which input modality or body posture to use as the aim of the field study is to collect data that represents regular smartphone usage.
 
@@ -190,10 +193,14 @@ Since taps on different locations of the screen generate different sensor signat
 
 \begin{center}
   % Feature Description
-  \begin{tabular}{ | l| l | l | l |}
+  \begin{longtable}{ | c | c | c | c | }
   \hline
   Name & Description & Feature Type & Amount \\
   \hline
+  \endhead % all the lines above this will be repeated on every page
+  \hline  
+  \endfoot
+  
     \texttt{peak} & Amount of peaks in the time series & column  & 6 \\
     \texttt{zero\_crossing} & Amount of zero crossings in the signal & column  & 6 \\ 
     \texttt{energy} & Energy of the signal & column  & 6 \\ 
@@ -211,17 +218,18 @@ Since taps on different locations of the screen generate different sensor signat
     \texttt{kurtosis} & Kurtosis of the time series & column  & 6 \\
     \texttt{sem} & Standard error of the time series & column  & 6 \\
     \texttt{moment} & Moment in the time series & column & 6 \\
-    \texttt{spline} & Spline interpolation of the signal (12 features) & column  & 6*12 \\
-    \texttt{fft} & Fast Fourier Transform (5 features) & column  & 6*5 \\
+    \texttt{spline} & Spline interpolation of the signal & column  & 6*12 \\
+    \texttt{fft} & Fast Fourier Transform & column  & 6*5 \\
   \hline
     \texttt{cos\_angle} & Cosine Angle of sensor component pairs & sensor & 6 \\
-    \texttt{pears\_cor} & Pearson Correlation of sensor component pairs & sensor & 6 \\
+    \texttt{pears\_cor} & Pearson Correlation of component pairs & sensor & 6 \\
   \hline
     \texttt{fro\_norm} & Frobenius matrix norm & matrix & 1 \\
     \texttt{inf\_norm} & Infinity matrix norm & matrix & 1 \\
     \texttt{l2\_norm} & L2 matrix norm & matrix & 1 \\
+    \hline
   \hline
-  \end{tabular}
+  \end{longtable}
   \captionof{table}{Table of features extracted from every tap.}\label{table:features}
 \end{center}
 
