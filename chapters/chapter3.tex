@@ -158,13 +158,15 @@ The authentication mechanism implemented in TapSensing is based on a standard to
 The token is then added to the HTTP-request in the ``Authorization'' header to authenticate the user.
 
 \subsubsection{Push Notifications}
-As a previous study has shown that push notifications greatly enhance user participation \cite{pushNot} during a mobile field study, notifications are sent on a daily basis reminding the participants to take action. In the same study\cite{pushNot}, passive notifications - notifications without sound - have been seen to futhermore impact the participation. Following these assumptions, a push notification strategy has been designed combining notifications with and without sound. Figure \ref{fig:push-notifications} shows this implemented strategy with corresponding trigger times.
+In oder to remind participants to take part in the field study push notifications are sent daily. As a previous study has shown that push notifications greatly enhance user participation \cite{pushNot} during mobile field studies, notifications are sent on a daily basis reminding the participants to take action. In the same study \cite{pushNot}, passive notifications - notifications without sound - have been seen to futhermore positively impact the participation. 
+Following these assumptions, a push notification strategy has been designed combining notifications with and without sound. Figure \ref{table:push-notifications} shows this implemented strategy with corresponding trigger times.
 
 % \begin{figure}[h!]
 %   \centering
 %   \includegraphics[width=0.5\textwidth]{push_notifications.pdf}
 %   \caption{The diagram shows the implemented push notification strategy.} \label{fig:push-notifications}
 % \end{figure}
+\begin{table}[h!]
 \begin{center}
   \begin{tabular}{ | l | p {9cm} | l |}
   \hline
@@ -175,8 +177,9 @@ As a previous study has shown that push notifications greatly enhance user parti
   21:00 GTM+1 & You have not taken part in the study today. Please do it now. & active \\
   \hline
   \end{tabular}
-  \captionof{table}{The table shows the push notifications strategy with individual notifications sent.}\label{table:anns}
+  \captionof{table}{The table shows the push notifications strategy with individual notifications sent.}\label{table:push-notifications}
 \end{center}
+\end{table}
 
 The interaction with the APNS service has been implemented using the Django package \textit{django-push-notifications}\footnote{\url{https://github.com/jleclanche/django-push-notifications}}. It is used to provide mechanisms to register devices as well as to send notifications. To trigger the notifications at specific times unix cronjobs are executed.
 \subsubsection{Backups}
