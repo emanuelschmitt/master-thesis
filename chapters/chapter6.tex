@@ -1,12 +1,12 @@
 \chapter{Results\label{cha:chapter6}}
 \section{Data Acquisition}
-The data acquisition was performed with 27 subjects in total, 12 (44\%) females and 15 (56\%) males. Participants had an average age of 26.4 years (17, 53, 6.39) and all 27 were right-handed (100\%). 19 (70\%) were students, 8 (30\%) had other occupations.
+The data acquisition was performed with 27 participants in total, 12 (44\%) females and 15 (56\%) males. Participants had an average age of 26.4 years (Min=17, Max=53, SD=6.39) and all 27 were right-handed (100\%). 19 (70\%) were students, 8 (30\%) had other occupations.
 18 (66\%) subjects stated that their most used input modality is the their thumb while 4 (14\%) preferred using their index finger and 5(18\%) use both thumbs during interactions.\\
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=1\textwidth]{participation_push.png}
-  \caption{The figure shows on which days the participants took part in the field study. Light blue subjects which did not receive push notifications while subjects with dark blue marks had received push notifications. Red rectangles indicates a dropped out subject.} \label{fig:participation}
+  \caption{The figure shows on which days the participants took part in the field study. Light blue participants which did not receive push notifications while participants with dark blue marks had received push notifications. Red rectangles indicate a dropped out participant.} \label{fig:participation}
 \end{figure}
 
 In regards to the participation during the study, 26 subjects managed to finish all laboratory and field study trials while 1 subject dropped out in the field study. Figure \ref{fig:participation} shows on which day individual participants performed trails. 4 participants did not accept push notification and were therefore not reminded on a daily basis.
@@ -15,7 +15,7 @@ In total over 46.000 taps were generated in the whole data acquisition phase. To
 
 The devices used to obtain the tap information were 12 (45\%) Apple iPhone 6s, 10 (37\%) iPhone 6 and the least common device was the iPhone 7 with 5 (18\%).
 
-In order to visualize the data collected, a t-Distributed Stochastic Neighbor Embedding (t-SNE) embedding is shown in figure \ref{fig:tsne} where the 230-dimensional feature vector has been reduced to 2 dimensions. Furthermore, a plot showing the interpolated gyroscope and accelerometer signals acquired during a single tap generation trial is to be found in the Appendix.
+In order to visualize the data collected, a t-Distributed Stochastic Neighbor Embedding (t-SNE) is shown in figure \ref{fig:tsne} where the 230-dimensional feature vector has been reduced to 2 dimensions. Furthermore, a plot showing the interpolated gyroscope and accelerometer signals acquired during a single tap generation trial is to be found in the Appendix.
 
 \begin{figure}
   \centering
@@ -124,7 +124,7 @@ For the grid with 20 distinguishable areas the inference accuracies measures ran
 
 % For the grid with 20 distinguishable buttons the inference accuracies range from 0.46 (+/- 0.11) on the iPhone 7 to 0.28 (+- 0.03) for the iPhone 6. 
 
-Furthermore, The Wilcoxon signed-rank test shows that the classification results for both environments alter significantly. The fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment Z = 12, p < 0.05.
+Furthermore, the Wilcoxon signed-rank test shows that the classification results for both environments alter significantly. The fold accuracies in the laboratory were significantly higher than the fold accuracies in the field environment Z = 12, p < 0.05.
 
 \begin{table}[h!]
   \centering
@@ -218,7 +218,7 @@ Only the 5x4 grid is presented here, as similar results are found for the other 
 \section{Cross User Experiment}
 In order to determine if it is possible to train a classifier with data from a set of users to infer taps from people not involved in the training phase, a cross user experiment was performed. Here, a SVM classifier was trained for each subject with laboratory data from 4 randomly selected subjects sharing the same device. The subject's field data was then tested on the classifier and the accuracy was measured.
 
-For each subject, the accuracy results for the 5x4 grid are displayed in in the bar chart \ref{fig:cross_user_exp}. It can be seen that for user 86 the prediction accuracy was at minimum value of 0.09 whereas for user 87 the overall maximal value of 0.34 could be measured. The mean score measured was 0.25.
+For each subject, the accuracy results for the 5x4 grid are displayed in the bar chart \ref{fig:cross_user_exp}. It can be seen that for user 86 the prediction accuracy was at minimum value of 0.09 whereas for user 87 the overall maximal value of 0.34 could be measured. The mean score measured was 0.25.
 
 % In this experiment a classifier has been trained for each subject on laboratory data from 4 randomly selected subjects sharing the same device. In order to determine how the tap inference would behave in the field on a classifier trained on laboratory data, each subject's field data is tested on the classifier.
 
