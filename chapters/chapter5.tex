@@ -10,7 +10,7 @@ Initial assumptions are made that the environment has an effect on the classifie
 
 \begin{center}
   \begin{mdframed}[backgroundcolor=gray!10] 
-    \textbf{H.1}  The environment of recorded sensory data has an effect on the prediction accuracy.
+    \textbf{H.1}  The environment of recorded sensor data has an effect on the prediction accuracy.
   \end{mdframed}
 \end{center}
 
@@ -22,7 +22,7 @@ In order to test the hypothesis stated above, a further assumption is made assum
   \end{framed}
 \end{center}
 
-Moreover, assumptions are made on the way the user interacts with the device. A user can either use the thumb to touch or the index finger while holding in the device in the other hand. Assuming that the input modality also has an effect on the behavior of the estimator, data sets for both hands will be evaluated.
+Moreover, assumptions are made on the way the user interacts with the device. A user can either use the thumb to touch or the index finger while holding the device in the other hand. Assuming that the input modality also has an effect on the behavior of the estimator, data sets for both hands will be evaluated.
 
 \begin{center}
   \begin{mdframed}[backgroundcolor=gray!10]
@@ -45,7 +45,7 @@ Finally, assumptions are made based on the body posture a user has while tapping
   \end{mdframed}
 \end{center}
 
-To show approve or reject this hypothesis, it is assumed that a user while sitting will move less compared to who is standing which, as a result, will lead to a better predictability of the tap location.
+To approve or reject this hypothesis, it is assumed that a user while sitting will move less compared to one who is standing which, as a result, will lead to a better predictability of the tap location.
 
 \begin{center}
   \begin{framed}
@@ -59,8 +59,8 @@ As a more severe scenario arises if an attacker could scale out the attack to pr
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=1\textwidth]{process.pdf}
-  \caption{This figure shows the overall appraoch to the experiment.} \label{fig:appraoch}
+  \includegraphics[width=1\textwidth]{approach2.pdf}
+  \caption{This figure shows the overall approach to the experiment.} \label{fig:appraoch}
 \end{figure}
 
 The overall experiment consists of a three step process. In the first step, labeled data is acquired from subjects in the field and in the laboratory. For this purpose, the TapSensing application presented in the last chapter is used. The data acquisition part is a necessary step to collect sensor data with the corresponding ground truth of the tap locations for the supervised learning task. 
@@ -71,26 +71,26 @@ In order to compare individual estimators, as for instance for the comparison be
 
 \section{Labeled Data Acquisition}
 
-\subsection{Subjects}
-A total of 27 subjects were invited to participate in the study. There were no restrictions concerning the demographics of individual subjects. However, each subjects had to be in  possession of one of the permitted iOS devices.
+\subsection{Participants}
+A total of 27 participants were invited to participate in the study. There were no restrictions concerning the demographics of individual subjects. However, each subjects had to be in  possession of one of the permitted iOS devices.
 
 \subsection{Devices}
-The devices have been restricted to the Apple iPhone 6, 6s and 7 based on their mutual screen size. Furthermore, as the screen size has a large effects on the sensor signature created by a tap, the screen size is an important factor to enable the comparison of classification results among devices.
+The devices have been restricted to the Apple iPhone 6, 6s and 7 based on their mutual screen size. Furthermore, as the screen size has a large effect on the sensor signature created by a tap, the screen size is an important factor to enable the comparison of classification results among devices.
 
 \subsection{Environments \& Conditions}
 As the study aims at collecting sensor reading both in the field as well as in a laboratory environment, the data acquisition is done in two distinct settings:
 
 \begin{enumerate}
-  \item \textbf{Laboratory Evironment}: Subjects were invited to a laboratory room which had a standard office ergonomics setup. Subjects have been asked to either sit at the desk or stand in the room while tapping.
-  \item \textbf{Field Environment}: Subjects were asked to generate taps using their smartphone at any place they are currently located. For example, this could be at home, at work or during leisure activity.
+  \item \textbf{Laboratory Evironment}: Participants were invited to a laboratory room which had a standard office ergonomics setup. Participants have been asked to either sit at the desk or stand in the room while tapping.
+  \item \textbf{Field Environment}: Participants were asked to generate taps using their smartphone at any place they are currently located. For example, this could be at home, at work or during leisure activity.
 \end{enumerate}
 
-Besides the environment of the recorded sensor data, the collected data varies in the input modality and body posture. Subjects are either allowed to use the index finger (while holding the device in the other hand) or the thumb to generate taps. Sitting and Standing are allowed as body postures as these two represent the natural interactions with the smartphone.
+Besides the environment of the recorded sensor data, the collected data varies in the input modality and body posture. Participants are either allowed to use the index finger (while holding the device in the other hand) or the thumb to generate taps. Sitting and standing are allowed as body postures as these two represent the natural interactions with the smartphone.
 
-Regarding the distribution of the input modalities and body postures, in the laboratory part of the data acquisition, the input modality and body posture will be instructed for an equal distribution of both variables. In the field acquisition, however, the body posture and input modality can be decided by the subject in order to gain a more natural distribution of both factors.
+Regarding the distribution of the input modalities and body postures, in the laboratory part of the data acquisition, the input modality and body posture will be instructed for an equal distribution of both variables. In the field acquisition, however, the body posture and input modality can be decided by the participant in order to gain a more natural distribution of both factors.
 
 \subsection{Survey}
-In a short survey subjects are asked about their basic demographics. This includes the age, gender, current occupation and if they are left or right-handed. In a further step, questions are asked regarding their personal smartphone usage. It is asked which device model they own, which input modalities they generally use and which input modality they use most often. As answer possibilities for the question concerning the input modality, tapping with the index finger, tapping with the thumb or typing with both thumbs is considered.
+In a short survey participants are asked about their basic demographics. This includes the age, gender, current occupation and if they are left or right-handed. In a further step, questions are asked regarding their personal smartphone usage. It is asked which device model they own, which input modalities they generally use and which input modality they use most often. Tapping with the index finger, tapping with the thumb or typing with both thumbs are considered as answer possibilities for the question concerning the input modality.
 
 \subsection{Acquisition Procedure}
 In order for participants to generate tap data, the subjects were invited to come to the laboratory for the first part of the experiment. To avoid information asymmetry, each participant read an experiment instruction\footnote{The instruction sheet is to be found in the appendix.}. Subjects should then confirm whether they have understood the previously read information. Additional questions regarding the instructions were answered. In the next step, subjects were asked to fill out an online questionnaire regarding their persona and personal smartphone usage.
@@ -104,13 +104,13 @@ To begin with the data acquisition, participants were asked to download the appl
   \caption{This figure shows the procedure every subject has to perform in the study.} \label{fig:study_design}
 \end{figure}
 
-Subsequently, subjects were asked to perform 6 consecutive trials in the TapSensing application, whereas one trail includes tapping each grid four times in randomized order. Recall, the grid sizes defined consist of 4, 12 and 20 distinguishable buttons. For an equal distribution of the body posture and the input modality while tapping, each trial is dependent on one of four configurations onto which each subject is assigned. These configuration are to be seen in Figure \ref{fig:study_design} and have the advantage to minimize any learning effect the user has with the application. It is important to note that each subject is not allowed to alter the body posture or input modality during a trial. After all trials are performed, subjects were asked to continue with the field study.
+Subsequently, subjects were asked to perform 6 consecutive trials in the TapSensing application, whereas one trail includes tapping each grid four times in randomized order. Recall, the grid sizes defined consist of 4, 12 and 20 distinguishable buttons. For an equal distribution of the body posture and the input modality while tapping, each trial is dependent on one of four configurations onto which each subject is assigned. These configurations are to be seen in Figure \ref{fig:study_design} and have the advantage to minimize any learning effect the user has with the application. It is important to note that each subject is not allowed to alter the body posture or input modality during a trial. After all trials are performed, subjects were asked to continue with the field study.
 
 During the field study, subjects performed one trial daily on 6 separate days. On each day push notifications were sent as a reminder to participate. Subjects were free to decide which input modality or body posture to use as the aim of the field study is to collect data that represents regular smartphone usage.
 
 \section{Data Preprocessing \label{cha:chapter4}}
 \subsection{Preprocessing}
-Before features can be extracted from individual taps, the continuous sensor recording from each trial needs to be sliced to obtain the portion of the recordings which is relevant for the tap. The timestamp of the touchdown event is used to find an appropriate starting point. Here, 20ms are subtracted from the timestamp as due to the latency between the physical touchdown event and the recorded event. Based on the data collected in the pilot study, the average tap duration (being the duration between a touchdown and the corresponding touchup event) between 70ms - 200ms. Taking this value into account, a window size of 150ms was chosen to enrich each slice with more information. Figure \ref{fig:touchdown} shows the sensor components of a gyroscope reading with a slicing window marked with a grey background. 
+Before features can be extracted from individual taps, the continuous sensor recording from each trial needs to be sliced to obtain the portion of the recordings which is relevant for the tap. The timestamp of the touchdown event is used to find an appropriate starting point. Here, 20ms are subtracted from the timestamp as due to the latency between the physical touchdown event and the recorded event. Based on the data collected in a pilot study, the average tap duration (being the duration between a touchdown and the corresponding touchup event) is between 70ms - 200ms. Taking this value into account, a window size of 150ms was chosen to enrich each slice with more information. Figure \ref{fig:touchdown} shows the sensor components of a gyroscope reading with a slicing window marked with a grey background. 
 
 \begin{figure}[h!]
   \centering
@@ -238,17 +238,17 @@ Since taps on different locations of the screen generate different sensor signat
 After the features are extracted for all the tap data acquired, learning algorithms are applied in order to measure the classification accuracy. In this experiment, a SVM with radial basis kernel is used as well as a feedforward artifical neural network.
 
 \subsection{Evaluation}
-To evaluate the classifiers trained in the classification part of the experiment, a K-fold cross-validation is used. In K-fold cross-validation, the training set is divided into K subsets of equal sizes. Sequentially, every subset is tested using the classifier trained on the remaining K-1 subsets. During this process, each pattern in the dataset is predicted once. After K classifiers are trained, the mean of the accuracy scores is computed to determine how well the classifier performs.
+To evaluate the classifiers trained in the classification part of the experiment, a K-fold cross-validation is used. In K-fold cross-validation, the training set is divided into K subsets of equal sizes. Sequentially, every subset is tested using the classifier trained on the remaining K-1 subsets. During this process, each pattern in the data set is predicted once. After K classifiers are trained, the mean of the accuracy scores is computed to determine how well the classifier performs.
 
 \subsection{Grid Search}
-In order to optimize the hyperparameters of each learning algorithm, a grid search is performed. A grid search is an exhausting search through a defined subset of the hyperparameter space for each algorithm. The subset of parameters are combined using the cartesian product in order to configure the classifier. To evaluate the each classifier with a set of hyperparameters, a 5-fold cross validation is performed.
+In order to optimize the hyperparameters of each learning algorithm, a grid search is performed. A grid search is an exhausting search through a defined subset of the hyperparameter space for each algorithm. The subset of parameters are combined using the cartesian product in order to configure the classifier. To evaluate each classifier with a set of hyperparameters, a 5-fold cross validation is performed.
 
-The parameters $C$ and $\gamma$ of the SVM RBF kernel are tested during the grid search using exponential growing sequenced, a recommended method to find suitable parameters \cite{hsu2003practical}.
+The parameters $C$ and $\gamma$ of the SVM RBF kernel are tested during the grid search using exponential growing sequences, a recommended method to find suitable parameters \cite{hsu2003practical}.
 \begin{align}
   C &= \{ 2^{k} | k \in \{-3, -2, ..., 14, 15\} \}\\ 
   \gamma &= \{ 2^{k} | k \in \{-13, -12, ..., 2, 3\} \}
 \end{align}
-As for the SVM, hyperparameters are defined for the ANN. Presumably the most crucial parameter in an ANN is the amount of hidden layers defined as when a network is too large it tends to overfit the training data while a too small network can lead to high bias. Therefore, networks ranging from 2 to 12 hidden units that are defined and evaluated during the grid search. To regularize the networks an $L_2$ penalty \cite{ng2004feature} is used. The following table \ref{table:anns} lists all configurations of the evaluated ANNs.
+As for the SVM, hyperparameters are defined for the ANN. Presumably the most crucial parameter in an ANN is the amount of hidden layers defined. When a network is too large it tends to overfit the training data while a too small network can lead to high bias. Therefore, networks ranging from 2 to 12 hidden units are defined and evaluated during the grid search. To regularize the networks an $L_2$ penalty \cite{ng2004feature} is used. The following table \ref{table:anns} lists all configurations of the evaluated ANNs.
 
 \begin{center}
   \begin{tabular}{ | l | l | l | l | l |}
