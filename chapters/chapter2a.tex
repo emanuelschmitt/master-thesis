@@ -1,5 +1,5 @@
 \chapter{Machine Learning Fundamentals}
-As machine learning techniques will be used for the classification of individual tap locations on a smartphone touchscreen, the following chapter will give an general overview of the machine learning concepts necessary to understand the classification aspects of this thesis.
+As machine learning techniques will be used for the classification of individual tap locations on a smartphone touch screen, the following chapter will give an general overview of the machine learning concepts necessary to understand the classification aspects of this thesis.
 
 \section{Overview and Definition}
 
@@ -59,9 +59,9 @@ The objective of this optimization problem is to maximize the margin $M$ while c
   \end{cases}
 \end{equation}
 
-The hyperparameter C allows for a certain sum of $\epsilon_i$ observations to be on the wrong side of the margin or hyperplane, respectively \cite{James:2014:ISL:2517747}. C manages the bias-variance trade-off, since a low C tries to find a maximum margin hyperplane that separates the two classes, resulting in a low bias classifier for the available data set, but in a high variance classifier for test data. Subsequently, allowing a high C results in a high bias classifier that widens the margin, introducing more violations $\epsilon_i$ and reducing the variance of the classifier. Futhermore, C also controls the number of considered support vectors in dependence of the margin width (see \cite{efron_hastie_2016}).
+The hyperparameter C allows for a certain sum of $\epsilon_i$ observations to be on the wrong side of the margin or hyperplane, respectively \cite{James:2014:ISL:2517747}. C manages the bias-variance trade-off, since a low C tries to find a maximum margin hyperplane that separates the two classes, resulting in a low bias classifier for the available data set, but in a high variance classifier for test data. Subsequently, allowing a high C results in a high bias classifier that widens the margin which introduces more violations $\epsilon_i$ and reduces the variance of the classifier. Furthermore, C also controls the number of considered support vectors in dependence of the margin width (see \cite{efron_hastie_2016}).
 
-Extending the support vector classifier to non-linear decision boundaries brings us to the SVM. Instead of extending the predictor space using higher order polynomials and interactions, SVM uses the so called ``kernel trick'' \cite{efron_hastie_2016} resulting in the optimization problem to be rewritten as follows:
+Extending the support vector classifier to non-linear decision boundaries brings us to the SVM. Instead of extending the predictor space using higher order polynomials and interactions, SVM uses the so-called ``kernel trick'' \cite{efron_hastie_2016} resulting in the optimization problem to be rewritten as follows:
 
 \begin{equation}
   \hat f(x) = \beta_0 + \sum_{i \in S} \alpha_i \langle x, x_i \rangle \,
@@ -90,11 +90,11 @@ Artificial neural networks (ANNs) are computing systems inspired by the biologic
 
 \subsection{Artificial Neurons}
 
-A neuron is fundamental processing unit of an artificial neural network. The diagram \label{fig:neuron} shows a model of a neuron which consists of following components (see \cite{Haykin:1998:NNC:521706}):
+A neuron is a fundamental processing unit of an artificial neural network. The diagram \label{fig:neuron} shows a model of a neuron which consists of following components (see \cite{Haykin:1998:NNC:521706}):
 \begin{itemize}
-  \item A set of \textit{connecting links} or \textit{synapses} which have a certain weight defined as the vector $\vec{w}$. The signal, represented as $\vec{x}$, flows through the \textit{synapse} and is mutipied by it's weight $w_i$.
-  \item A \textit{adder} for summing the input signals and weights of the incoming synapses. These operations constitute a linear combiner.
-  \item An \textit{activation function} $\varphi$ for limiting the amplitude of the output signal. This function is often referred to as the \textit{squashing function} since it squashing the possible output range \cite{Haykin:1998:NNC:521706}.
+  \item A set of \textit{connecting links} or \textit{synapses} which have a certain weight defined as the vector $\vec{w}$. The signal, represented as $\vec{x}$, flows through the \textit{synapse} and is multiplied by its weight $w_i$.
+  \item An \textit{adder} for summing the input signals and weights of the incoming synapses. These operations constitute a linear combiner.
+  \item An \textit{activation function} $\varphi$ for limiting the amplitude of the output signal. This function is often referred to as the \textit{squashing function} since it squashes the possible output range \cite{Haykin:1998:NNC:521706}.
   \item An externally applied \textit{bias} $b$ which has the ability to lower or rise the net input to the activation function depending if the bias is negative or positive.
 \end{itemize}
 \begin{figure}[h]
@@ -145,7 +145,7 @@ A neuron is fundamental processing unit of an artificial neural network. The dia
     
     \draw[decorate,decoration={brace,mirror}] (x1.north west) -- node[left=10pt] {Inputs} (x3.south west);
     \end{tikzpicture}
-  \caption{The diagram shows an artificial neuron's model with it's individual components.}\label{fig:neuron}
+  \caption{The diagram shows an artificial neuron's model with its individual components.}\label{fig:neuron}
 \end{figure}
 
 Mathematically, a neuron $k$ can be expressed with the following equation \cite{Haykin:1998:NNC:521706}
@@ -287,7 +287,7 @@ A feedforward neural network, or multilayer perceptron (MLP), is an ANN which co
 \end{tikzpicture}
 \caption{The diagram shows the typical structure of a feedforward network. The network has two input units in the input layer $L_1$ and one output unit in the output layer $L_k$. Layers $L_{2} \dots L_{k-1}$ the the so-called hidden layers.}\label{fig:ffnn}
 \end{figure}
-The network is named feedforward as it the information flowing through the network passes with the outermost input layer and and ends at the output unit of the output layer \cite{Goodfellow-et-al-2016}. All units in a layer are fully connected to the succeeding layer, however, there is no interconnection between units in the same layer. Figure \ref{fig:ffnn} shows a typical feedforward architecture with three layers including a single hidden layer $L_{k-1}$.\\
+The network is named feedforward as the information flowing through the network passes with the outermost input layer and and ends at the output unit of the output layer \cite{Goodfellow-et-al-2016}. All units in a layer are fully connected to the succeeding layer, however, there is no interconnection between units in the same layer. Figure \ref{fig:ffnn} shows a typical feedforward architecture with three layers including a single hidden layer $L_{k-1}$.\\
 
 Considering equation \ref{eqn:neuron1}, we can now compute the input to the output node, given by\\
 \begin{equation}
@@ -302,15 +302,15 @@ where $h_k$ is the output of the $k$th hidden node and $\alpha_k$ being the weig
 
 \subsection{Backpropagation}
 \label{sec:backprop}
-The purpose of the backpropagation algorithm \cite{rumelhart1988learning} is to adjust the synaptic weights of the network to approximate the function $\hat f$ mapping the inputs $x$ of the training data to the corresponding output labels $y$. In an iterative process the algorithm computes the overall error of the functional mapping and adjusts the weights of each neuron according to it's individual error contribution. The result of this algorithm is a neural network configured to sensibly respond to unseen inputs for the specific supervised learning task.
+The purpose of the backpropagation algorithm \cite{rumelhart1988learning} is to adjust the synaptic weights of the network to approximate the function $\hat f$ mapping the inputs $x$ of the training data to the corresponding output labels $y$. In an iterative process the algorithm computes the overall error of the functional mapping and adjusts the weights of each neuron according to its individual error contribution. The result of this algorithm is a neural network configured to sensibly respond to unseen inputs for the specific supervised learning task.
 
-As a first step, the weights of the network are initialized which is usally done in a randomly manner or based on a certain heuristic. Then, each input pattern $p$, with features $p = \{x_0,x_1, x_2, \dots, x_n \}$ and label $y$, is then sequentially processed, layer by layer, by the network in two phases. In the first phase, the \textit{forward phase}, the ouput of the network is computed. The square error for the output nodes j is then calculated as follows, where $\hat{y}_j$ denotes the output node's generated output and $y_j$ is the desired ouput (see \cite{Haykin:1998:NNC:521706}):
+As a first step, the weights of the network are initialized which is usually done in a random manner or based on a certain heuristic. Then each input pattern $p$, with features $p = \{x_0,x_1, x_2, \dots, x_n \}$ and label $y$, is then sequentially processed, layer by layer, by the network in two phases. In the first phase, the \textit{forward phase}, the ouput of the network is computed. The square error for the output nodes j is calculated as follows, where $\hat{y}_j$ denotes the output node's generated output and $y_j$ is the desired ouput (see \cite{Haykin:1998:NNC:521706}):
 
 \begin{equation}
   E = \frac{1}{2}\sum_{j} (\hat{y}_j - y_j)^2.
 \end{equation}
 
-Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backwards phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network (See \cite{Mitchell:1997:ML:541177}).
+Continuing in the \textit{backward phase}, the network measures how much each neuron in the output layer $L_k$ has contributed to each output neuron's error. Furthermore, as to measure the error contributions coming from each neuron in the previous layer, this step is repeated until the input layer is reached and all error contributions, the gradients, are computed. To put this in other words, the \textit{backward phase} measures the error gradients across all connection weights in the network by propagating the error gradients back into the network (See \cite{Mitchell:1997:ML:541177}).
 
 In this iterative process, the error gradients of the error function are calculated based on the partial derivative with respect to each connecting weight. If we define $o_j$ as output of a neural unit with
 \begin{equation}
@@ -342,7 +342,7 @@ Given the partial derivative in respect to the weight $w_{ij}$, the change of th
 
 In equation (3.23), $\eta$ denotes the \textit{learning rate}, which defines to which amount the reverse gradients are applied to the weight update; $k$ refers to a node in the successor layer of the node $j$.
 
-Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training epoch}. Several strategies exist to stopping the described training process. One condition is to stop after to a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold \cite{Haykin:1998:NNC:521706}. After the process, the final values of the weights are saved and can be used for prediting new incoming patterns.
+Once the weights are updated, the global error of the network is calculated and the forward and the backward phase are repeated for the rest of the training patterns. One pass through all of the training patterns is called a \textit{training epoch}. Several strategies exist to stopping the described training process. One condition is to stop after a fixed number of training epoches, a second can be a stop once the change in the weights reaches a certain low-end threshhold \cite{Haykin:1998:NNC:521706}. After the process, the final values of the weights are saved and can be used for predicting new incoming patterns.
 
 % \subsection{Recurrent Neural Networks}
 % In the previous section, we have looked at feedforward neural networks where information, as the name implies, flows only in one direction, from the input layer to the output layer. A recurrent neural network (RNN) is similar to a feedforward network, except that it also has cyclic connections. This structure makes a RNN able to memorize previous information that has flown throw the network.\\
