@@ -1,151 +1,148 @@
-\addchap{Annex}
+\appendix
 
-\begin{appendix}
-
-\section*{Results}
-\subsection*{Data Aquisition}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.8\textwidth]{results/tap4x32.png}
-  \caption{The visualization shows the collected gyroscope and accelerometer components for the 4x3 grid. In the top left corner the grid class 11 is shown which corresponds to the top left corner of the mobile device.} \label{fig:taps}
-\end{figure}
-
-\subsection*{Input Modality}
-\subsubsection*{2x2 grid}
-For the comparison between input modalities, we find that for the 2x2 grid, all mean accuracies across devices were higher for index finger tap data compared to classifiers trained with the thumb tap data.
-
-A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 27, p < 0.05.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{results/index-vs-thumb-2x2.png}
-  \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:participation}
-\end{figure}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-6}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
-  \hline
-  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
-  \hline
-	iPhone 6 & Index &      0.82 &     0.72 &     0.95 &     0.07 &  SVM \\
-	& Thumb &      0.79 &     0.71 &     0.87 &     0.05 &  SVM \\
-	\hline
-iPhone 6s & Index &      0.86 &     0.80 &     0.90 &     0.03 &  SVM \\
-	& Thumb &      0.78 &     0.74 &     0.83 &     0.03 &  SVM \\
-	\hline
-	iPhone 7 & Index &      0.91 &     0.75 &     1.00 &     0.07 &  SVM \\
-	& Thumb &      0.80 &     0.73 &     0.92 &     0.05 &  SVM \\
-	\hline
-\end{tabular}
-  \caption{Classification results for the 2x2 tapping grid for both input modalities: thumb and index finger.}
-\end{table}
-
-\subsubsection*{4x3 grid}
-For the 4x3, all mean accuracies across devices were higher for index finger tap data compared to classifiers trained with the thumb tap data. The greatest difference in inference accuracies are to found on the iPhone 7 where 0.7 (+/- 0.08) for index finger records and 0.52(+/- 0.03) for thumb taps.
-
-A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 64.0, p < 0.05.
-
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{results/index-vs-thumb-4x3.png}
-  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
-\end{figure}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-6}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
-  \hline
-  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
-  \hline
-	iPhone 6 & Index &      0.48 &     0.40 &     0.56 &     0.06 &  SVM \\
-	& Thumb &      0.50 &     0.43 &     0.54 &     0.04 &  SVM \\
-	\hline
-iPhone 6s & Index &      0.61 &     0.48 &     0.72 &     0.07 &  SVM \\
-	& Thumb &      0.47 &     0.43 &     0.51 &     0.03 &  SVM \\
-	\hline
-	iPhone 7 & Index &      0.70 &     0.56 &     0.80 &     0.08 &  SVM \\
-	& Thumb &      0.52 &     0.48 &     0.57 &     0.03 &  SVM \\
-	\hline
-\end{tabular}
-  \caption{Classification results for the 4x3 tapping grid for both input modalities: thumb and index finger.}
-\end{table}
-
-\section*{Body Posture}
-\subsection*{2x2}
-For the 2x2, all mean accuracies across devices were higher for sitting data compared to classifiers trained with the standing data. A Wilcoxon signed-rank test shows that the classification results for both body postures differ significantly. The fold accuracies on standing data were statistically lower than the fold accuracies on sitting data Z = 55.0, p < 0.05.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{results/standing-vs-sitting-2x2.png}
-  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
-\end{figure}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-6}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
-  \hline
-  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
-  \hline
-	iPhone 6 & Sitting &  0.84 &     0.68 &     0.97 &     0.08 &  SVM \\
-	& Standing &      0.80 &     0.63 &     0.94 &     0.10 &  SVM \\
-	\hline
-	iPhone 6s & Sitting &      0.87 &     0.72 &     1.00 &     0.09 &  SVM \\
-	& Standing &      0.85 &     0.73 &     0.93 &     0.05 &  SVM \\
-	\hline
-	iPhone 7 & Sitting &      0.95 &     0.88 &     1.00 &     0.04 &  SVM \\
-	& Standing &      0.86 &     0.60 &     0.94 &     0.10 &  SVM \\
-	\hline
-\end{tabular}
-  \caption{Classification results for the 2x2 tapping grid for both input modalities: thumb and index finger.}
-\end{table}
-
-
-\subsection*{4x3}
-For the 2x2, all mean accuracies across devices were higher for sitting data compared to classifiers trained with the standing data. A Wilcoxon signed-rank test shows that the classification results for both body postures differ significantly. The fold accuracies on standing data were statistically lower than the fold accuracies on sitting data Z = 71.0, p < 0.05.
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=1\textwidth]{results/standing-vs-sitting-4x3.png}
-  \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
-\end{figure}
-
-\begin{table}[h!]
-  \centering
-\begin{tabular}{|l|l|c|c|c|c|c|}
-  \cline{3-6}
-  \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
-  \hline
-  \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
-  \hline
-	iPhone 6 &  Sitting &      0.49 &     0.44 &     0.59 &     0.05 &  SVM \\
-	{} & Standing &      0.47 &     0.34 &     0.62 &     0.08 &  SVM \\
-	\hline
-iPhone 7 &   Sitting     &      0.73 &     0.58 &     0.81 &     0.08 &  SVM \\
-	& Standing &      0.64 &     0.52 &     0.76 &     0.08 &  SVM \\
-	\hline
-iPhone 6s & Sitting &      0.61 &     0.45 &     0.77 &     0.11 &  SVM \\
-	& Standing &      0.56 &     0.51 &     0.61 &     0.03 &  SVM \\
-	\hline
-\end{tabular}
-  \caption{Classification results for the 4x3 tapping grid for both input modalities: thumb and index finger.}
-\end{table}
-
-\newpage {
-	\includepdf[landscape=true, pages=-]{pdf/labfield_print.pdf}
-	\includepdf[landscape=true, pages=-]{pdf/body_posture_print.pdf}
-	\includepdf[landscape=true, pages=-]{pdf/input_modality_print.pdf}
-}
-
-
-\end{appendix}
-
+  \chapter{Appendix}
+  
+  \section*{Results}
+  \subsection*{Data Aquisition}
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{results/tap4x32.png}
+    \caption{The visualization shows the collected gyroscope and accelerometer components for the 4x3 grid. In the top left corner the grid class 11 is shown which corresponds to the top left corner of the mobile device.} \label{fig:taps}
+  \end{figure}
+  
+  \subsection*{Input Modality}
+  \subsubsection*{2x2 grid}
+  For the comparison between input modalities, we find that for the 2x2 grid, all mean accuracies across devices were higher for index finger tap data compared to classifiers trained with the thumb tap data.
+  
+  A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 27, p < 0.05.
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{results/index-vs-thumb-2x2.png}
+    \caption{The figure shows the tap inference accuracies for the 2x2 grid of the 10-fold cross-validation.} \label{fig:participation}
+  \end{figure}
+  
+  \begin{table}[h!]
+    \centering
+  \begin{tabular}{|l|l|c|c|c|c|c|}
+    \cline{3-6}
+    \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
+    \hline
+    \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
+    \hline
+    iPhone 6 & Index &      0.82 &     0.72 &     0.95 &     0.07 &  SVM \\
+    & Thumb &      0.79 &     0.71 &     0.87 &     0.05 &  SVM \\
+    \hline
+  iPhone 6s & Index &      0.86 &     0.80 &     0.90 &     0.03 &  SVM \\
+    & Thumb &      0.78 &     0.74 &     0.83 &     0.03 &  SVM \\
+    \hline
+    iPhone 7 & Index &      0.91 &     0.75 &     1.00 &     0.07 &  SVM \\
+    & Thumb &      0.80 &     0.73 &     0.92 &     0.05 &  SVM \\
+    \hline
+  \end{tabular}
+    \caption{Classification results for the 2x2 tapping grid for both input modalities: thumb and index finger.}
+  \end{table}
+  
+  \subsubsection*{4x3 grid}
+  For the 4x3, all mean accuracies across devices were higher for index finger tap data compared to classifiers trained with the thumb tap data. The greatest difference in inference accuracies are to found on the iPhone 7 where 0.7 (+/- 0.08) for index finger records and 0.52(+/- 0.03) for thumb taps.
+  
+  A Wilcoxon signed-rank test shows that the classification results for both input modalities differ significantly. The fold accuracies on thumb data were statistically lower than the fold accuracies on index finger data Z = 64.0, p < 0.05.
+  
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{results/index-vs-thumb-4x3.png}
+    \caption{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
+  \end{figure}
+  
+  \begin{table}[h!]
+    \centering
+  \begin{tabular}{|l|l|c|c|c|c|c|}
+    \cline{3-6}
+    \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
+    \hline
+    \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
+    \hline
+    iPhone 6 & Index &      0.48 &     0.40 &     0.56 &     0.06 &  SVM \\
+    & Thumb &      0.50 &     0.43 &     0.54 &     0.04 &  SVM \\
+    \hline
+  iPhone 6s & Index &      0.61 &     0.48 &     0.72 &     0.07 &  SVM \\
+    & Thumb &      0.47 &     0.43 &     0.51 &     0.03 &  SVM \\
+    \hline
+    iPhone 7 & Index &      0.70 &     0.56 &     0.80 &     0.08 &  SVM \\
+    & Thumb &      0.52 &     0.48 &     0.57 &     0.03 &  SVM \\
+    \hline
+  \end{tabular}
+    \caption{Classification results for the 4x3 tapping grid for both input modalities: thumb and index finger.}
+  \end{table}
+  
+  \section*{Body Posture}
+  \subsection*{2x2}
+  For the 2x2, all mean accuracies across devices were higher for sitting data compared to classifiers trained with the standing data. A Wilcoxon signed-rank test shows that the classification results for both body postures differ significantly. The fold accuracies on standing data were statistically lower than the fold accuracies on sitting data Z = 55.0, p < 0.05.
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{results/standing-vs-sitting-2x2.png}
+    \caption*{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
+  \end{figure}
+  
+  \begin{table}[h!]
+    \centering
+  \begin{tabular}{|l|l|c|c|c|c|c|}
+    \cline{3-6}
+    \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
+    \hline
+    \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
+    \hline
+    iPhone 6 & Sitting &  0.84 &     0.68 &     0.97 &     0.08 &  SVM \\
+    & Standing &      0.80 &     0.63 &     0.94 &     0.10 &  SVM \\
+    \hline
+    iPhone 6s & Sitting &      0.87 &     0.72 &     1.00 &     0.09 &  SVM \\
+    & Standing &      0.85 &     0.73 &     0.93 &     0.05 &  SVM \\
+    \hline
+    iPhone 7 & Sitting &      0.95 &     0.88 &     1.00 &     0.04 &  SVM \\
+    & Standing &      0.86 &     0.60 &     0.94 &     0.10 &  SVM \\
+    \hline
+  \end{tabular}
+    \caption*{Classification results for the 2x2 tapping grid for both input modalities: thumb and index finger.}
+  \end{table}
+  
+  
+  \subsection*{4x3}
+  For the 2x2, all mean accuracies across devices were higher for sitting data compared to classifiers trained with the standing data. A Wilcoxon signed-rank test shows that the classification results for both body postures differ significantly. The fold accuracies on standing data were statistically lower than the fold accuracies on sitting data Z = 71.0, p < 0.05.
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{results/standing-vs-sitting-4x3.png}
+    \caption*{The figure shows the tap inference accuracies for the 4x3 grid of the 10-fold cross-validation.} \label{fig:participation}
+  \end{figure}
+  
+  \begin{table}[h!]
+    \centering
+  \begin{tabular}{|l|l|c|c|c|c|c|}
+    \cline{3-6}
+    \multicolumn{2}{c}{} & \multicolumn{4}{|c|}{\textbf{Accuracy}}  \\
+    \hline
+    \textbf{Device} & \textbf{Input Modality} & mean &   min &   max  & std &  \textbf{Classifier} \\
+    \hline
+    iPhone 6 &  Sitting &      0.49 &     0.44 &     0.59 &     0.05 &  SVM \\
+    {} & Standing &      0.47 &     0.34 &     0.62 &     0.08 &  SVM \\
+    \hline
+  iPhone 7 &   Sitting     &      0.73 &     0.58 &     0.81 &     0.08 &  SVM \\
+    & Standing &      0.64 &     0.52 &     0.76 &     0.08 &  SVM \\
+    \hline
+  iPhone 6s & Sitting &      0.61 &     0.45 &     0.77 &     0.11 &  SVM \\
+    & Standing &      0.56 &     0.51 &     0.61 &     0.03 &  SVM \\
+    \hline
+  \end{tabular}
+    \caption*{Classification results for the 4x3 tapping grid for both input modalities: thumb and index finger.}
+  \end{table}
+  
+  \newpage {
+    \includepdf[landscape=true, pages=-]{pdf/labfield_print.pdf}
+    \includepdf[landscape=true, pages=-]{pdf/body_posture_print.pdf}
+    \includepdf[landscape=true, pages=-]{pdf/input_modality_print.pdf}
+  }
+  
 \endinput
