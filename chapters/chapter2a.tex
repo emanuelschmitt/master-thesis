@@ -22,9 +22,20 @@ There are four main categories of machine learning methods to be found in litera
 %%REAL
 Supervised learning refers to the case where $N$ samples are given from $X \times Y$, called the training data set  $T = \{ x^{(i)}, y^{(i)} | i \in \{i=1 \dots N\} \}$. The training data is assumed to consist of approximate samples of a target function $F: X \rightarrow Y$, that is be learned by the learning algorithm. The data samples $x^{(i)} \in X$ are called input \textit{features} whereas $y^{(i)} \in Y$ correspond to the so-called \textit{labels}. If Y consists of discrete labels the learning problem corresponds to a classification task whereas if Y is on a continuous scale the problem refers to a regression task (see \cite{Marsland:2009:MLA:1571643}).
 
+The goal of a regression task is to predict a value of a dependant numeric variable based on the values of the independent variables. In order to make predictions, the regression model is learned from previously measured values of the dependent and independent variables \cite{Duda:2000:PC:954544}. The goal of a classification task, on the other hand, is to assign an input object, modeled through a set of independent features, to one of a set of known classes. Since the classification model is trained on known objects with corresponding labels, the model is able to predict belongings to a certain class \cite{Duda:2000:PC:954544}. For the task at hand, the smartphone touch screen will be split into non-overlapping areas each representing different classes. As features derived from the sensor recordings will be mapped to these area classes, the learning task in this thesis refers to a classification problem.
+
+% Regression models [27] predict the value of a dependent numeric variable from the values of
+% independent variables, also referred to as predictors (in statistics, predictors are also referred
+% to as regressors). The regression task is the problem of inducing or learning a regression
+% model from a table of measured values of the dependent and independent variables. The
+% simplest approach to the regression task is linear regression, where the dependent variable
+% is modeled as a linear combination of the predictors. 
+
+% Regression and classification are both related to prediction where regression predicts a value from a continuous numerical set, whereas. Regression analysis is used for prediction and forecasting applications. Classification is used to sort a set of incoming features into certain categories. As the area of the smartphone touch screen are divided into separate classes, mapping the accelerometer and gyroscope readings falls into the category of classification. 
+
 Practical applications of supervised learning are image recognition \cite{simonyan2014very, lecun1990handwritten}, e-mail spam filtering \cite{guzella2009review} or network anomaly detection \cite{lee2010uncovering}. However, these are just a small subset of what can be accomplished so far.
 
-Presumably the most widely known machine learning techniques belong to this category, such as the Support Vector Machines (SVMs), Artificial Neural Networks, Bayesian Statistics, Random Forests and Decision Trees \cite{Duda:2000:PC:954544}.
+Presumably the most widely known machine learning techniques belong to this category, such as the Support Vector Machines (SVMs), Support Vector Regression (SVR), Artificial Neural Networks, Bayesian Statistics, Random Forests and Decision Trees \cite{Duda:2000:PC:954544}.
 
 \section{Bias-Variance Trade-off}
 The error of a supervised learning algorithm can be decomposed into three components being bias, variance and noise (see \cite{efron_hastie_2016}):
